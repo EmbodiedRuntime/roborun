@@ -47,7 +47,7 @@ def cells(metric: str | None, suite: str) -> list[str]:
             for _, arm in COLS]
 
 
-W, GL, LW, CW, RH, HEAD = 900, 112, 300, 80, 30, 54
+W, GL, LW, CW, RH, HEAD = 990, 132, 330, 86, 30, 54  # columns sized so labels fit in wide system fonts (SF Pro, Segoe UI)
 X0 = GL + LW
 rows = sum(len(r) for _, r in GROUPS)
 H = HEAD + rows * RH + len(GROUPS) * 8 + 38
