@@ -1,0 +1,321 @@
+{
+ "cases": [
+  {
+   "kind": "moved",
+   "variant": 0,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    pose = (await world.next(\"cup_red\")).value\n    await grasp(pose)\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: GraspMissed('closed on nothing at (0.5, -0.1, 0.04)')",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20132.81s\n  \u2514 grasp [t4] failed  0.00s\u20132.81s\n    inputs: {\"target\":[0.5,-0.1,0.04]}\n    error: GraspMissed: closed on nothing at (0.5, -0.1, 0.04)\n    command at 0.05s: goal arm {\"target\":[0.5,-0.1,0.16]} accepted\n    command at 1.67s: goal arm {\"target\":[0.5,-0.1,0.04]} accepted\n    command at 2.60s: effector gripper {\"close\":true} accepted\n    state at end: arm.ee=[0.5004,-0.1002,0.0405], arm.moving=false, arm.q=[-0.1787,0.4479,-0.0162,-2.3386,0.020..., cup_red=[0.5801,-0.0657,0.0396], gripper.holding=null, gripper.moving=true"
+  },
+  {
+   "kind": "moved",
+   "variant": 1,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    pose = (await world.next(\"cup_red\")).value\n    await grasp(pose)\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: GraspMissed('closed on nothing at (0.5, -0.1, 0.04)')",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20132.83s\n  \u2514 grasp [t4] failed  0.00s\u20132.83s\n    inputs: {\"target\":[0.5,-0.1,0.04]}\n    error: GraspMissed: closed on nothing at (0.5, -0.1, 0.04)\n    command at 0.05s: goal arm {\"target\":[0.5,-0.1,0.16]} accepted\n    command at 1.67s: goal arm {\"target\":[0.5,-0.1,0.04]} accepted\n    command at 2.62s: effector gripper {\"close\":true} accepted\n    state at end: arm.ee=[0.5,-0.1,0.04], arm.moving=false, arm.q=[-0.1788,0.4485,-0.0158,-2.339,0.0198..., cup_red=[0.58,-0.1381,0.0399], gripper.holding=null, gripper.moving=true"
+  },
+  {
+   "kind": "moved",
+   "variant": 2,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    pose = (await world.next(\"cup_red\")).value\n    await grasp(pose)\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: GraspMissed('closed on nothing at (0.5, -0.1, 0.04)')",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20132.81s\n  \u2514 grasp [t4] failed  0.00s\u20132.81s\n    inputs: {\"target\":[0.5,-0.1,0.04]}\n    error: GraspMissed: closed on nothing at (0.5, -0.1, 0.04)\n    command at 0.05s: goal arm {\"target\":[0.5,-0.1,0.16]} accepted\n    command at 1.67s: goal arm {\"target\":[0.5,-0.1,0.04]} accepted\n    command at 2.60s: effector gripper {\"close\":true} accepted\n    state at end: arm.ee=[0.5009,-0.1002,0.0411], arm.moving=false, arm.q=[-0.1786,0.447,-0.0161,-2.3383,0.02,2..., cup_red=[0.5829,-0.1029,0.0393], gripper.holding=null, gripper.moving=true"
+  },
+  {
+   "kind": "stale",
+   "variant": 0,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    await grasp(\"cup_red\")\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: StaleData(\"'cup_red' is 3.310s old (limit 0.300s), last written by track(cup_red); is that producer still running?\")",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.10s\n  \u2514 grasp [t4] failed  0.00s\u20134.10s\n    inputs: {\"target\":\"cup_red\"}\n    error: StaleData: 'cup_red' is 3.310s old (limit 0.300s), last written by track(cup_red); is that producer still running?\n    command at 0.00s: effector gripper {\"close\":false} accepted\n    command at 0.05s: goal arm {\"target\":[0.5,-0.1,0.1598]} accepted\n    command at 1.09s: stop arm {} accepted\n    state at end: arm.ee=[0.5171,-0.0687,0.2731], arm.moving=false, arm.q=[-0.065,-0.0144,-0.0669,-2.2349,-0.00..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "stale",
+   "variant": 1,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    await grasp(\"cup_red\")\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: StaleData(\"'cup_red' is 3.310s old (limit 0.300s), last written by track(cup_red); is that producer still running?\")",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.40s\n  \u2514 grasp [t4] failed  0.00s\u20134.40s\n    inputs: {\"target\":\"cup_red\"}\n    error: StaleData: 'cup_red' is 3.310s old (limit 0.300s), last written by track(cup_red); is that producer still running?\n    command at 0.00s: effector gripper {\"close\":false} accepted\n    command at 0.05s: goal arm {\"target\":[0.5,-0.1,0.1598]} accepted\n    command at 1.39s: stop arm {} accepted\n    state at end: arm.ee=[0.5063,-0.0885,0.2016], arm.moving=false, arm.q=[-0.0946,0.0793,-0.0784,-2.3273,0.009..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "stale",
+   "variant": 2,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    await grasp(\"cup_red\")\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: StaleData(\"'cup_red' is 3.310s old (limit 0.300s), last written by track(cup_red); is that producer still running?\")",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.70s\n  \u2514 grasp [t4] failed  0.00s\u20134.70s\n    inputs: {\"target\":\"cup_red\"}\n    error: StaleData: 'cup_red' is 3.310s old (limit 0.300s), last written by track(cup_red); is that producer still running?\n    command at 0.05s: goal arm {\"target\":[0.5,-0.1,0.1598]} accepted\n    command at 1.67s: goal arm {\"target\":[0.5,-0.1,0.0399]} accepted\n    command at 1.69s: stop arm {} accepted\n    state at end: arm.ee=[0.4997,-0.1007,0.154], arm.moving=false, arm.q=[-0.1218,0.1658,-0.0757,-2.3636,0.021..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "rejected",
+   "variant": 0,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    cup = (await world.next(\"cup_red\")).value\n    await move_to((cup[0], cup[1] - 0.15, 0.15))\n    await move_to((cup[0], cup[1] - 0.15, 0.0))\n    await grasp(\"cup_red\")",
+   "error_line": "TaskCancelled: task 'move_to' cancelled: rejected",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20132.33s\n  \u2514 move_to [t4] cancelled (rejected)  2.33s\u20132.33s\n    inputs: {\"target\":[0.5,-0.25,0.0]}\n    why: check:workspace: target (0.5, -0.25, 0.0) is outside the workspace: axis z = 0.000, allowed [0.02, 0.8]\n    command at 2.33s: goal arm {\"target\":[0.5,-0.25,0.0]} rejected -> check:workspace: target (0.5, -0.25, 0.0) is outside the workspace: axis z = 0.000, allowed [0.02, 0.8]\n    command at 2.33s: stop arm {} accepted\n    safety at 2.33s: fallback arm (check:workspace)\n    state at end: arm.ee=[0.5,-0.2498,0.1503], arm.moving=false, arm.q=[-0.32,0.2926,-0.143,-2.1875,0.0665,2..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "rejected",
+   "variant": 1,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    cup = (await world.next(\"cup_red\")).value\n    await move_to((cup[0], cup[1] - 0.15, 0.15))\n    await move_to((cup[0], cup[1] - 0.15, 0.0))\n    await grasp(\"cup_red\")",
+   "error_line": "TaskCancelled: task 'move_to' cancelled: rejected",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20132.33s\n  \u2514 move_to [t4] cancelled (rejected)  2.33s\u20132.33s\n    inputs: {\"target\":[0.5,-0.25,0.0]}\n    why: check:workspace: target (0.5, -0.25, 0.0) is outside the workspace: axis z = 0.000, allowed [0.02, 0.8]\n    command at 2.33s: goal arm {\"target\":[0.5,-0.25,0.0]} rejected -> check:workspace: target (0.5, -0.25, 0.0) is outside the workspace: axis z = 0.000, allowed [0.02, 0.8]\n    command at 2.33s: stop arm {} accepted\n    safety at 2.33s: fallback arm (check:workspace)\n    state at end: arm.ee=[0.5,-0.2498,0.1503], arm.moving=false, arm.q=[-0.32,0.2926,-0.143,-2.1875,0.0665,2..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "rejected",
+   "variant": 2,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    cup = (await world.next(\"cup_red\")).value\n    await move_to((cup[0], cup[1] - 0.15, 0.15))\n    await move_to((cup[0], cup[1] - 0.15, 0.0))\n    await grasp(\"cup_red\")",
+   "error_line": "TaskCancelled: task 'move_to' cancelled: rejected",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20132.33s\n  \u2514 move_to [t4] cancelled (rejected)  2.33s\u20132.33s\n    inputs: {\"target\":[0.5,-0.25,0.0]}\n    why: check:workspace: target (0.5, -0.25, 0.0) is outside the workspace: axis z = 0.000, allowed [0.02, 0.8]\n    command at 2.33s: goal arm {\"target\":[0.5,-0.25,0.0]} rejected -> check:workspace: target (0.5, -0.25, 0.0) is outside the workspace: axis z = 0.000, allowed [0.02, 0.8]\n    command at 2.33s: stop arm {} accepted\n    safety at 2.33s: fallback arm (check:workspace)\n    state at end: arm.ee=[0.5,-0.2498,0.1503], arm.moving=false, arm.q=[-0.32,0.2926,-0.143,-2.1875,0.0665,2..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "slipped",
+   "variant": 0,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    await grasp(\"cup_red\")\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: Dropped('cup_red slipped out of the gripper at (0.501, -0.1, 0.159)')",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20133.94s\n  \u2514 grasp [t4] failed  0.00s\u20133.94s\n    inputs: {\"target\":\"cup_red\"}\n    error: Dropped: cup_red slipped out of the gripper at (0.501, -0.1, 0.159)\n    command at 2.71s: effector gripper {\"close\":true} accepted\n    command at 2.93s: goal arm {\"target\":[0.5005,-0.1002,0.1591]} accepted\n    command at 3.92s: stop arm {} accepted\n    state at end: arm.ee=[0.5006,-0.1002,0.1586], arm.moving=false, arm.q=[-0.1245,0.1574,-0.072,-2.3597,0.0193..., cup_red=[0.5008,-0.0302,0.0399], gripper.holding=null, gripper.moving=true"
+  },
+  {
+   "kind": "slipped",
+   "variant": 1,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    await grasp(\"cup_red\")\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'place' failed: Dropped('cup_red slipped out of the gripper at (0.474, -0.036, 0.161)')",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.75s\n  \u2514 place [t5] failed  3.94s\u20134.75s\n    inputs: {\"target\":\"tray\"}\n    error: Dropped: cup_red slipped out of the gripper at (0.474, -0.036, 0.161)\n    command at 3.94s: goal arm {\"target\":[0.3,0.38,0.173]} accepted\n    command at 4.22s: stop arm {} accepted\n    state at end: arm.ee=[0.4737,-0.036,0.1609], arm.moving=false, arm.q=[-0.0419,0.0664,-0.0334,-2.4793,0.004..., cup_red=[0.4998,-0.0287,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "slipped",
+   "variant": 2,
+   "program": "async def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    await grasp(\"cup_red\")\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'place' failed: Dropped('cup_red slipped out of the gripper at (0.445, 0.033, 0.163)')",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20135.05s\n  \u2514 place [t5] failed  3.94s\u20135.05s\n    inputs: {\"target\":\"tray\"}\n    error: Dropped: cup_red slipped out of the gripper at (0.445, 0.033, 0.163)\n    command at 3.94s: goal arm {\"target\":[0.3,0.38,0.173]} accepted\n    command at 4.52s: stop arm {} accepted\n    state at end: arm.ee=[0.4448,0.0332,0.1629], arm.moving=false, arm.q=[0.0367,-0.0106,0.0379,-2.5741,0.0008..., cup_red=[0.4822,0.0144,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "busy",
+   "variant": 0,
+   "program": "@action(resources={\"arm\"})\nasync def survey():\n    for p in [(0.3, -0.3, 0.3), (0.55, 0.0, 0.3)] * 20:\n        await move_to(p)\n\nasync def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    start(survey(), detached=True)\n    await start(grasp(\"cup_red\"), wait_timeout=4.0)\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: ResourceBusy(\"waited too long for ['arm', 'gripper']; owned by survey\")",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.00s\n  \u2514 grasp [t5] failed  0.00s\u20134.00s\n    inputs: {\"target\":\"cup_red\"}\n    error: ResourceBusy: waited too long for ['arm', 'gripper']; owned by survey\n    state at end: arm.ee=[0.5294,-0.0257,0.3003], arm.moving=true, arm.q=[-0.0187,-0.0225,-0.0287,-2.1697,-0.0..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "busy",
+   "variant": 1,
+   "program": "@action(resources={\"arm\"})\nasync def survey():\n    for p in [(0.3, -0.3, 0.3), (0.55, 0.0, 0.3)] * 20:\n        await move_to(p)\n\nasync def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    start(survey(), detached=True)\n    await start(grasp(\"cup_red\"), wait_timeout=4.0)\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: ResourceBusy(\"waited too long for ['arm', 'gripper']; owned by survey\")",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.00s\n  \u2514 grasp [t5] failed  0.00s\u20134.00s\n    inputs: {\"target\":\"cup_red\"}\n    error: ResourceBusy: waited too long for ['arm', 'gripper']; owned by survey\n    state at end: arm.ee=[0.5294,-0.0257,0.3003], arm.moving=true, arm.q=[-0.0187,-0.0225,-0.0287,-2.1697,-0.0..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  },
+  {
+   "kind": "busy",
+   "variant": 2,
+   "program": "@action(resources={\"arm\"})\nasync def survey():\n    for p in [(0.3, -0.3, 0.3), (0.55, 0.0, 0.3)] * 20:\n        await move_to(p)\n\nasync def main():\n    start(track(\"cup_red\"), detached=True)\n    start(track(\"tray\"), detached=True)\n    start(survey(), detached=True)\n    await start(grasp(\"cup_red\"), wait_timeout=4.0)\n    await place(\"tray\")",
+   "error_line": "TaskFailed: task 'grasp' failed: ResourceBusy(\"waited too long for ['arm', 'gripper']; owned by survey\")",
+   "trace": "run: 1 failure(s)\n\nproduce.<locals>.main [t1] failed  0.00s\u20134.00s\n  \u2514 grasp [t5] failed  0.00s\u20134.00s\n    inputs: {\"target\":\"cup_red\"}\n    error: ResourceBusy: waited too long for ['arm', 'gripper']; owned by survey\n    state at end: arm.ee=[0.5294,-0.0257,0.3003], arm.moving=true, arm.q=[-0.0187,-0.0225,-0.0287,-2.1697,-0.0..., cup_red=[0.5,-0.1,0.0399], gripper.holding=null, gripper.moving=false"
+  }
+ ],
+ "results": [
+  {
+   "kind": "moved",
+   "variant": 0,
+   "feedback": "error line",
+   "pick": "A",
+   "correct": true
+  },
+  {
+   "kind": "moved",
+   "variant": 0,
+   "feedback": "trace",
+   "pick": "A",
+   "correct": true
+  },
+  {
+   "kind": "moved",
+   "variant": 1,
+   "feedback": "error line",
+   "pick": "A",
+   "correct": true
+  },
+  {
+   "kind": "moved",
+   "variant": 1,
+   "feedback": "trace",
+   "pick": "A",
+   "correct": true
+  },
+  {
+   "kind": "moved",
+   "variant": 2,
+   "feedback": "error line",
+   "pick": "A",
+   "correct": true
+  },
+  {
+   "kind": "moved",
+   "variant": 2,
+   "feedback": "trace",
+   "pick": "A",
+   "correct": true
+  },
+  {
+   "kind": "stale",
+   "variant": 0,
+   "feedback": "error line",
+   "pick": "B",
+   "correct": true
+  },
+  {
+   "kind": "stale",
+   "variant": 0,
+   "feedback": "trace",
+   "pick": "B",
+   "correct": true
+  },
+  {
+   "kind": "stale",
+   "variant": 1,
+   "feedback": "error line",
+   "pick": "B",
+   "correct": true
+  },
+  {
+   "kind": "stale",
+   "variant": 1,
+   "feedback": "trace",
+   "pick": "B",
+   "correct": true
+  },
+  {
+   "kind": "stale",
+   "variant": 2,
+   "feedback": "error line",
+   "pick": "B",
+   "correct": true
+  },
+  {
+   "kind": "stale",
+   "variant": 2,
+   "feedback": "trace",
+   "pick": "B",
+   "correct": true
+  },
+  {
+   "kind": "rejected",
+   "variant": 0,
+   "feedback": "error line",
+   "pick": "E",
+   "correct": false
+  },
+  {
+   "kind": "rejected",
+   "variant": 0,
+   "feedback": "trace",
+   "pick": "C",
+   "correct": true
+  },
+  {
+   "kind": "rejected",
+   "variant": 1,
+   "feedback": "error line",
+   "pick": "E",
+   "correct": false
+  },
+  {
+   "kind": "rejected",
+   "variant": 1,
+   "feedback": "trace",
+   "pick": "C",
+   "correct": true
+  },
+  {
+   "kind": "rejected",
+   "variant": 2,
+   "feedback": "error line",
+   "pick": "E",
+   "correct": false
+  },
+  {
+   "kind": "rejected",
+   "variant": 2,
+   "feedback": "trace",
+   "pick": "C",
+   "correct": true
+  },
+  {
+   "kind": "slipped",
+   "variant": 0,
+   "feedback": "error line",
+   "pick": "D",
+   "correct": true
+  },
+  {
+   "kind": "slipped",
+   "variant": 0,
+   "feedback": "trace",
+   "pick": "D",
+   "correct": true
+  },
+  {
+   "kind": "slipped",
+   "variant": 1,
+   "feedback": "error line",
+   "pick": "D",
+   "correct": true
+  },
+  {
+   "kind": "slipped",
+   "variant": 1,
+   "feedback": "trace",
+   "pick": "D",
+   "correct": true
+  },
+  {
+   "kind": "slipped",
+   "variant": 2,
+   "feedback": "error line",
+   "pick": "D",
+   "correct": true
+  },
+  {
+   "kind": "slipped",
+   "variant": 2,
+   "feedback": "trace",
+   "pick": "D",
+   "correct": true
+  },
+  {
+   "kind": "busy",
+   "variant": 0,
+   "feedback": "error line",
+   "pick": "E",
+   "correct": true
+  },
+  {
+   "kind": "busy",
+   "variant": 0,
+   "feedback": "trace",
+   "pick": "E",
+   "correct": true
+  },
+  {
+   "kind": "busy",
+   "variant": 1,
+   "feedback": "error line",
+   "pick": "E",
+   "correct": true
+  },
+  {
+   "kind": "busy",
+   "variant": 1,
+   "feedback": "trace",
+   "pick": "E",
+   "correct": true
+  },
+  {
+   "kind": "busy",
+   "variant": 2,
+   "feedback": "error line",
+   "pick": "E",
+   "correct": true
+  },
+  {
+   "kind": "busy",
+   "variant": 2,
+   "feedback": "trace",
+   "pick": "E",
+   "correct": true
+  }
+ ]
+}

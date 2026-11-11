@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "roborun"
+version = "0.1.0"
+description = "A runtime for agentic robots: interruptible tasks, fresh state, and a safety gate between model and motors."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "Shaoxiong Yao" }]
+dependencies = ["msgpack>=1.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+mujoco = ["mujoco>=3.2", "numpy>=1.26", "pillow>=10"]
+
+[project.scripts]
+roborun = "roborun.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/embodiedruntime/roborun"
+Blog = "https://embodiedruntime.github.io/blog/"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/roborun"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/benchmarks/*.py", "/README.md", "/LICENSE", "/pyproject.toml"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]  # the benchmarks package lives at the repository root
+
+[tool.ruff.lint]
+# typing.Self needs Python 3.11; the package supports 3.10.
+ignore = ["PYI034"]

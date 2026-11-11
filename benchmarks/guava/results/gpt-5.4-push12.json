@@ -1,0 +1,1240 @@
+[
+ {
+  "variant": "blocking",
+  "seed": 0,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 115.6,
+  "model_seconds": 65.8,
+  "decisions": 12,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 2,
+  "early_wakes": 0,
+  "closed_on_nothing": 1,
+  "pushed_at": 14.950000000000077,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 9.8,
+    "invalid": "<think>The can is on the left side of the table and the gripper is empty above the workspace, so I should move directly above the can to prepare a top-down grasp.</think>\n<tool_call>{\"name\":\"align\",\"arguments\":{\"target_name\":\"can\",\"position\":\"top\",\"clearance\":\"small\"}}</tool_call>\n\n<think>The gripper is aligned over the can with top clearance, so the next step is to grasp it before moving sideways.</think>\n<tool_call>{\"name\":\"grasp\",\"arguments\":{\"target_name\":\"can\"}}</tool_call>"
+   },
+   {
+    "t": 9.8,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.654, -0.217, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 14.9,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper fully \u2014 no object grasped."
+   },
+   {
+    "t": 31.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 44.9,
+    "invalid": "<think>The can is still upright next to the open gripper after the missed attempt, so I should realign above it before retrying the top-down grasp.</think>\n<tool_call>{\"name\":\"align\",\"arguments\":{\"target_name\":\"can\",\"position\":\"top\",\"clearance\":\"small\"}}}</tool_call>"
+   },
+   {
+    "t": 47.9,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.536, -0.21, 0.027] and measures approximately 0.04 x 0.02 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 52.5,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 66.7,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.527,
+      -0.212,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.527, -0.212, 0.18]."
+   },
+   {
+    "t": 73.0,
+    "call": "get_position_and_size",
+    "args": {
+     "target_name": "box"
+    },
+    "result": "Box is located at [0.593, 0.205, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 86.3,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.593, 0.205, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 95.9,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.593,
+      0.205,
+      0.11
+     ]
+    },
+    "result": "Moved gripper to [0.593, 0.205, 0.11]."
+   },
+   {
+    "t": 102.1,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 0,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 121.1,
+  "model_seconds": 79.5,
+  "decisions": 13,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 0,
+  "early_wakes": 1,
+  "closed_on_nothing": 1,
+  "pushed_at": 11.100000000000023,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 6.2,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.654, -0.217, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 11.0,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "can moved; grasp is still running as task 2. cancel(2) stops it; wait(2, ...) keeps waiting."
+   },
+   {
+    "t": 14.5,
+    "call": "wait",
+    "args": {
+     "task_id": 2,
+     "seconds": 3,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"time\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 23.3,
+    "call": "wait",
+    "args": {
+     "task_id": 2,
+     "seconds": 3,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: closed\"}"
+   },
+   {
+    "t": 28.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 42.5,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.537, -0.213, 0.025] and measures approximately 0.04 x 0.02 x 0.06 m (W x D x H)."
+   },
+   {
+    "t": 48.9,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 63.8,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.527,
+      -0.212,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.527, -0.212, 0.18]."
+   },
+   {
+    "t": 74.5,
+    "call": "get_position_and_size",
+    "args": {
+     "target_name": "box"
+    },
+    "result": "Box is located at [0.593, 0.205, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 82.9,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.593, 0.205, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 101.0,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.56,
+      0.204,
+      0.11
+     ]
+    },
+    "result": "Moved gripper to [0.56, 0.204, 0.11]."
+   },
+   {
+    "t": 106.8,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 1,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 105.3,
+  "model_seconds": 56.2,
+  "decisions": 11,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 1,
+  "early_wakes": 0,
+  "closed_on_nothing": 1,
+  "pushed_at": 11.700000000000031,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 5.8,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.545, -0.217, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 11.6,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper fully \u2014 no object grasped."
+   },
+   {
+    "t": 28.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 41.2,
+    "invalid": "<think>The can is still upright in place and the previous grasp missed, so re-aligning above it should correct the approach before retrying.</think>\n<tool_call>{\"name\":\"align\",\"arguments\":{\"target_name\":\"can\",\"position\":\"top\",\"clearance\":\"small\"}}}</tool_call>"
+   },
+   {
+    "t": 46.2,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.665, -0.216, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 50.6,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 65.6,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.66,
+      -0.217,
+      0.2
+     ]
+    },
+    "result": "Moved gripper to [0.66, -0.217, 0.2]."
+   },
+   {
+    "t": 74.4,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.568, 0.208, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 85.6,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.534,
+      0.207,
+      0.11
+     ]
+    },
+    "result": "Moved gripper to [0.534, 0.207, 0.11]."
+   },
+   {
+    "t": 92.1,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 1,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 104.2,
+  "model_seconds": 63.7,
+  "decisions": 12,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 0,
+  "early_wakes": 1,
+  "closed_on_nothing": 1,
+  "pushed_at": 10.650000000000016,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 5.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of can with medium clearance. can is located at [0.545, -0.217, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 9.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "can moved; grasp is still running as task 2. cancel(2) stops it; wait(2, ...) keeps waiting."
+   },
+   {
+    "t": 15.5,
+    "call": "wait",
+    "args": {
+     "task_id": 2,
+     "seconds": 3,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"time\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 22.6,
+    "call": "wait",
+    "args": {
+     "task_id": 2,
+     "seconds": 3,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: closed\"}"
+   },
+   {
+    "t": 27.1,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 43.3,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.665, -0.216, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 48.2,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 60.5,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.66,
+      -0.217,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.66, -0.217, 0.18]."
+   },
+   {
+    "t": 66.6,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.566, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 82.2,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.534,
+      0.206,
+      0.115
+     ]
+    },
+    "result": "Moved gripper to [0.534, 0.206, 0.115]."
+   },
+   {
+    "t": 89.8,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 2,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 110.0,
+  "model_seconds": 61.0,
+  "decisions": 11,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 1,
+  "early_wakes": 0,
+  "closed_on_nothing": 1,
+  "pushed_at": 10.100000000000009,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 5.2,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.425, -0.258, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 10.0,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper fully \u2014 no object grasped."
+   },
+   {
+    "t": 28.7,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 42.3,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.545, -0.258, 0.047] and measures approximately 0.05 x 0.05 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 48.2,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 61.2,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.535,
+      -0.256,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.535, -0.256, 0.18]."
+   },
+   {
+    "t": 68.1,
+    "invalid": "<think>The can has lifted with the gripper and is secure, so I can move above the box next while keeping vertical clearance for the held can.</think>\n<tool_call>{\"name\":\"align\",\"arguments\":{\"target_name\":\"box\",\"position\":\"top\",\"clearance\":\"medium\"}}}</tool_call>"
+   },
+   {
+    "t": 75.6,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.571, 0.103, 0.045] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 87.9,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.537,
+      0.102,
+      0.125
+     ]
+    },
+    "result": "Moved gripper to [0.537, 0.102, 0.125]."
+   },
+   {
+    "t": 96.5,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 2,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 85.2,
+  "model_seconds": 61.3,
+  "decisions": 10,
+  "actions": 8,
+  "end_reason": "model_terminal",
+  "format_errors": 0,
+  "early_wakes": 1,
+  "closed_on_nothing": 0,
+  "pushed_at": 14.500000000000071,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 8.2,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of can with medium clearance. can is located at [0.425, -0.258, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 13.1,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "can moved; grasp is still running as task 2. cancel(2) stops it; wait(2, ...) keeps waiting."
+   },
+   {
+    "t": 18.9,
+    "call": "cancel",
+    "args": {
+     "task_id": 2
+    },
+    "result": "grasp stopped: cancelled; the arm is at rest"
+   },
+   {
+    "t": 23.9,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of can with medium clearance. can is located at [0.545, -0.257, 0.047] and measures approximately 0.05 x 0.05 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 27.7,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 37.6,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.535,
+      -0.256,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.535, -0.256, 0.18]."
+   },
+   {
+    "t": 44.3,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.571, 0.103, 0.045] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 65.8,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.537,
+      0.102,
+      0.11
+     ]
+    },
+    "result": "Moved gripper to [0.537, 0.102, 0.11]."
+   },
+   {
+    "t": 71.4,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 3,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 104.7,
+  "model_seconds": 55.8,
+  "decisions": 11,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 0,
+  "early_wakes": 0,
+  "closed_on_nothing": 1,
+  "pushed_at": 10.000000000000007,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 5.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.461, -0.189, 0.047] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 9.9,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper fully \u2014 no object grasped."
+   },
+   {
+    "t": 26.8,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 40.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.581, -0.189, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 43.7,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 55.2,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.576,
+      -0.19,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.576, -0.19, 0.18]."
+   },
+   {
+    "t": 61.9,
+    "call": "get_position_and_size",
+    "args": {
+     "target_name": "box"
+    },
+    "result": "Box is located at [0.596, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 68.6,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.596, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 84.0,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.596,
+      0.206,
+      0.11
+     ]
+    },
+    "result": "Moved gripper to [0.596, 0.206, 0.11]."
+   },
+   {
+    "t": 91.8,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 3,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 120.4,
+  "model_seconds": 79.2,
+  "decisions": 14,
+  "actions": 10,
+  "end_reason": "model_terminal",
+  "format_errors": 0,
+  "early_wakes": 1,
+  "closed_on_nothing": 1,
+  "pushed_at": 14.650000000000073,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 5.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 10.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.461, -0.189, 0.047] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 14.6,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "can moved; grasp is still running as task 3. cancel(3) stops it; wait(3, ...) keeps waiting."
+   },
+   {
+    "t": 19.0,
+    "call": "wait",
+    "args": {
+     "task_id": 3,
+     "seconds": 2,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"time\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 25.5,
+    "call": "wait",
+    "args": {
+     "task_id": 3,
+     "seconds": 2,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: closed\"}"
+   },
+   {
+    "t": 30.9,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 45.9,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.581, -0.189, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 51.0,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 63.8,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.576,
+      -0.19,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.576, -0.19, 0.18]."
+   },
+   {
+    "t": 70.9,
+    "call": "get_position_and_size",
+    "args": {
+     "target_name": "box"
+    },
+    "result": "Box is located at [0.596, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 78.8,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "large"
+    },
+    "result": "Aligned to top of box with large clearance. box is located at [0.596, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 95.9,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.543,
+      0.205,
+      0.12
+     ]
+    },
+    "result": "Moved gripper to [0.543, 0.205, 0.12]."
+   },
+   {
+    "t": 104.9,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 4,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 102.0,
+  "model_seconds": 53.4,
+  "decisions": 10,
+  "actions": 9,
+  "end_reason": "model_terminal",
+  "format_errors": 0,
+  "early_wakes": 0,
+  "closed_on_nothing": 1,
+  "pushed_at": 10.25000000000001,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 4.4,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of can with medium clearance. can is located at [0.466, -0.169, 0.047] and measures approximately 0.05 x 0.05 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 8.9,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper fully \u2014 no object grasped."
+   },
+   {
+    "t": 25.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 38.4,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.586, -0.169, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 44.9,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 59.3,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.576,
+      -0.168,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.576, -0.168, 0.18]."
+   },
+   {
+    "t": 67.0,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.676, 0.181, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 83.9,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.676,
+      0.181,
+      0.1
+     ]
+    },
+    "result": "Moved gripper to [0.676, 0.181, 0.1]."
+   },
+   {
+    "t": 89.2,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 4,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 113.6,
+  "model_seconds": 71.4,
+  "decisions": 14,
+  "actions": 10,
+  "end_reason": "model_terminal",
+  "format_errors": 1,
+  "early_wakes": 1,
+  "closed_on_nothing": 1,
+  "pushed_at": 19.600000000000144,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 7.6,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 11.9,
+    "invalid": "<think>The gripper is open and clear of the objects, and the can is unobstructed, so I\u2019ll align directly above it for a top-down grasp.</think>\n<tool_call>{\"name\":\"align\",\"arguments\":{\"target_name\":\"can\",\"position\":\"top\",\"clearance\":\"small\"}}}</tool_call>"
+   },
+   {
+    "t": 14.8,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.466, -0.168, 0.047] and measures approximately 0.05 x 0.05 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 19.5,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "can moved; grasp is still running as task 3. cancel(3) stops it; wait(3, ...) keeps waiting."
+   },
+   {
+    "t": 24.4,
+    "call": "wait",
+    "args": {
+     "task_id": 3,
+     "seconds": 5,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"time\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 32.9,
+    "call": "wait",
+    "args": {
+     "task_id": 3,
+     "seconds": 5,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: closed\"}"
+   },
+   {
+    "t": 36.4,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 50.4,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.586, -0.169, 0.048] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 54.9,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 67.6,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.576,
+      -0.168,
+      0.18
+     ]
+    },
+    "result": "Moved gripper to [0.576, -0.168, 0.18]."
+   },
+   {
+    "t": 75.4,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.676, 0.181, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 93.5,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.643,
+      0.18,
+      0.105
+     ]
+    },
+    "result": "Moved gripper to [0.643, 0.18, 0.105]."
+   },
+   {
+    "t": 99.6,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ }
+]

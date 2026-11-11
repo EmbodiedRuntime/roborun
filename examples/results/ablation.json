@@ -1,0 +1,5400 @@
+{
+ "safety": [
+  {
+   "program": "table",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "table",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "table",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "keep_out_goal",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:keep_out",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "person"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "through_zone",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "through_zone",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:person",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "blue cup"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "sweep_cup",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "monitor:blue_cup",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": true,
+   "harm": [
+    "left the table"
+   ],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "off_table",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "off_table",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": true,
+   "harm": [],
+   "stopped_by": "check:workspace",
+   "completed": false,
+   "state": "failed"
+  },
+  {
+   "program": "pick_place",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "pick_place",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 0,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 0,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 1,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 1,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 2,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 2,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 3,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 3,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 4,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 4,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": "monitor_timeout:blue_cup",
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 5,
+   "arm": "baseline",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 5,
+   "arm": "roborun",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  },
+  {
+   "program": "near_zone",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "unsafe": false,
+   "harm": [],
+   "stopped_by": null,
+   "completed": true,
+   "state": "succeeded"
+  }
+ ],
+ "stopping": [
+  {
+   "scenario": "cancel",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "speed_when_cancel_returned": 0.247,
+    "moved_after_return": 0.053
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "speed_when_cancel_returned": 0.247,
+    "moved_after_return": 0.053
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "speed_when_cancel_returned": 0.249,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "speed_when_cancel_returned": 0.249,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "speed_when_cancel_returned": 0.249,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "speed_when_cancel_returned": 0.249,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "speed_when_cancel_returned": 0.25,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "speed_when_cancel_returned": 0.25,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "speed_when_cancel_returned": 0.25,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "speed_when_cancel_returned": 0.25,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "speed_when_cancel_returned": 0.251,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "speed_when_cancel_returned": 0.251,
+    "moved_after_return": 0.054
+   }
+  },
+  {
+   "scenario": "cancel",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "speed_when_cancel_returned": 0.005,
+    "moved_after_return": 0.0
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 49,
+    "moved_after_cancel": 0.572
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 49,
+    "moved_after_cancel": 0.572
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 49,
+    "moved_after_cancel": 0.572
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 45,
+    "moved_after_cancel": 0.523
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 45,
+    "moved_after_cancel": 0.523
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 45,
+    "moved_after_cancel": 0.523
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 41,
+    "moved_after_cancel": 0.475
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 41,
+    "moved_after_cancel": 0.475
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 41,
+    "moved_after_cancel": 0.475
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 37,
+    "moved_after_cancel": 0.427
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 37,
+    "moved_after_cancel": 0.427
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 37,
+    "moved_after_cancel": 0.427
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 33,
+    "moved_after_cancel": 0.379
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 33,
+    "moved_after_cancel": 0.379
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 33,
+    "moved_after_cancel": 0.379
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 29,
+    "moved_after_cancel": 0.331
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 29,
+    "moved_after_cancel": 0.331
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 29,
+    "moved_after_cancel": 0.331
+   }
+  },
+  {
+   "scenario": "zombie",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "commands_reaching_arm_after_cancel": 0,
+    "moved_after_cancel": 0.006
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "target_switches": 81
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "target_switches": 81
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "target_switches": 73
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "target_switches": 73
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "target_switches": 65
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "target_switches": 65
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "target_switches": 57
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "target_switches": 57
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "target_switches": 49
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "target_switches": 49
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "target_switches": 41
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "target_switches": 41
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "conflict",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "target_switches": 1
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "moved_after_stop": 0.585,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "moved_after_stop": 0.053,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "moved_after_stop": 0.585,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "moved_after_stop": 0.053,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "moved_after_stop": 0.053,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "moved_after_stop": 0.51,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "moved_after_stop": 0.51,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "moved_after_stop": 0.436,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "moved_after_stop": 0.436,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "moved_after_stop": 0.361,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "moved_after_stop": 0.361,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "moved_after_stop": 0.286,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "moved_after_stop": 0.286,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "moved_after_stop": 0.211,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "moved_after_stop": 0.211,
+    "reached_goal_anyway": true
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  },
+  {
+   "scenario": "operator",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "moved_after_stop": 0.054,
+    "reached_goal_anyway": false
+   }
+  }
+ ],
+ "crash": [
+  {
+   "case": "kill",
+   "variant": 0,
+   "arm": "baseline",
+   "after": 0.4,
+   "moved_after": 0.634,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 0,
+   "arm": "roborun",
+   "after": 0.4,
+   "moved_after": 0.052,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "after": 0.4,
+   "moved_after": 0.052,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "after": 0.4,
+   "moved_after": 0.634,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "after": 0.4,
+   "moved_after": 0.052,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 1,
+   "arm": "baseline",
+   "after": 0.7,
+   "moved_after": 0.56,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 1,
+   "arm": "roborun",
+   "after": 0.7,
+   "moved_after": 0.053,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "after": 0.7,
+   "moved_after": 0.053,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "after": 0.7,
+   "moved_after": 0.56,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "after": 0.7,
+   "moved_after": 0.053,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 2,
+   "arm": "baseline",
+   "after": 1.0,
+   "moved_after": 0.486,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 2,
+   "arm": "roborun",
+   "after": 1.0,
+   "moved_after": 0.056,
+   "rest_after": 0.42,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "after": 1.0,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "after": 1.0,
+   "moved_after": 0.486,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "after": 1.0,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 3,
+   "arm": "baseline",
+   "after": 1.3,
+   "moved_after": 0.411,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 3,
+   "arm": "roborun",
+   "after": 1.3,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "after": 1.3,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "after": 1.3,
+   "moved_after": 0.411,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "after": 1.3,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 4,
+   "arm": "baseline",
+   "after": 1.6,
+   "moved_after": 0.336,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 4,
+   "arm": "roborun",
+   "after": 1.6,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "after": 1.6,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "after": 1.6,
+   "moved_after": 0.338,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "after": 1.6,
+   "moved_after": 0.056,
+   "rest_after": 0.42,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 5,
+   "arm": "baseline",
+   "after": 1.9,
+   "moved_after": 0.263,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 5,
+   "arm": "roborun",
+   "after": 1.9,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "after": 1.9,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "kill",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "after": 1.9,
+   "moved_after": 0.261,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "kill",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "after": 1.9,
+   "moved_after": 0.054,
+   "rest_after": 0.41,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 0,
+   "arm": "baseline",
+   "after": 0.4,
+   "moved_after": 0.634,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 0,
+   "arm": "roborun",
+   "after": 0.4,
+   "moved_after": 0.249,
+   "rest_after": 1.2,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "after": 0.4,
+   "moved_after": 0.249,
+   "rest_after": 1.2,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "after": 0.4,
+   "moved_after": 0.634,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "after": 0.4,
+   "moved_after": 0.249,
+   "rest_after": 1.2,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 1,
+   "arm": "baseline",
+   "after": 0.7,
+   "moved_after": 0.56,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 1,
+   "arm": "roborun",
+   "after": 0.7,
+   "moved_after": 0.301,
+   "rest_after": 1.4,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "after": 0.7,
+   "moved_after": 0.298,
+   "rest_after": 1.39,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "after": 0.7,
+   "moved_after": 0.56,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "after": 0.7,
+   "moved_after": 0.301,
+   "rest_after": 1.4,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 2,
+   "arm": "baseline",
+   "after": 1.0,
+   "moved_after": 0.486,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 2,
+   "arm": "roborun",
+   "after": 1.0,
+   "moved_after": 0.289,
+   "rest_after": 1.35,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "after": 1.0,
+   "moved_after": 0.291,
+   "rest_after": 1.36,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "after": 1.0,
+   "moved_after": 0.486,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "after": 1.0,
+   "moved_after": 0.289,
+   "rest_after": 1.35,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 3,
+   "arm": "baseline",
+   "after": 1.3,
+   "moved_after": 0.411,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 3,
+   "arm": "roborun",
+   "after": 1.3,
+   "moved_after": 0.276,
+   "rest_after": 1.3,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "after": 1.3,
+   "moved_after": 0.276,
+   "rest_after": 1.3,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "after": 1.3,
+   "moved_after": 0.411,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "after": 1.3,
+   "moved_after": 0.276,
+   "rest_after": 1.3,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 4,
+   "arm": "baseline",
+   "after": 1.6,
+   "moved_after": 0.336,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 4,
+   "arm": "roborun",
+   "after": 1.6,
+   "moved_after": 0.264,
+   "rest_after": 1.25,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "after": 1.6,
+   "moved_after": 0.264,
+   "rest_after": 1.25,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "after": 1.6,
+   "moved_after": 0.336,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "after": 1.6,
+   "moved_after": 0.264,
+   "rest_after": 1.25,
+   "reached_goal": false
+  },
+  {
+   "case": "freeze",
+   "variant": 5,
+   "arm": "baseline",
+   "after": 1.9,
+   "moved_after": 0.261,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 5,
+   "arm": "roborun",
+   "after": 1.9,
+   "moved_after": 0.251,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "after": 1.9,
+   "moved_after": 0.254,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "after": 1.9,
+   "moved_after": 0.261,
+   "rest_after": null,
+   "reached_goal": true
+  },
+  {
+   "case": "freeze",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "after": 1.9,
+   "moved_after": 0.254,
+   "rest_after": null,
+   "reached_goal": true
+  }
+ ],
+ "concurrency": [
+  {
+   "arm": "baseline",
+   "latency": 1.0,
+   "total": 20.61,
+   "idle": 3.37,
+   "placed": 2
+  },
+  {
+   "arm": "roborun",
+   "latency": 1.0,
+   "total": 17.62,
+   "idle": 0.54,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-gate",
+   "latency": 1.0,
+   "total": 17.62,
+   "idle": 0.54,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-task",
+   "latency": 1.0,
+   "total": 17.62,
+   "idle": 0.54,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-world",
+   "latency": 1.0,
+   "total": 17.62,
+   "idle": 0.54,
+   "placed": 2
+  },
+  {
+   "arm": "baseline",
+   "latency": 2.0,
+   "total": 24.6,
+   "idle": 6.35,
+   "placed": 2
+  },
+  {
+   "arm": "roborun",
+   "latency": 2.0,
+   "total": 18.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-gate",
+   "latency": 2.0,
+   "total": 18.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-task",
+   "latency": 2.0,
+   "total": 18.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-world",
+   "latency": 2.0,
+   "total": 18.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "baseline",
+   "latency": 3.0,
+   "total": 28.59,
+   "idle": 9.35,
+   "placed": 2
+  },
+  {
+   "arm": "roborun",
+   "latency": 3.0,
+   "total": 19.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-gate",
+   "latency": 3.0,
+   "total": 19.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-task",
+   "latency": 3.0,
+   "total": 19.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-world",
+   "latency": 3.0,
+   "total": 19.62,
+   "idle": 0.56,
+   "placed": 2
+  },
+  {
+   "arm": "baseline",
+   "latency": 5.0,
+   "total": 36.59,
+   "idle": 15.3,
+   "placed": 2
+  },
+  {
+   "arm": "roborun",
+   "latency": 5.0,
+   "total": 23.84,
+   "idle": 2.63,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-gate",
+   "latency": 5.0,
+   "total": 23.84,
+   "idle": 2.63,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-task",
+   "latency": 5.0,
+   "total": 23.84,
+   "idle": 2.63,
+   "placed": 2
+  },
+  {
+   "arm": "roborun-no-world",
+   "latency": 5.0,
+   "total": 23.84,
+   "idle": 2.63,
+   "placed": 2
+  }
+ ],
+ "stale": [
+  {
+   "scenario": "occluded",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 1,
+    "noticed_stale": false,
+    "time": 11.73,
+    "occluded_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.29,
+    "occluded_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 1,
+    "noticed_stale": false,
+    "time": 11.73,
+    "occluded_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.29,
+    "occluded_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.29,
+    "occluded_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 1,
+    "noticed_stale": false,
+    "time": 11.28,
+    "occluded_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 10.81,
+    "occluded_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 1,
+    "noticed_stale": false,
+    "time": 11.28,
+    "occluded_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 10.81,
+    "occluded_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 10.81,
+    "occluded_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 2,
+    "noticed_stale": false,
+    "time": 12.03,
+    "occluded_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.39,
+    "occluded_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 2,
+    "noticed_stale": false,
+    "time": 12.03,
+    "occluded_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.39,
+    "occluded_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.39,
+    "occluded_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 2,
+    "noticed_stale": false,
+    "time": 12.42,
+    "occluded_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.87,
+    "occluded_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 2,
+    "noticed_stale": false,
+    "time": 12.42,
+    "occluded_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.87,
+    "occluded_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.87,
+    "occluded_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "occluded_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.41,
+    "occluded_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "occluded_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.41,
+    "occluded_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 11.41,
+    "occluded_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "occluded_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 12.1,
+    "occluded_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "occluded_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 12.1,
+    "occluded_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "occluded",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": false,
+    "time": 12.1,
+    "occluded_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.83,
+    "died_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.09,
+    "died_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.83,
+    "died_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.09,
+    "died_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.09,
+    "died_at": 0.4,
+    "pushed_to": [
+     0.57,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 11.58,
+    "died_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 11.58,
+    "died_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 11.58,
+    "died_at": 0.6000000000000001,
+    "pushed_to": [
+     0.48,
+     -0.03
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.83,
+    "died_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.19,
+    "died_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.83,
+    "died_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.19,
+    "died_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.19,
+    "died_at": 0.8,
+    "pushed_to": [
+     0.39,
+     -0.12
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.67,
+    "died_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.67,
+    "died_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.67,
+    "died_at": 1.0,
+    "pushed_to": [
+     0.48,
+     -0.21
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.21,
+    "died_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.21,
+    "died_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.21,
+    "died_at": 1.2000000000000002,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.056999999999999995
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.89,
+    "died_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "placed": false,
+    "outcome": "GraspMissed",
+    "closes_on_nothing": 3,
+    "noticed_stale": false,
+    "time": 3.85,
+    "died_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.89,
+    "died_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "tracker_died",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "placed": true,
+    "outcome": "placed",
+    "closes_on_nothing": 0,
+    "noticed_stale": true,
+    "time": 12.89,
+    "died_at": 1.4,
+    "pushed_to": [
+     0.5429999999999999,
+     -0.183
+    ]
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 0,
+   "arm": "baseline",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 0.75,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 0,
+   "arm": "roborun",
+   "metrics": {
+    "hand_moves": true,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 0,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 0.75,
+    "stopped": true,
+    "stopped_for": [
+     "too close"
+    ],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 0,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 0.75,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 0,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "hand_moves": true,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 1,
+   "arm": "baseline",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 1,
+   "arm": "roborun",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 1,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 1,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 1,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 2,
+   "arm": "baseline",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 1.14,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 2,
+   "arm": "roborun",
+   "metrics": {
+    "hand_moves": true,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 2,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 1.14,
+    "stopped": true,
+    "stopped_for": [
+     "too close"
+    ],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 2,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 1.14,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 2,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "hand_moves": true,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 3,
+   "arm": "baseline",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 3,
+   "arm": "roborun",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 3,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 3,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 3,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 2.5
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 4,
+   "arm": "baseline",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 0.64,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 4,
+   "arm": "roborun",
+   "metrics": {
+    "hand_moves": true,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 4,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 0.64,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 4,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "hand_moves": true,
+    "harm": true,
+    "harm_time": 0.64,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 4,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "hand_moves": true,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 5,
+   "arm": "baseline",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 5,
+   "arm": "roborun",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 5,
+   "arm": "roborun-no-world",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 5,
+   "arm": "roborun-no-gate",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": false,
+    "stopped_for": [],
+    "t_move": 3.0
+   }
+  },
+  {
+   "scenario": "sensor_dropout",
+   "variant": 5,
+   "arm": "roborun-no-task",
+   "metrics": {
+    "hand_moves": false,
+    "harm": false,
+    "harm_time": 0.0,
+    "stopped": true,
+    "stopped_for": [
+     "stale data"
+    ],
+    "t_move": 3.0
+   }
+  }
+ ]
+}

@@ -1,0 +1,677 @@
+[
+ {
+  "program": "blocking",
+  "push_time": null,
+  "direction": null,
+  "success": true,
+  "completion": 9.14,
+  "latency": null,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": null,
+  "direction": null,
+  "success": true,
+  "completion": 9.14,
+  "latency": null,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": null,
+  "direction": null,
+  "success": true,
+  "completion": 8.8,
+  "latency": null,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.25,
+  "direction": "+x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.25,
+  "direction": "-x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.25,
+  "direction": "+y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.25,
+  "direction": "-y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.5,
+  "direction": "+x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.5,
+  "direction": "-x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.5,
+  "direction": "+y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 0.5,
+  "direction": "-y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.0,
+  "direction": "+x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.0,
+  "direction": "-x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.0,
+  "direction": "+y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.0,
+  "direction": "-y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.5,
+  "direction": "+x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.5,
+  "direction": "-x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.5,
+  "direction": "+y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 1.5,
+  "direction": "-y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.0,
+  "direction": "+x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.0,
+  "direction": "-x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.0,
+  "direction": "+y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.0,
+  "direction": "-y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.4,
+  "direction": "+x",
+  "success": false,
+  "completion": 3.3,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.4,
+  "direction": "-x",
+  "success": false,
+  "completion": 3.29,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.4,
+  "direction": "+y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking",
+  "push_time": 2.4,
+  "direction": "-y",
+  "success": false,
+  "completion": 3.31,
+  "latency": null,
+  "outcome": "GraspMissed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.25,
+  "direction": "+x",
+  "success": true,
+  "completion": 12.63,
+  "latency": 4.32,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.25,
+  "direction": "-x",
+  "success": true,
+  "completion": 12.41,
+  "latency": 4.32,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.25,
+  "direction": "+y",
+  "success": true,
+  "completion": 12.2,
+  "latency": 4.34,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.25,
+  "direction": "-y",
+  "success": true,
+  "completion": 12.79,
+  "latency": 4.34,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.5,
+  "direction": "+x",
+  "success": true,
+  "completion": 12.64,
+  "latency": 4.07,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.5,
+  "direction": "-x",
+  "success": true,
+  "completion": 12.41,
+  "latency": 4.07,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.5,
+  "direction": "+y",
+  "success": true,
+  "completion": 12.2,
+  "latency": 4.09,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 0.5,
+  "direction": "-y",
+  "success": true,
+  "completion": 12.79,
+  "latency": 4.09,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.0,
+  "direction": "+x",
+  "success": true,
+  "completion": 12.63,
+  "latency": 3.57,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.0,
+  "direction": "-x",
+  "success": true,
+  "completion": 12.41,
+  "latency": 3.57,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.0,
+  "direction": "+y",
+  "success": true,
+  "completion": 12.2,
+  "latency": 3.59,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.0,
+  "direction": "-y",
+  "success": true,
+  "completion": 12.79,
+  "latency": 3.59,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.5,
+  "direction": "+x",
+  "success": true,
+  "completion": 12.63,
+  "latency": 3.07,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.5,
+  "direction": "-x",
+  "success": true,
+  "completion": 12.41,
+  "latency": 3.07,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.5,
+  "direction": "+y",
+  "success": true,
+  "completion": 12.2,
+  "latency": 3.09,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 1.5,
+  "direction": "-y",
+  "success": true,
+  "completion": 12.79,
+  "latency": 3.09,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.0,
+  "direction": "+x",
+  "success": true,
+  "completion": 12.64,
+  "latency": 2.57,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.0,
+  "direction": "-x",
+  "success": true,
+  "completion": 12.41,
+  "latency": 2.57,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.0,
+  "direction": "+y",
+  "success": true,
+  "completion": 12.2,
+  "latency": 2.59,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.0,
+  "direction": "-y",
+  "success": true,
+  "completion": 12.79,
+  "latency": 2.59,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.4,
+  "direction": "+x",
+  "success": true,
+  "completion": 12.77,
+  "latency": 2.18,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.4,
+  "direction": "-x",
+  "success": true,
+  "completion": 12.42,
+  "latency": 2.16,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.4,
+  "direction": "+y",
+  "success": true,
+  "completion": 12.2,
+  "latency": 2.19,
+  "outcome": "placed"
+ },
+ {
+  "program": "blocking_retry",
+  "push_time": 2.4,
+  "direction": "-y",
+  "success": true,
+  "completion": 12.79,
+  "latency": 2.19,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.25,
+  "direction": "+x",
+  "success": true,
+  "completion": 8.91,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.25,
+  "direction": "-x",
+  "success": true,
+  "completion": 8.87,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.25,
+  "direction": "+y",
+  "success": true,
+  "completion": 8.4,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.25,
+  "direction": "-y",
+  "success": true,
+  "completion": 9.28,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.5,
+  "direction": "+x",
+  "success": true,
+  "completion": 8.92,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.5,
+  "direction": "-x",
+  "success": true,
+  "completion": 8.89,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.5,
+  "direction": "+y",
+  "success": true,
+  "completion": 8.44,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 0.5,
+  "direction": "-y",
+  "success": true,
+  "completion": 9.3,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.0,
+  "direction": "+x",
+  "success": true,
+  "completion": 9.07,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.0,
+  "direction": "-x",
+  "success": true,
+  "completion": 8.99,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.0,
+  "direction": "+y",
+  "success": true,
+  "completion": 8.6,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.0,
+  "direction": "-y",
+  "success": true,
+  "completion": 9.39,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.5,
+  "direction": "+x",
+  "success": true,
+  "completion": 9.51,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.5,
+  "direction": "-x",
+  "success": true,
+  "completion": 9.27,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.5,
+  "direction": "+y",
+  "success": true,
+  "completion": 9.19,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 1.5,
+  "direction": "-y",
+  "success": true,
+  "completion": 9.62,
+  "latency": 0.3,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.0,
+  "direction": "+x",
+  "success": true,
+  "completion": 10.81,
+  "latency": 0.94,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.0,
+  "direction": "-x",
+  "success": true,
+  "completion": 10.63,
+  "latency": 0.94,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.0,
+  "direction": "+y",
+  "success": true,
+  "completion": 10.4,
+  "latency": 0.94,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.0,
+  "direction": "-y",
+  "success": true,
+  "completion": 10.99,
+  "latency": 0.94,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.4,
+  "direction": "+x",
+  "success": true,
+  "completion": 10.96,
+  "latency": 0.71,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.4,
+  "direction": "-x",
+  "success": true,
+  "completion": 10.77,
+  "latency": 0.71,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.4,
+  "direction": "+y",
+  "success": true,
+  "completion": 10.55,
+  "latency": 0.71,
+  "outcome": "placed"
+ },
+ {
+  "program": "task_based",
+  "push_time": 2.4,
+  "direction": "-y",
+  "success": true,
+  "completion": 11.14,
+  "latency": 0.71,
+  "outcome": "placed"
+ }
+]

@@ -1,0 +1,218 @@
+[
+ {
+  "case": "kill",
+  "variant": 0,
+  "arm": "baseline",
+  "after": 0.4,
+  "moved_after": 0.636,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "kill",
+  "variant": 0,
+  "arm": "roborun",
+  "after": 0.4,
+  "moved_after": 0.052,
+  "rest_after": 0.41,
+  "reached_goal": false
+ },
+ {
+  "case": "kill",
+  "variant": 1,
+  "arm": "baseline",
+  "after": 0.7,
+  "moved_after": 0.56,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "kill",
+  "variant": 1,
+  "arm": "roborun",
+  "after": 0.7,
+  "moved_after": 0.053,
+  "rest_after": 0.41,
+  "reached_goal": false
+ },
+ {
+  "case": "kill",
+  "variant": 2,
+  "arm": "baseline",
+  "after": 1.0,
+  "moved_after": 0.486,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "kill",
+  "variant": 2,
+  "arm": "roborun",
+  "after": 1.0,
+  "moved_after": 0.054,
+  "rest_after": 0.41,
+  "reached_goal": false
+ },
+ {
+  "case": "kill",
+  "variant": 3,
+  "arm": "baseline",
+  "after": 1.3,
+  "moved_after": 0.411,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "kill",
+  "variant": 3,
+  "arm": "roborun",
+  "after": 1.3,
+  "moved_after": 0.054,
+  "rest_after": 0.41,
+  "reached_goal": false
+ },
+ {
+  "case": "kill",
+  "variant": 4,
+  "arm": "baseline",
+  "after": 1.6,
+  "moved_after": 0.338,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "kill",
+  "variant": 4,
+  "arm": "roborun",
+  "after": 1.6,
+  "moved_after": 0.054,
+  "rest_after": 0.41,
+  "reached_goal": false
+ },
+ {
+  "case": "kill",
+  "variant": 5,
+  "arm": "baseline",
+  "after": 1.9,
+  "moved_after": 0.261,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "kill",
+  "variant": 5,
+  "arm": "roborun",
+  "after": 1.9,
+  "moved_after": 0.054,
+  "rest_after": 0.41,
+  "reached_goal": false
+ },
+ {
+  "case": "freeze",
+  "variant": 0,
+  "arm": "baseline",
+  "after": 0.4,
+  "moved_after": 0.634,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "freeze",
+  "variant": 0,
+  "arm": "roborun",
+  "after": 0.4,
+  "moved_after": 0.249,
+  "rest_after": 1.2,
+  "reached_goal": false
+ },
+ {
+  "case": "freeze",
+  "variant": 1,
+  "arm": "baseline",
+  "after": 0.7,
+  "moved_after": 0.56,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "freeze",
+  "variant": 1,
+  "arm": "roborun",
+  "after": 0.7,
+  "moved_after": 0.301,
+  "rest_after": 1.4,
+  "reached_goal": false
+ },
+ {
+  "case": "freeze",
+  "variant": 2,
+  "arm": "baseline",
+  "after": 1.0,
+  "moved_after": 0.486,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "freeze",
+  "variant": 2,
+  "arm": "roborun",
+  "after": 1.0,
+  "moved_after": 0.289,
+  "rest_after": 1.35,
+  "reached_goal": false
+ },
+ {
+  "case": "freeze",
+  "variant": 3,
+  "arm": "baseline",
+  "after": 1.3,
+  "moved_after": 0.411,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "freeze",
+  "variant": 3,
+  "arm": "roborun",
+  "after": 1.3,
+  "moved_after": 0.279,
+  "rest_after": 1.31,
+  "reached_goal": false
+ },
+ {
+  "case": "freeze",
+  "variant": 4,
+  "arm": "baseline",
+  "after": 1.6,
+  "moved_after": 0.336,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "freeze",
+  "variant": 4,
+  "arm": "roborun",
+  "after": 1.6,
+  "moved_after": 0.264,
+  "rest_after": 1.25,
+  "reached_goal": false
+ },
+ {
+  "case": "freeze",
+  "variant": 5,
+  "arm": "baseline",
+  "after": 1.9,
+  "moved_after": 0.261,
+  "rest_after": null,
+  "reached_goal": true
+ },
+ {
+  "case": "freeze",
+  "variant": 5,
+  "arm": "roborun",
+  "after": 1.9,
+  "moved_after": 0.254,
+  "rest_after": null,
+  "reached_goal": true
+ }
+]

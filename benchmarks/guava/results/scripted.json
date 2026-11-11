@@ -1,0 +1,1312 @@
+[
+ {
+  "variant": "blocking",
+  "seed": 0,
+  "push": false,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 22.9,
+  "model_seconds": 0.0,
+  "decisions": 6,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": null,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.654, -0.217, 0.047] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 1.7,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 11.0,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.645,
+      -0.222,
+      0.22099999999999997
+     ]
+    },
+    "result": "Moved gripper to [0.645, -0.222, 0.221]."
+   },
+   {
+    "t": 12.4,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.593, 0.205, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 14.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 0,
+  "push": false,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 22.3,
+  "model_seconds": 0.1,
+  "decisions": 11,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": null,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 1 (align); the arm is moving"
+   },
+   {
+    "t": 0.1,
+    "call": "wait",
+    "args": {
+     "task_id": "1",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.654, -0.217, 0.047], \\\"extents\\\": [0.045, 0.05, 0.078]}\"}"
+   },
+   {
+    "t": 2.1,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 2 (grasp); the arm is moving"
+   },
+   {
+    "t": 2.1,
+    "call": "wait",
+    "args": {
+     "task_id": "2",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: grasped\"}"
+   },
+   {
+    "t": 10.4,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.645,
+      -0.222,
+      0.22099999999999997
+     ]
+    },
+    "result": "started task 3 (move); the arm is moving"
+   },
+   {
+    "t": 10.4,
+    "call": "wait",
+    "args": {
+     "task_id": "3",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"move finished: success\"}"
+   },
+   {
+    "t": 11.8,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "started task 4 (align); the arm is moving"
+   },
+   {
+    "t": 11.8,
+    "call": "wait",
+    "args": {
+     "task_id": "4",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.593, 0.205, 0.044], \\\"extents\\\": [0.15, 0.15, 0.068]}\"}"
+   },
+   {
+    "t": 13.4,
+    "call": "release",
+    "args": {},
+    "result": "started task 5 (release); the arm is moving"
+   },
+   {
+    "t": 13.5,
+    "call": "wait",
+    "args": {
+     "task_id": "5",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"release finished: released\"}"
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 0,
+  "push": true,
+  "success": false,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": false,
+   "can_contacts_bin": false,
+   "released": true
+  },
+  "seconds": 43.7,
+  "model_seconds": 0.0,
+  "decisions": 8,
+  "actions": 7,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 1,
+  "pushed_at": 2.0500000000000007,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.654, -0.217, 0.047] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 2.0,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper fully \u2014 no object grasped."
+   },
+   {
+    "t": 14.3,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   },
+   {
+    "t": 24.8,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 33.5,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.535,
+      -0.249,
+      0.193
+     ]
+    },
+    "result": "Moved gripper to [0.535, -0.249, 0.193]."
+   },
+   {
+    "t": 34.9,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.593, 0.205, 0.044] and measures approximately 0.15 x 0.15 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 36.6,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 0,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 24.8,
+  "model_seconds": 0.1,
+  "decisions": 16,
+  "actions": 7,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": 2.7499999999999982,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 1 (align); the arm is moving"
+   },
+   {
+    "t": 0.1,
+    "call": "wait",
+    "args": {
+     "task_id": "1",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.654, -0.217, 0.047], \\\"extents\\\": [0.045, 0.05, 0.078]}\"}"
+   },
+   {
+    "t": 2.7,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 2 (grasp); the arm is moving"
+   },
+   {
+    "t": 2.8,
+    "call": "wait",
+    "args": {
+     "task_id": "2",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"can moved\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 2.9,
+    "call": "cancel",
+    "args": {
+     "task_id": "2"
+    },
+    "result": "grasp stopped: cancelled; the arm is at rest"
+   },
+   {
+    "t": 2.9,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 3 (align); the arm is moving"
+   },
+   {
+    "t": 3.0,
+    "call": "wait",
+    "args": {
+     "task_id": "3",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.593, -0.216, 0.047], \\\"extents\\\": [0.045, 0.049, 0.08]}\"}"
+   },
+   {
+    "t": 4.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 4 (grasp); the arm is moving"
+   },
+   {
+    "t": 4.5,
+    "call": "wait",
+    "args": {
+     "task_id": "4",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: grasped\"}"
+   },
+   {
+    "t": 12.9,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.584,
+      -0.222,
+      0.22099999999999997
+     ]
+    },
+    "result": "started task 5 (move); the arm is moving"
+   },
+   {
+    "t": 13.0,
+    "call": "wait",
+    "args": {
+     "task_id": "5",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"move finished: success\"}"
+   },
+   {
+    "t": 14.3,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "started task 6 (align); the arm is moving"
+   },
+   {
+    "t": 14.4,
+    "call": "wait",
+    "args": {
+     "task_id": "6",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.593, 0.205, 0.044], \\\"extents\\\": [0.15, 0.15, 0.068]}\"}"
+   },
+   {
+    "t": 16.0,
+    "call": "release",
+    "args": {},
+    "result": "started task 7 (release); the arm is moving"
+   },
+   {
+    "t": 16.0,
+    "call": "wait",
+    "args": {
+     "task_id": "7",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"release finished: released\"}"
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 1,
+  "push": false,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 22.8,
+  "model_seconds": 0.0,
+  "decisions": 6,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": null,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.546, -0.217, 0.046] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 2.1,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 10.8,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.535,
+      -0.217,
+      0.22099999999999997
+     ]
+    },
+    "result": "Moved gripper to [0.535, -0.217, 0.221]."
+   },
+   {
+    "t": 12.3,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.566, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 14.0,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 1,
+  "push": false,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 22.8,
+  "model_seconds": 0.0,
+  "decisions": 11,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": null,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 1 (align); the arm is moving"
+   },
+   {
+    "t": 0.1,
+    "call": "wait",
+    "args": {
+     "task_id": "1",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.546, -0.217, 0.046], \\\"extents\\\": [0.045, 0.049, 0.078]}\"}"
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 2 (grasp); the arm is moving"
+   },
+   {
+    "t": 2.5,
+    "call": "wait",
+    "args": {
+     "task_id": "2",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: grasped\"}"
+   },
+   {
+    "t": 10.8,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.535,
+      -0.217,
+      0.22099999999999997
+     ]
+    },
+    "result": "started task 3 (move); the arm is moving"
+   },
+   {
+    "t": 10.9,
+    "call": "wait",
+    "args": {
+     "task_id": "3",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"move finished: success\"}"
+   },
+   {
+    "t": 12.3,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "started task 4 (align); the arm is moving"
+   },
+   {
+    "t": 12.4,
+    "call": "wait",
+    "args": {
+     "task_id": "4",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.566, 0.207, 0.044], \\\"extents\\\": [0.141, 0.15, 0.068]}\"}"
+   },
+   {
+    "t": 14.0,
+    "call": "release",
+    "args": {},
+    "result": "started task 5 (release); the arm is moving"
+   },
+   {
+    "t": 14.0,
+    "call": "wait",
+    "args": {
+     "task_id": "5",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"release finished: released\"}"
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 1,
+  "push": true,
+  "success": false,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": false,
+   "can_contacts_bin": false,
+   "released": true
+  },
+  "seconds": 12.8,
+  "model_seconds": 0.0,
+  "decisions": 6,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": 2.4499999999999993,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.546, -0.217, 0.046] and measures approximately 0.05 x 0.04 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 5.8,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.538,
+      -0.218,
+      0.22299999999999998
+     ]
+    },
+    "result": "Moved gripper to [0.538, -0.218, 0.223]."
+   },
+   {
+    "t": 7.2,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.566, 0.206, 0.044] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 8.9,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 1,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 24.1,
+  "model_seconds": 0.1,
+  "decisions": 16,
+  "actions": 7,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": 2.4499999999999993,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 1 (align); the arm is moving"
+   },
+   {
+    "t": 0.1,
+    "call": "wait",
+    "args": {
+     "task_id": "1",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.546, -0.217, 0.046], \\\"extents\\\": [0.045, 0.049, 0.078]}\"}"
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 2 (grasp); the arm is moving"
+   },
+   {
+    "t": 2.5,
+    "call": "wait",
+    "args": {
+     "task_id": "2",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"can moved\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 2.6,
+    "call": "cancel",
+    "args": {
+     "task_id": "2"
+    },
+    "result": "grasp stopped: cancelled; the arm is at rest"
+   },
+   {
+    "t": 2.6,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 3 (align); the arm is moving"
+   },
+   {
+    "t": 2.7,
+    "call": "wait",
+    "args": {
+     "task_id": "3",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.605, -0.217, 0.048], \\\"extents\\\": [0.045, 0.049, 0.08]}\"}"
+   },
+   {
+    "t": 3.8,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 4 (grasp); the arm is moving"
+   },
+   {
+    "t": 3.9,
+    "call": "wait",
+    "args": {
+     "task_id": "4",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: grasped\"}"
+   },
+   {
+    "t": 12.2,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.6,
+      -0.217,
+      0.22099999999999997
+     ]
+    },
+    "result": "started task 5 (move); the arm is moving"
+   },
+   {
+    "t": 12.3,
+    "call": "wait",
+    "args": {
+     "task_id": "5",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"move finished: success\"}"
+   },
+   {
+    "t": 13.6,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "started task 6 (align); the arm is moving"
+   },
+   {
+    "t": 13.7,
+    "call": "wait",
+    "args": {
+     "task_id": "6",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.566, 0.206, 0.044], \\\"extents\\\": [0.141, 0.15, 0.068]}\"}"
+   },
+   {
+    "t": 15.3,
+    "call": "release",
+    "args": {},
+    "result": "started task 7 (release); the arm is moving"
+   },
+   {
+    "t": 15.3,
+    "call": "wait",
+    "args": {
+     "task_id": "7",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"release finished: released\"}"
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 2,
+  "push": false,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 23.1,
+  "model_seconds": 0.0,
+  "decisions": 6,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": null,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.425, -0.258, 0.046] and measures approximately 0.05 x 0.05 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 11.0,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.42,
+      -0.258,
+      0.22099999999999997
+     ]
+    },
+    "result": "Moved gripper to [0.42, -0.258, 0.221]."
+   },
+   {
+    "t": 12.5,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.573, 0.103, 0.043] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 14.2,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 2,
+  "push": false,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 23.1,
+  "model_seconds": 0.1,
+  "decisions": 11,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": null,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 1 (align); the arm is moving"
+   },
+   {
+    "t": 0.1,
+    "call": "wait",
+    "args": {
+     "task_id": "1",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.425, -0.258, 0.046], \\\"extents\\\": [0.047, 0.049, 0.078]}\"}"
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 2 (grasp); the arm is moving"
+   },
+   {
+    "t": 2.5,
+    "call": "wait",
+    "args": {
+     "task_id": "2",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: grasped\"}"
+   },
+   {
+    "t": 11.0,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.42,
+      -0.258,
+      0.22099999999999997
+     ]
+    },
+    "result": "started task 3 (move); the arm is moving"
+   },
+   {
+    "t": 11.1,
+    "call": "wait",
+    "args": {
+     "task_id": "3",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"move finished: success\"}"
+   },
+   {
+    "t": 12.5,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "started task 4 (align); the arm is moving"
+   },
+   {
+    "t": 12.6,
+    "call": "wait",
+    "args": {
+     "task_id": "4",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.573, 0.103, 0.043], \\\"extents\\\": [0.145, 0.15, 0.069]}\"}"
+   },
+   {
+    "t": 14.2,
+    "call": "release",
+    "args": {},
+    "result": "started task 5 (release); the arm is moving"
+   },
+   {
+    "t": 14.3,
+    "call": "wait",
+    "args": {
+     "task_id": "5",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"release finished: released\"}"
+   }
+  ]
+ },
+ {
+  "variant": "blocking",
+  "seed": 2,
+  "push": true,
+  "success": false,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": false,
+   "can_contacts_bin": false,
+   "released": true
+  },
+  "seconds": 17.1,
+  "model_seconds": 0.0,
+  "decisions": 6,
+  "actions": 5,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": 2.4499999999999993,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "Aligned to top of can with small clearance. can is located at [0.425, -0.258, 0.046] and measures approximately 0.05 x 0.05 x 0.08 m (W x D x H)."
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "Closed gripper \u2014 object grasped."
+   },
+   {
+    "t": 8.0,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.422,
+      -0.259,
+      0.22299999999999998
+     ]
+    },
+    "result": "Moved gripper to [0.422, -0.259, 0.223]."
+   },
+   {
+    "t": 9.5,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "Aligned to top of box with medium clearance. box is located at [0.573, 0.103, 0.043] and measures approximately 0.15 x 0.14 x 0.07 m (W x D x H)."
+   },
+   {
+    "t": 11.2,
+    "call": "release",
+    "args": {},
+    "result": "Opened gripper fully."
+   }
+  ]
+ },
+ {
+  "variant": "roborun",
+  "seed": 2,
+  "push": true,
+  "success": true,
+  "checks": {
+   "bin_supported": true,
+   "bin_upright": true,
+   "can_inside": true,
+   "can_contacts_bin": true,
+   "released": true
+  },
+  "seconds": 24.3,
+  "model_seconds": 0.1,
+  "decisions": 16,
+  "actions": 7,
+  "end_reason": "model_terminal",
+  "closed_on_nothing": 0,
+  "pushed_at": 2.4499999999999993,
+  "task_state": "succeeded",
+  "error": null,
+  "log": [
+   {
+    "t": 0.0,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 1 (align); the arm is moving"
+   },
+   {
+    "t": 0.1,
+    "call": "wait",
+    "args": {
+     "task_id": "1",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.425, -0.258, 0.046], \\\"extents\\\": [0.047, 0.049, 0.078]}\"}"
+   },
+   {
+    "t": 2.4,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 2 (grasp); the arm is moving"
+   },
+   {
+    "t": 2.5,
+    "call": "wait",
+    "args": {
+     "task_id": "2",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"can moved\", \"task\": \"grasp running\"}"
+   },
+   {
+    "t": 2.5,
+    "call": "cancel",
+    "args": {
+     "task_id": "2"
+    },
+    "result": "grasp stopped: cancelled; the arm is at rest"
+   },
+   {
+    "t": 2.6,
+    "call": "align",
+    "args": {
+     "target_name": "can",
+     "position": "top",
+     "clearance": "small"
+    },
+    "result": "started task 3 (align); the arm is moving"
+   },
+   {
+    "t": 2.7,
+    "call": "wait",
+    "args": {
+     "task_id": "3",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.485, -0.257, 0.048], \\\"extents\\\": [0.046, 0.049, 0.08]}\"}"
+   },
+   {
+    "t": 3.8,
+    "call": "grasp",
+    "args": {
+     "target_name": "can"
+    },
+    "result": "started task 4 (grasp); the arm is moving"
+   },
+   {
+    "t": 3.9,
+    "call": "wait",
+    "args": {
+     "task_id": "4",
+     "seconds": 30,
+     "wake_on": [
+      "can"
+     ]
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"grasp finished: grasped\"}"
+   },
+   {
+    "t": 12.3,
+    "call": "move",
+    "args": {
+     "target_position": [
+      0.475,
+      -0.256,
+      0.22099999999999997
+     ]
+    },
+    "result": "started task 5 (move); the arm is moving"
+   },
+   {
+    "t": 12.4,
+    "call": "wait",
+    "args": {
+     "task_id": "5",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"move finished: success\"}"
+   },
+   {
+    "t": 13.8,
+    "call": "align",
+    "args": {
+     "target_name": "box",
+     "position": "top",
+     "clearance": "medium"
+    },
+    "result": "started task 6 (align); the arm is moving"
+   },
+   {
+    "t": 13.9,
+    "call": "wait",
+    "args": {
+     "task_id": "6",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"align finished: {\\\"center\\\": [0.571, 0.103, 0.044], \\\"extents\\\": [0.145, 0.15, 0.069]}\"}"
+   },
+   {
+    "t": 15.4,
+    "call": "release",
+    "args": {},
+    "result": "started task 7 (release); the arm is moving"
+   },
+   {
+    "t": 15.5,
+    "call": "wait",
+    "args": {
+     "task_id": "7",
+     "seconds": 30,
+     "wake_on": []
+    },
+    "result": "{\"woke\": \"task ended\", \"task\": \"release finished: released\"}"
+   }
+  ]
+ }
+]

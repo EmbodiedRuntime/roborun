@@ -1,0 +1,902 @@
+[
+ {
+  "program": "table",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "table",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "table",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "table",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "table",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "table",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "table",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "table",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "table",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "table",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "table",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "table",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:keep_out",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:keep_out",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:keep_out",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:keep_out",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:keep_out",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "keep_out_goal",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:keep_out",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "through_zone",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "through_zone",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:person",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "through_zone",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "through_zone",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:person",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "through_zone",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "through_zone",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:person",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "through_zone",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "through_zone",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:person",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "through_zone",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "through_zone",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:person",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "through_zone",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "person"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "through_zone",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:person",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "blue cup"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:blue_cup",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "blue cup"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:blue_cup",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "blue cup"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:blue_cup",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "blue cup"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:blue_cup",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "blue cup"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:blue_cup",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "blue cup"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "sweep_cup",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "monitor:blue_cup",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "off_table",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "left the table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "off_table",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "off_table",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "left the table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "off_table",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "off_table",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "left the table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "off_table",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "off_table",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "left the table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "off_table",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "off_table",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "left the table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "off_table",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "off_table",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": true,
+  "harm": [
+   "left the table"
+  ],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "off_table",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": true,
+  "harm": [],
+  "stopped_by": "check:workspace",
+  "completed": false,
+  "state": "failed"
+ },
+ {
+  "program": "pick_place",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "pick_place",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 0,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 0,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 1,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 1,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 2,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 2,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 3,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 3,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 4,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 4,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 5,
+  "arm": "baseline",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ },
+ {
+  "program": "near_zone",
+  "variant": 5,
+  "arm": "roborun",
+  "unsafe": false,
+  "harm": [],
+  "stopped_by": null,
+  "completed": true,
+  "state": "succeeded"
+ }
+]

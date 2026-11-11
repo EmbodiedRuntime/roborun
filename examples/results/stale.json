@@ -1,0 +1,1456 @@
+[
+ {
+  "scenario": "occluded",
+  "variant": 0,
+  "arm": "baseline",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 1,
+   "noticed_stale": false,
+   "time": 11.73,
+   "occluded_at": 0.4,
+   "pushed_to": [
+    0.57,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 0,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": false,
+   "time": 11.29,
+   "occluded_at": 0.4,
+   "pushed_to": [
+    0.57,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 0,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 1,
+   "noticed_stale": false,
+   "time": 11.73,
+   "occluded_at": 0.4,
+   "pushed_to": [
+    0.57,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 1,
+  "arm": "baseline",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 1,
+   "noticed_stale": false,
+   "time": 11.28,
+   "occluded_at": 0.6000000000000001,
+   "pushed_to": [
+    0.48,
+    -0.03
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 1,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": false,
+   "time": 10.81,
+   "occluded_at": 0.6000000000000001,
+   "pushed_to": [
+    0.48,
+    -0.03
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 1,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 1,
+   "noticed_stale": false,
+   "time": 11.28,
+   "occluded_at": 0.6000000000000001,
+   "pushed_to": [
+    0.48,
+    -0.03
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 2,
+  "arm": "baseline",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 2,
+   "noticed_stale": false,
+   "time": 12.03,
+   "occluded_at": 0.8,
+   "pushed_to": [
+    0.39,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 2,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": false,
+   "time": 11.39,
+   "occluded_at": 0.8,
+   "pushed_to": [
+    0.39,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 2,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 2,
+   "noticed_stale": false,
+   "time": 12.03,
+   "occluded_at": 0.8,
+   "pushed_to": [
+    0.39,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 3,
+  "arm": "baseline",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 2,
+   "noticed_stale": false,
+   "time": 12.42,
+   "occluded_at": 1.0,
+   "pushed_to": [
+    0.48,
+    -0.21
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 3,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": false,
+   "time": 11.87,
+   "occluded_at": 1.0,
+   "pushed_to": [
+    0.48,
+    -0.21
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 3,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 2,
+   "noticed_stale": false,
+   "time": 12.42,
+   "occluded_at": 1.0,
+   "pushed_to": [
+    0.48,
+    -0.21
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 4,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "occluded_at": 1.2000000000000002,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.056999999999999995
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 4,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": false,
+   "time": 11.41,
+   "occluded_at": 1.2000000000000002,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.056999999999999995
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 4,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "occluded_at": 1.2000000000000002,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.056999999999999995
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 5,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "occluded_at": 1.4,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.183
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 5,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": false,
+   "time": 12.1,
+   "occluded_at": 1.4,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.183
+   ]
+  }
+ },
+ {
+  "scenario": "occluded",
+  "variant": 5,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "occluded_at": 1.4,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.183
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 0,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.83,
+   "died_at": 0.4,
+   "pushed_to": [
+    0.57,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 0,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": true,
+   "time": 12.09,
+   "died_at": 0.4,
+   "pushed_to": [
+    0.57,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 0,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.83,
+   "died_at": 0.4,
+   "pushed_to": [
+    0.57,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 1,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 0.6000000000000001,
+   "pushed_to": [
+    0.48,
+    -0.03
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 1,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": true,
+   "time": 11.58,
+   "died_at": 0.6000000000000001,
+   "pushed_to": [
+    0.48,
+    -0.03
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 1,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 0.6000000000000001,
+   "pushed_to": [
+    0.48,
+    -0.03
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 2,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.83,
+   "died_at": 0.8,
+   "pushed_to": [
+    0.39,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 2,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": true,
+   "time": 12.19,
+   "died_at": 0.8,
+   "pushed_to": [
+    0.39,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 2,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.83,
+   "died_at": 0.8,
+   "pushed_to": [
+    0.39,
+    -0.12
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 3,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 1.0,
+   "pushed_to": [
+    0.48,
+    -0.21
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 3,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": true,
+   "time": 12.67,
+   "died_at": 1.0,
+   "pushed_to": [
+    0.48,
+    -0.21
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 3,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 1.0,
+   "pushed_to": [
+    0.48,
+    -0.21
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 4,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 1.2000000000000002,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.056999999999999995
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 4,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": true,
+   "time": 12.21,
+   "died_at": 1.2000000000000002,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.056999999999999995
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 4,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 1.2000000000000002,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.056999999999999995
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 5,
+  "arm": "baseline",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 1.4,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.183
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 5,
+  "arm": "roborun",
+  "metrics": {
+   "placed": true,
+   "outcome": "placed",
+   "closes_on_nothing": 0,
+   "noticed_stale": true,
+   "time": 12.89,
+   "died_at": 1.4,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.183
+   ]
+  }
+ },
+ {
+  "scenario": "tracker_died",
+  "variant": 5,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "placed": false,
+   "outcome": "GraspMissed",
+   "closes_on_nothing": 3,
+   "noticed_stale": false,
+   "time": 3.85,
+   "died_at": 1.4,
+   "pushed_to": [
+    0.5429999999999999,
+    -0.183
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 0,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.0,
+   "harm": true,
+   "harm_time": 0.75,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 0,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.86,
+   "moves": 4,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 0,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.0,
+   "harm": true,
+   "harm_time": 0.75,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 0.12,
+   "moves": 5,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 1,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 1,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.86,
+   "moves": 4,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 1,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 2,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.5,
+   "harm": true,
+   "harm_time": 1.14,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 2,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.82,
+   "moves": 5,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 2,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.5,
+   "harm": true,
+   "harm_time": 1.14,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 0.1,
+   "moves": 5,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 3,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 3,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.82,
+   "moves": 5,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 3,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 4,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 3.0,
+   "harm": true,
+   "harm_time": 0.64,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 4,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 3.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.94,
+   "moves": 5,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 4,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 3.0,
+   "harm": true,
+   "harm_time": 0.64,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 5,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 3.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 5,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 3.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.82,
+   "moves": 5,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 5,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 3.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 0,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 0,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 0.88,
+   "moves": 1,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 0,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 1,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 1,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 0.88,
+   "moves": 1,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 1,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 2,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 2,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 0.88,
+   "moves": 1,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 2,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 3,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 3,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 2.48,
+   "moves": 1,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 3,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 4,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 4,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 2.48,
+   "moves": 1,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 4,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 5,
+  "arm": "baseline",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 5,
+  "arm": "roborun",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 2.48,
+   "moves": 1,
+   "stopped_for": [
+    "stale data"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 5,
+  "arm": "roborun-no-world",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 0,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 2,
+   "locked_time": 2.98,
+   "moves": 4,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 1,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.96,
+   "moves": 3,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 2,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 2.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 2,
+   "locked_time": 2.94,
+   "moves": 5,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 3,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 2.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.92,
+   "moves": 4,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 4,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": true,
+   "t_move": 3.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 2,
+   "locked_time": 3.08,
+   "moves": 4,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_dropout",
+  "variant": 5,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "t_move": 3.0,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 1,
+   "locked_time": 2.94,
+   "moves": 5,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 0,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 10,
+   "locked_time": 1.92,
+   "moves": 1,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 1,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 0.6,
+   "moves": 1,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 2,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.3,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": false,
+   "stops": 0,
+   "locked_time": 0.0,
+   "moves": 6,
+   "stopped_for": []
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 3,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.3,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 10,
+   "locked_time": 3.92,
+   "moves": 1,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 4,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.5,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 2.2,
+   "moves": 1,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ },
+ {
+  "scenario": "sensor_glitch",
+  "variant": 5,
+  "arm": "roborun-growing",
+  "metrics": {
+   "hand_moves": false,
+   "distance": 0.8,
+   "gap": 0.5,
+   "harm": false,
+   "harm_time": 0.0,
+   "stopped": true,
+   "stops": 8,
+   "locked_time": 0.78,
+   "moves": 1,
+   "stopped_for": [
+    "too close"
+   ]
+  }
+ }
+]

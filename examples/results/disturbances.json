@@ -1,0 +1,1986 @@
+[
+ {
+  "scenario": "repeated_push",
+  "variant": 0,
+  "program": "blocking",
+  "success": false,
+  "completion": 4.58,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 0,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 17.04,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 0,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 17.04,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 0,
+  "program": "task_based",
+  "success": true,
+  "completion": 13.31,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 1,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.33,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 1,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 17.31,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 1,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 17.31,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 1,
+  "program": "task_based",
+  "success": true,
+  "completion": 8.64,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 2,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 2,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 16.36,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 2,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.36,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 2,
+  "program": "task_based",
+  "success": true,
+  "completion": 9.09,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 3,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 3,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 16.36,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 3,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.36,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 3,
+  "program": "task_based",
+  "success": true,
+  "completion": 14.92,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 4,
+  "program": "blocking",
+  "success": false,
+  "completion": 4.23,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 4,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 16.32,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 4,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.32,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 4,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.89,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 0.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 5,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.33,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 5,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 16.87,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 5,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.87,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 5,
+  "program": "task_based",
+  "success": true,
+  "completion": 13.36,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 1.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 6,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 6,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.9,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 6,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.9,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 6,
+  "program": "task_based",
+  "success": true,
+  "completion": 9.63,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 1.5,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 7,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 7,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.9,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 7,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.9,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "repeated_push",
+  "variant": 7,
+  "program": "task_based",
+  "success": true,
+  "completion": 14.47,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "first_push": 2.0,
+   "pushes": 3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 0,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 0,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 12.16,
+  "outcome": "false success",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 0,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 21.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 0,
+  "program": "task_based",
+  "success": true,
+  "completion": 10.51,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 1,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 1,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.24,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 1,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.24,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 1,
+  "program": "task_based",
+  "success": true,
+  "completion": 10.72,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 2,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 2,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 13.57,
+  "outcome": "false success",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 2,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 23.94,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 2,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.16,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.02,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 3,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 3,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 16.41,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 3,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.41,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 3,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.06,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.04,
+   "start": 0.3
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 4,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 4,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.17,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 4,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.17,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 4,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.2,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 5,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 5,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.26,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 5,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.26,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 5,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.2,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 6,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 6,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.75,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 6,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.75,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 6,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.85,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.02,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 7,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 7,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 16.43,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 7,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.43,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "moving",
+  "variant": 7,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.76,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "speed": 0.04,
+   "start": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 0,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 0,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 12.19,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 0,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 12.19,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 0,
+  "program": "task_based",
+  "success": true,
+  "completion": 10.29,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 1,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 1,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 12.2,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 1,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 12.2,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 1,
+  "program": "task_based",
+  "success": true,
+  "completion": 10.52,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 2,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 2,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 14.7,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 2,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 14.7,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 2,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.29,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 3,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 3,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 14.7,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 3,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 14.7,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 3,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.12,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 4,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 4,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 12.92,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 4,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 12.92,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 4,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.16,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 0.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 5,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 5,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 12.92,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 5,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 12.92,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 5,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.3,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 1.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 6,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 6,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.42,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 6,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.42,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 6,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.0,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 1.5
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 7,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 7,
+  "program": "blocking_retry",
+  "success": true,
+  "completion": 15.42,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 7,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.42,
+  "outcome": "placed",
+  "closes_on_nothing": 2,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "occluded_push",
+  "variant": 7,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.81,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "occluded_at": 2.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 0,
+  "program": "blocking",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 1,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 0,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 1,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 0,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 18.17,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 0,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.68,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 1,
+  "program": "blocking",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 1,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 1,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 18.17,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 1,
+  "program": "task_based",
+  "success": true,
+  "completion": 11.68,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 2,
+  "program": "blocking",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 2,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 2,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.84,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 2,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.5,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 3,
+  "program": "blocking",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 3,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 3,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 15.84,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 3,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.54,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 4,
+  "program": "blocking",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 1,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 4,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 1,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 4,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 19.21,
+  "outcome": "placed",
+  "closes_on_nothing": 1,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 4,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.19,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.3
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 5,
+  "program": "blocking",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 5,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.96,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 5,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 19.21,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 5,
+  "program": "task_based",
+  "success": true,
+  "completion": 12.19,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 6,
+  "program": "blocking",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 6,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 6,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 17.86,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 6,
+  "program": "task_based",
+  "success": true,
+  "completion": 13.53,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 7,
+  "program": "blocking",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 7,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 9.2,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 7,
+  "program": "verify_retry",
+  "success": true,
+  "completion": 16.88,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "slip",
+  "variant": 7,
+  "program": "task_based",
+  "success": true,
+  "completion": 13.57,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 0,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 0,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 0,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 0,
+  "program": "task_based",
+  "success": false,
+  "completion": 3.8,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 1,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 1,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 1,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 1,
+  "program": "task_based",
+  "success": false,
+  "completion": 4.3,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 2,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 2,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 2,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 2,
+  "program": "task_based",
+  "success": false,
+  "completion": 4.8,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 3,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 3,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 3,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 3,
+  "program": "task_based",
+  "success": false,
+  "completion": 5.31,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 4,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 4,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 4,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 4,
+  "program": "task_based",
+  "success": false,
+  "completion": 3.8,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 0.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 5,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 5,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 5,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 5,
+  "program": "task_based",
+  "success": false,
+  "completion": 4.3,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 1.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 6,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 6,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 6,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 6,
+  "program": "task_based",
+  "success": false,
+  "completion": 4.8,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 1.5
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 7,
+  "program": "blocking",
+  "success": false,
+  "completion": 3.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 1,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 7,
+  "program": "blocking_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "GraspMissed",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 7,
+  "program": "verify_retry",
+  "success": false,
+  "completion": 8.31,
+  "outcome": "NotInTray",
+  "closes_on_nothing": 3,
+  "params": {
+   "removed_at": 2.0
+  }
+ },
+ {
+  "scenario": "removed",
+  "variant": 7,
+  "program": "task_based",
+  "success": false,
+  "completion": 5.31,
+  "outcome": "StaleData",
+  "closes_on_nothing": 0,
+  "params": {
+   "removed_at": 2.0
+  }
+ }
+]
