@@ -49,7 +49,7 @@ pick-and-place is written two ways, and midway through the approach someone push
 task that keeps reading the tracked cup, so it follows the push.
 
 ```sh
-pip install "roborun[mujoco] @ git+https://github.com/EmbodiedRuntime/roborun"
+pip install "roborun[mujoco]"        # or the latest: pip install "roborun[mujoco] @ git+https://github.com/EmbodiedRuntime/roborun"
 roborun demo cup-nudge               # watch it; fetches the robot model once
 roborun demo cup-nudge --benchmark   # 24 pushes (4 directions × 6 moments), about 30 s
 ```

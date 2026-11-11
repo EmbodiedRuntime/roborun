@@ -1,15 +1,29 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-fancy-pypi-readme>=24"]
 build-backend = "hatchling.build"
 
 [project]
 name = "roborun"
 version = "0.1.0"
-description = "A runtime for agentic robots: interruptible tasks, fresh state, and a safety gate between model and motors."
-readme = "README.md"
+description = "A small runtime between models and robots, so that whatever a model starts can be stopped, checked, and explained."
+dynamic = ["readme"]
 license = "Apache-2.0"
 requires-python = ">=3.10"
 authors = [{ name = "Shaoxiong Yao" }]
+keywords = ["robotics", "agents", "runtime", "llm", "safety", "mujoco"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Framework :: AsyncIO",
+]
 dependencies = ["msgpack>=1.0"]
 
 [project.optional-dependencies]
@@ -20,8 +34,35 @@ mujoco = ["mujoco>=3.2", "numpy>=1.26", "pillow>=10"]
 roborun = "roborun.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/embodiedruntime/roborun"
-Blog = "https://embodiedruntime.github.io/blog/"
+Homepage = "https://github.com/EmbodiedRuntime/roborun"
+Repository = "https://github.com/EmbodiedRuntime/roborun"
+Issues = "https://github.com/EmbodiedRuntime/roborun/issues"
+Specification = "https://github.com/EmbodiedRuntime/roborun/blob/main/SPEC.md"
+Blog = "https://embodiedruntime.github.io/blog/posts/roborun/"
+
+# PyPI shows the README without the repository around it: point its relative images and links
+# at GitHub (images at the raw files, links at their pages, in-page links at the GitHub README).
+[tool.hatch.metadata.hooks.fancy-pypi-readme]
+content-type = "text/markdown"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "README.md"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '!\[([^\]]*)\]\((?!https?://)([^)]+)\)'
+replacement = '![\1](https://raw.githubusercontent.com/EmbodiedRuntime/roborun/main/\2)'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = 'src="(?!https?://)([^"]+)"'
+replacement = 'src="https://raw.githubusercontent.com/EmbodiedRuntime/roborun/main/\1"'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '\]\((?!https?://|#)([^)]+)\)'
+replacement = '](https://github.com/EmbodiedRuntime/roborun/blob/main/\1)'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '\]\(#([^)]+)\)'
+replacement = '](https://github.com/EmbodiedRuntime/roborun#\1)'
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/roborun"]
