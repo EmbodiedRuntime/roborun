@@ -5,7 +5,7 @@
 import sys
 from pathlib import Path
 
-W, PAD, LABEL = 900, 14, 196
+W, PAD, LABEL = 900, 14, 172  # label column: its widest note fits with room for wider system fonts
 X0 = LABEL + PAD  # chips start here
 ROWS = [
     ("Policies", "may be slow or wrong", "drive",
@@ -39,7 +39,7 @@ text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 .chip{fill:#ffffff;stroke:#d1d9e0}.chipcore{fill:#ffffff;stroke:#2848d8;stroke-width:1.5}
 .planned{fill:none;stroke:#8c959f;stroke-dasharray:4 3}
 .lab{font-size:13px;font-weight:700;fill:#59636e}.labcore{font-size:17px;font-weight:800;fill:#2848d8}
-.c{font-size:14px;font-weight:600}.note{font-size:12px;font-style:italic;fill:#59636e}.cc{font-size:15px;font-weight:700}.cs{font-size:12px;fill:#59636e}
+.c{font-size:14px;font-weight:600}.note{font-size:12px;font-style:italic;fill:#59636e}.cc{font-size:15px;font-weight:700}.cs{font-size:11px;fill:#59636e}
 .dim{fill:#8c959f}
 @media (prefers-color-scheme: dark){text{fill:#e6edf3}.band{fill:#151b23;stroke:#3d444d}
 .bandcore{fill:#18224f;stroke:#7b8fff}.chip{fill:#0d1117;stroke:#3d444d}.chipcore{fill:#0d1117;stroke:#7b8fff}
