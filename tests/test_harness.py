@@ -11,6 +11,10 @@ from roborun.harness import Client, HarnessError, Host
 
 CUP, NUDGED = (0.5, 0.0), (0.5, 0.15)
 
+# Clients here connect with heartbeat=None. The simulation runs on simulated time, but the
+# session watchdog is wall time (0.5 s); on a busy machine a late heartbeat would end a session
+# mid-test. The watchdog has its own test (test_bench_crash.py), with a real, frozen process.
+
 
 def sock() -> str:
     return str(Path(tempfile.mkdtemp(prefix="roborun-test-")) / "host.sock")
@@ -35,7 +39,7 @@ def nudged():
 
 def test_start_returns_at_once_and_wait_returns_the_result():
     async def scenario(path, host):
-        c = await Client.connect(path, session="agent")
+        c = await Client.connect(path, session="agent", heartbeat=None)
         assert {t["name"] for t in c.tools} >= {"move_to", "grasp", "track"}
         s = await c.start("move_to", target=[0.2, 0.0])
         assert s["state"] in ("pending", "running") and s["session"] == c.session
@@ -52,7 +56,7 @@ def test_one_step_at_a_time_a_model_notices_the_cup_move_and_redirects_the_grasp
     """SPEC Appendix B, the harness form: no code, only calls."""
 
     async def scenario(path, host):
-        c = await Client.connect(path, session="agent")
+        c = await Client.connect(path, session="agent", heartbeat=None)
         await c.start("track", name="cup")
         await c.wait((await c.start("move_to", target=[0.0, 0.0]))["id"], timeout=1)
         cup = (await c.world("cup"))["cup"]["value"]
@@ -71,7 +75,7 @@ def test_one_step_at_a_time_a_model_notices_the_cup_move_and_redirects_the_grasp
 
 def test_wait_times_out_and_cancel_is_a_request():
     async def scenario(path, host):
-        c = await Client.connect(path)
+        c = await Client.connect(path, heartbeat=None)
         s = await c.start("move_to", target=[1.0, 0.0])
         timed_out = await c.wait(s["id"], timeout=0.2)
         cancelling = await c.cancel(s["id"])
@@ -86,11 +90,11 @@ def test_wait_times_out_and_cancel_is_a_request():
 
 def test_closing_a_session_stops_what_it_started():
     async def scenario(path, host):
-        a = await Client.connect(path, session="a")
+        a = await Client.connect(path, session="a", heartbeat=None)
         s = await a.start("move_to", target=[1.0, 0.0])
         await a.wait(s["id"], timeout=0.2)
         await a.close()
-        b = await Client.connect(path, session="b")
+        b = await Client.connect(path, session="b", heartbeat=None)
         done = await b.wait(s["id"], timeout=5)
         await asyncio.sleep(0.05)
         moving = (await b.world("arm.moving"))["arm.moving"]["value"]
@@ -104,8 +108,8 @@ def test_closing_a_session_stops_what_it_started():
 
 def test_sessions_share_the_world_but_not_control():
     async def scenario(path, host):
-        a = await Client.connect(path, session="a")
-        b = await Client.connect(path, session="b")
+        a = await Client.connect(path, session="a", heartbeat=None)
+        b = await Client.connect(path, session="b", heartbeat=None)
         tracker = await a.call("start", tool="track", args={"name": "cup"}, detached=True)
         await a.wait((await a.start("move_to", target=[0.0, 0.0]))["id"], timeout=1)
         seen_by_b = (await b.world("cup"))["cup"]
@@ -133,7 +137,7 @@ async def main():
 
 def test_a_generated_program_runs_as_a_task_and_its_failure_is_explained():
     async def scenario(path, host):
-        c = await Client.connect(path, session="agent")
+        c = await Client.connect(path, session="agent", heartbeat=None)
         p = await c.program(GENERATED, generated_by="model-call-7")
         done = await c.wait(p["id"], timeout=20)
         explained = await c.trace(p["id"])
@@ -152,7 +156,7 @@ def test_a_generated_program_runs_as_a_task_and_its_failure_is_explained():
 
 def test_bad_calls_say_what_to_do():
     async def scenario(path, host):
-        c = await Client.connect(path)
+        c = await Client.connect(path, heartbeat=None)
         errors = []
         for call in (c.start("fly", target=[0, 0]), c.program("def main(): pass"),
                      c.program("async def main(:"), c.status("t999")):
@@ -173,7 +177,7 @@ def test_bad_calls_say_what_to_do():
 
 def test_operator_stop_and_reset_through_the_harness():
     async def scenario(path, host):
-        c = await Client.connect(path)
+        c = await Client.connect(path, heartbeat=None)
         s = await c.start("move_to", target=[1.0, 0.0])
         await c.wait(s["id"], timeout=0.2)
         await c.operator_stop(["arm"])

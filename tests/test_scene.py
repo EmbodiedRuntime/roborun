@@ -88,7 +88,7 @@ def test_an_agent_pushes_the_cup_through_the_runtime_and_the_grasp_follows():
         host = await Host.remote(gate, tools=["roborun.backends.mujoco"], pace=None)
         await host.start(sock)
         try:
-            c = await Client.connect(sock, session="agent")
+            c = await Client.connect(sock, session="agent", heartbeat=None)
             await c.start("track", name="cup_red")
             await c.start("track", name="tray")
             g = await c.start("grasp", target="cup_red")
