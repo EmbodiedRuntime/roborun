@@ -57,6 +57,10 @@ pattern = 'src="(?!https?://)([^"]+)"'
 replacement = 'src="https://raw.githubusercontent.com/EmbodiedRuntime/roborun/main/\1"'
 
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = 'srcset="(?!https?://)([^"]+)"'
+replacement = 'srcset="https://raw.githubusercontent.com/EmbodiedRuntime/roborun/main/\1"'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 pattern = '\]\((?!https?://|#)([^)]+)\)'
 replacement = '](https://github.com/EmbodiedRuntime/roborun/blob/main/\1)'
 

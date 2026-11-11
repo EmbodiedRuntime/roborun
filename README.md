@@ -1,4 +1,9 @@
-# roborun
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/media/roborun-dark.svg">
+    <img src="docs/media/roborun-light.svg" alt="roborun" height="64">
+  </picture>
+</h1>
 
 **A small runtime between models and robots, so that whatever a model starts can be stopped, checked, and explained.** Policies, from a single tool call to generated code to end-to-end models, may be slow or wrong; a robot moves continuously and cannot undo what it did. roborun sits between them:
 

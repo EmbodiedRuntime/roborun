@@ -35,15 +35,15 @@ a(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" he
   'records what ran, on which data.">')
 a("""<style>
 text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;fill:#1f2328}
-.band{fill:#f6f8fa;stroke:#d1d9e0}.bandcore{fill:#ddf4ff;stroke:#0969da;stroke-width:1.5}
-.chip{fill:#ffffff;stroke:#d1d9e0}.chipcore{fill:#ffffff;stroke:#0969da;stroke-width:1.5}
+.band{fill:#f6f8fa;stroke:#d1d9e0}.bandcore{fill:#e8edff;stroke:#2848d8;stroke-width:1.5}
+.chip{fill:#ffffff;stroke:#d1d9e0}.chipcore{fill:#ffffff;stroke:#2848d8;stroke-width:1.5}
 .planned{fill:none;stroke:#8c959f;stroke-dasharray:4 3}
-.lab{font-size:13px;font-weight:700;fill:#59636e}.labcore{font-size:17px;font-weight:800;fill:#0969da}
+.lab{font-size:13px;font-weight:700;fill:#59636e}.labcore{font-size:17px;font-weight:800;fill:#2848d8}
 .c{font-size:14px;font-weight:600}.note{font-size:12px;font-style:italic;fill:#59636e}.cc{font-size:15px;font-weight:700}.cs{font-size:12px;fill:#59636e}
 .dim{fill:#8c959f}
 @media (prefers-color-scheme: dark){text{fill:#e6edf3}.band{fill:#151b23;stroke:#3d444d}
-.bandcore{fill:#0c2d6b;stroke:#4493f8}.chip{fill:#0d1117;stroke:#3d444d}.chipcore{fill:#0d1117;stroke:#4493f8}
-.planned{stroke:#6e7681}.lab,.cs,.note{fill:#9198a1}.labcore{fill:#4493f8}.dim{fill:#6e7681}}
+.bandcore{fill:#18224f;stroke:#7b8fff}.chip{fill:#0d1117;stroke:#3d444d}.chipcore{fill:#0d1117;stroke:#7b8fff}
+.planned{stroke:#6e7681}.lab,.cs,.note{fill:#9198a1}.labcore{fill:#7b8fff}.dim{fill:#6e7681}}
 </style>""")
 for title, note, kind, chips, y, h in body:
     core = kind == "core"

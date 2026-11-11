@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="900" height="440" role="img" aria-label="Failures by the part of roborun that prevents them, with no runtime, with roborun, and with one part switched off. Every failure happens with no runtime and none with roborun; switching off one part brings back exactly the failures that part prevents.">
 <style>
 text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;fill:#1f2328}
-.bg{fill:#ffffff}.h{font-size:13px;font-weight:700;fill:#59636e}.hc{font-size:14px;font-weight:800;fill:#0969da}
-.g{font-size:14px;font-weight:800;fill:#0969da}.l{font-size:13px}.v{font-size:12.5px;font-variant-numeric:tabular-nums}
+.bg{fill:#ffffff}.h{font-size:13px;font-weight:700;fill:#59636e}.hc{font-size:14px;font-weight:800;fill:#2848d8}
+.g{font-size:14px;font-weight:800;fill:#2848d8}.l{font-size:13px}.v{font-size:12.5px;font-variant-numeric:tabular-nums}
 .ok{fill:#0ca30c;fill-opacity:.13}.bad{fill:#d03b3b;fill-opacity:.17}
 .iok{fill:#0a8a0a;font-size:11px;font-weight:800}.ibad{fill:#c22f2f;font-size:11px;font-weight:800}
-.sep{stroke:#d1d9e0}.core{fill:none;stroke:#0969da;stroke-width:1.5}.foot{font-size:12px;fill:#59636e}
+.sep{stroke:#d1d9e0}.core{fill:none;stroke:#2848d8;stroke-width:1.5}.foot{font-size:12px;fill:#59636e}
 @media (prefers-color-scheme: dark){text{fill:#e6edf3}.bg{fill:#0d1117}.h,.foot{fill:#9198a1}
-.hc,.g{fill:#4493f8}.ok{fill-opacity:.22}.bad{fill-opacity:.28}.iok{fill:#3fb950}.ibad{fill:#ff7b72}
-.sep{stroke:#3d444d}.core{stroke:#4493f8}}
+.hc,.g{fill:#7b8fff}.ok{fill-opacity:.22}.bad{fill-opacity:.28}.iok{fill:#3fb950}.ibad{fill:#ff7b72}
+.sep{stroke:#3d444d}.core{stroke:#7b8fff}}
 </style>
 <rect class="bg" x="0" y="0" width="900" height="440" rx="10"/>
 <text class="h" x="120" y="40">what goes wrong</text>
