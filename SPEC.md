@@ -1,10 +1,10 @@
-# roborun semantics — draft v0.12
+# roborun semantics — draft v0.13
 
 This document specifies *what* the runtime guarantees, independently of the Python implementation.
 Another implementation (C++, Rust, on top of ROS 2) that follows it should be interchangeable.
 Background: [Understanding Agentic Robotics from a System Perspective](https://embodiedruntime.github.io/blog/).
 
-Status: draft. Sections marked **Open** are undecided. The appendix is non-normative.
+Status: draft. Sections marked **Open** are undecided. The appendix is non-normative. The discrete parts (§1.1–§1.2, §1.5, §3.3) have TLA+ models checked with TLC, in [`spec/`](spec/README.md).
 
 ## Design rationale
 
@@ -102,7 +102,7 @@ A task is any running computation: a program, a motion, a perception loop, a mod
 | `cancelling` | Cancellation requested; cleanup in progress. For a task holding actuators, the robot may still be moving | no |
 | `succeeded` | Finished its goal | yes |
 | `failed` | Ended without reaching its goal | yes |
-| `cancelled` | Stopped after a cancellation request. For a task holding actuators, the robot is confirmed stopped | yes |
+| `cancelled` | Stopped after a cancellation request. For a task holding actuators, the robot is confirmed stopped: the Gate stops them and the backend reports them at rest (§3.3), whatever the task's own cleanup does | yes |
 
 ### 1.2 Transitions
 
@@ -355,15 +355,19 @@ Every command carries the capability token of the task that issued it (§3.3).
 - Each actuator has at most one owning task at a time.
 - When the Gate grants ownership, it issues the task a **capability token**. Every command must carry a valid token for the actuators it touches; children use their ancestor's token.
 - When a task is cancelled, preempted, or rejected, the Gate **revokes** its token. Commands with a revoked token are rejected, so a cancelled task cannot move the robot even if its code keeps running.
-- **Arbitration** has no priorities. When a task requests actuators another task owns, it does what it chose at `start` (`on_busy`):
-  - `wait`: requests are served **first come, first served**. A later request never overtakes an earlier one that overlaps it, so no request starves. With `wait_timeout`, the requester fails with `ResourceBusy` when it expires.
-  - `fail`: fail at once with `ResourceBusy`.
+- **A cancelled child has no authority.** A child that uses its ancestor's token (§1.6) has none of its own to revoke. Once it is cancelled, the Gate rejects its commands although that token is still valid, stops the motion it commanded, and lets it become terminal only when that motion is at rest. Its parent keeps the actuators and may go on using them. (With the Gate in another process, the runtime enforces this for its own tasks; it holds against bugs, not against adversarial code in the same process, §3.6.)
+- **Revoking stops.** The Gate sends `stop` to the actuators of a revoked token itself, since their owner can no longer command them and its cleanup cannot be relied on. The task becomes terminal, and its actuators pass to the next owner, only once the backend reports them at rest (§1.1). If they do not come to rest within a bound, the task ends `failed` (§1.2).
+- **Arbitration** has no priority values. When a task requests actuators that are not free, it does what it chose at `start` (`on_busy`):
+  - `wait`: requests are served **first come, first served**. A later `wait` request never overtakes an earlier request that overlaps it, so among `wait` requests none starves. With `wait_timeout`, the requester fails with `ResourceBusy` when it expires.
+  - `fail`: fail at once with `ResourceBusy`, when an actuator is owned and also when it is free but an earlier request waits for it. A `fail` request never waits.
   - `take`: the owner is cancelled with reason `preempted` and enters `cancelling`. Ownership transfers only after the owner reaches a terminal state, and then goes **directly to the taker**: no other task can acquire the actuators in between.
-- **Authority to take.** `take` is allowed only if the requester has authority over the owner. The rule is structural, not numeric:
+- **One take at a time.** Two waiting takes cannot both receive ownership directly, so a `take` also withdraws every `take` already waiting for one of its actuators and cancels its task with reason `preempted`. A task that was still `pending` ends at once; one waiting inside `hold` is running and passes through `cancelling`. At most one `take` therefore waits for an actuator.
+- **Take comes before wait.** This is the one precedence in arbitration, and it has a cost: tasks that keep taking can keep a `wait` request waiting. It gives a session no power it lacks, since `hold` already lets it keep its actuators.
+- **Authority to take.** `take` is allowed only if the requester has authority over every owner and every waiting take it would cancel. The rule is structural, not numeric:
   - **within one session**, take is always allowed, so a program may redirect its own tasks;
-  - **across sessions**, take is allowed only if the runtime configuration names the requester's session a **supervisor** of the owner's session (e.g. a recovery program supervising agent sessions).
+  - **across sessions**, take is allowed only if the runtime configuration names the requester's session a **supervisor** of the other session (e.g. a recovery program supervising agent sessions).
 
-  Otherwise `take` fails with `ResourceBusy`. Code cannot raise its own authority, just as it cannot loosen checks (§3.7).
+  Otherwise `take` fails with `ResourceBusy`, and cancels nothing. A supervised session therefore cannot get ahead of its supervisor's take. A `take` also fails if it would cancel a take its own ancestor waits on, which would cancel the taker itself. Code cannot raise its own authority, just as it cannot loosen checks (§3.7).
 - Operator stops are outside arbitration (§3.5).
 - **A rejection cancels the task, not only the command.** Generated code rarely checks the result of every `send`, and steps after a rejected command would build on a false premise. The task's terminal state records the reason (`rejected`, `preempted`, `watchdog`) with a structured detail (§3.8), which `await task` raises as `TaskCancelled` (§1.3). A monitor that aborts a running motion cancels its owner with reason `rejected` and code `monitor:<name>`.
 - `hold(...)` (§1.6) requests ownership for a scope rather than for one task's lifetime; it is arbitrated in the same way.
@@ -583,6 +587,8 @@ The library gives names and helpers to common patterns. None of them adds semant
 | `cancel_and_wait()` | `cancel()` followed by `await stopped()`, named after Kotlin's `cancelAndJoin` |
 | Key-following skills | A skill may accept a World key instead of a value (`grasp(target="cup")`) and re-read it with `max_age` on every control cycle. This is a convention for writing skills, not a runtime feature: it needs a producer for that key. When the value is stale (occluded, producer gone), the skill does not act on it: it stops the arm and waits for fresh data, and fails with `StaleData` after a bounded wait |
 | Supervised skills | A skill that holds an object checks every cycle that it still holds it, and fails at once with a specific error (`Dropped`) instead of finishing a motion that no longer achieves anything. Contact flickers when the object touches a surface, so loss of contact alone is not a slip: the fingers must also have closed on nothing |
+| Expectations and monitoring | An expectation is a condition over stamped World values that one task must find true: `at_start(...)` before its body runs, `during(..., grace=s)` while it runs, `at_end(..., stable=s)` after it returned. A skill declares its own (`@action(expect=[...])`), and a caller adds more (`place("tray").expect(...)`); they can only be added. Each names its inputs with a `max_age`, as a check does (§3.4). A verdict is `holds`, `violated`, `inconsistent` (two sources contradict each other), or `unknown` (an input is missing or too old, or the condition raised): old data never counts as true. Violated or inconsistent, or unknown at the start: the task ends `failed` with `ExpectationFailed`, which carries the stamped values it rests on; at the start, before any command is sent; during the task, after `grace` seconds, by cancelling it, so the Gate stops its actuators (§3.3). Unknown during the task or at the end: the task succeeds with `verified: false`. All hold throughout: `verified: true`. A condition can also read the last command the task or its children had accepted for an actuator, to tell whether a command took effect (`not_stalled()`, which library skills that send goals carry by default; `after(actuator, kind, ...)`). Checking them is *monitoring*, not verification: it judges one run, afterwards, against measurements. It is also not the Gate: it runs in the runtime's process and says whether a task achieved what it claims, not whether a command is safe (§3.6) |
+| Relations between sources | `relation(name, fn, inputs=...)` is a provider that keeps comparing several sources and writes `{status: consistent / inconsistent / unknown, reason, sources}` to the World key `relation.<name>`, stamped with its oldest input (§2.2). A stale value is caught by its age; a sensor that keeps reporting wrongly is caught only by another source. A task that depends on those sources expects `consistent(name)`, and fails as `inconsistent` with both sides as evidence when they disagree |
 | `@tool` | Marks a function, usually a skill, as a tool. A host exports the tools of the modules it is given: to MCP with a JSON schema from the signature, and by name to generated code |
 | Program replacement | `replace(task, code)` on the harness interface and `replace_program` over MCP: a new version of a running program takes effect at its next step (§6) |
 | Program helper | Runs generated code that defines `async def main():` as a task. The source and the model call that generated it are recorded as provenance (§1.7). The task's trace summary goes back for the next model turn |

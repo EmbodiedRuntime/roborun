@@ -27,6 +27,7 @@ KINDS = frozenset({"goal", "setpoint", "effector", "stop"})
 ON_BUSY = frozenset({"wait", "fail", "take"})
 # Lock causes that only an explicit reset clears (SPEC §3.5).
 MANUAL = frozenset({"operator", "fault"})
+REST_POLL = 0.01  # how often the Gate asks the backend whether a stopped actuator is at rest
 
 
 @dataclass(eq=False)
@@ -43,6 +44,7 @@ class _Waiter:
     task: Any
     resources: frozenset[str]
     fut: asyncio.Future
+    take: bool = False
 
 
 @dataclass(frozen=True)
@@ -64,7 +66,7 @@ class _Watch:
 
 
 def may_take(requester: Any, owner: Any) -> bool:
-    """Authority to take actuators from ``owner`` (SPEC §3.3).
+    """Authority to take actuators from ``owner``, or ahead of its waiting take (SPEC §3.3).
 
     Within one session it is always allowed; across sessions only for a supervisor.
     """
@@ -77,6 +79,26 @@ def _is_self_or_ancestor(candidate: Any, task: Any) -> bool:
     node = task
     while node is not None:
         if node is candidate:
+            return True
+        node = node.parent
+    return False
+
+
+_ENDING = frozenset({"cancelling", "succeeded", "failed", "cancelled"})
+
+
+def ending(task: Any) -> bool:
+    """Whether ``task`` is being cancelled or has ended."""
+    return getattr(getattr(task, "state", None), "value", None) in _ENDING
+
+
+def cancelled_below(task: Any, owner: Any) -> bool:
+    """Whether ``task``, or a task between it and its ancestor ``owner``, is cancelled or
+    has ended. Such a task uses ``owner``'s token, which is still valid; it must not be
+    able to move the robot all the same (SPEC §3.3)."""
+    node = task
+    while node is not None and node is not owner:
+        if ending(node):
             return True
         node = node.parent
     return False
@@ -102,6 +124,9 @@ class LocalGate:
         self.events: list[SafetyEvent] = []
         self._watch: dict[str, _Watch] = {}
         self._gen = 0
+        self._stopped: dict[Any, set[str]] = {}  # task -> actuators stopped when revoked
+        self._last: dict[str, Any] = {}  # actuator -> the task whose command it carries out
+        self._settling: dict[Grant, asyncio.Future] = {}  # releases waiting for rest
         self._monitor_tasks: list[asyncio.Task] = []
         self.listeners: list[Callable[[SafetyEvent], None]] = []  # e.g. the trace
         # Checks and monitors in flight; the simulation drivers wait for them before stepping.
@@ -123,7 +148,7 @@ class LocalGate:
         return monitor
 
     def close(self) -> None:
-        for t in self._monitor_tasks:
+        for t in [*self._monitor_tasks, *self._settling.values()]:
             t.cancel()
         self.checks.close()
 
@@ -174,8 +199,11 @@ class LocalGate:
         """Grant ``resources`` to ``task`` (SPEC §3.3).
 
         Waiters are served first come, first served. ``on_busy="take"`` cancels the current
-        owners (reason ``preempted``) and is served first once they are terminal; it requires
-        authority over them. ``on_busy="fail"`` fails at once when the resources are owned.
+        owners and the takes already waiting for these actuators (reason ``preempted``), and
+        is served first once the owners are terminal; it requires authority over all of
+        them, and cancels none without it. So at most one take waits for an actuator, and
+        ownership goes directly to it. ``on_busy="fail"`` fails at once when the resources
+        are owned or waited for.
         Actuators locked by an operator stop or a fault cannot be acquired until ``reset``;
         actuators locked by a monitor are waited for, like owned ones, unless the monitor has
         an ``allow`` check: then they are granted, and ``admit`` asks it about each command.
@@ -188,21 +216,46 @@ class LocalGate:
             raise ResourceBusy(f"locked until reset: {self._lock_message(manual)}")
         owners = self._owners_of(resources)
         locked = [r for r in resources if self._hard_locks(r)]
-        if (owners or locked) and on_busy == "fail":
+        # A request still in the queue reserves its actuators, so a free actuator that an
+        # earlier request waits for is busy too: `fail` never waits (SPEC §3.3).
+        ahead = [e.task for e in self._queue if not e.fut.done() and e.resources & resources]
+        if (owners or locked or ahead) and on_busy == "fail":
             msg = self._busy_message(resources, owners) if owners else ""
             if locked:
                 msg += ("; " if msg else "") + f"locked: {self._lock_message(self._locks_of(locked))}"
+            if ahead:
+                msg += ("; " if msg else f"{sorted(resources)}: ") + (
+                    "waited for by " + ", ".join(sorted({t.name for t in ahead})))
             raise ResourceBusy(msg)
         if on_busy == "take":
+            takers = [e for e in self._queue
+                      if e.take and not e.fut.done() and e.resources & resources]
+            # A take would cancel a take its own ancestor waits on, and with it itself.
+            mine = [e.task for e in takers if _is_self_or_ancestor(e.task, task)]
+            if mine:
+                raise ResourceBusy(
+                    f"{sorted(resources)} are being taken by {mine[0].name}, which started "
+                    f"this task; wait for it instead of taking")
             denied = [o for o in owners if not may_take(task, o)]
             if denied:
                 raise ResourceBusy(
                     self._busy_message(resources, denied)
                     + "; take requires authority over the owner (same session or a supervisor)"
                 )
+            denied = [e.task for e in takers if not may_take(task, e.task)]
+            if denied:
+                raise ResourceBusy(
+                    f"{sorted(resources)} are being taken by "
+                    f"{', '.join(sorted({t.name for t in denied}))}; take requires authority "
+                    f"over a waiting take (same session or a supervisor)")
             for o in owners:
                 self._cancel_owner(o, "preempted")
-        entry = _Waiter(task, resources, asyncio.get_running_loop().create_future())
+            for e in takers:  # their requests are withdrawn; the tasks are cancelled
+                self._queue.remove(e)
+                e.fut.cancel()
+                self._cancel_owner(e.task, "preempted")
+        entry = _Waiter(task, resources, asyncio.get_running_loop().create_future(),
+                        take=on_busy == "take")
         if on_busy == "take":
             self._queue.insert(0, entry)
         else:
@@ -285,11 +338,43 @@ class LocalGate:
     def _withdraw(self, entry: _Waiter) -> None:
         if entry in self._queue:
             self._queue.remove(entry)
-        elif entry.fut.done() and not entry.fut.cancelled() and entry.fut.exception() is None:
+        elif entry.fut.cancelled():
+            pass  # a later take withdrew this request
+        elif entry.fut.done() and entry.fut.exception() is None:
             self.release(entry.fut.result())  # granted just as the waiter was cancelled
         self._dispatch()
 
+    def at_rest(self, actuators: Iterable[str]) -> bool:
+        """Whether the backend reports every one of ``actuators`` at rest. A backend
+        without ``at_rest`` cannot say, and counts as at rest."""
+        probe = getattr(self._backend, "at_rest", None)
+        return probe is None or all(probe(a) for a in actuators)
+
+    async def settled(self, task: Task, timeout: float) -> bool:
+        """Wait until the actuators stopped when ``task``'s token was revoked are at rest
+        (SPEC §1.1: ``cancelled`` means the robot is stopped). False after ``timeout``."""
+        actuators = self._stopped.get(task, ())
+        deadline = self._clock.now() + timeout
+        while not self.at_rest(actuators):
+            if self._clock.now() >= deadline:
+                return False
+            await self._clock.sleep(REST_POLL)
+        self._stopped.pop(task, None)
+        return True
+
     def release(self, grant: Grant) -> None:
+        """Give up ``grant``. A revoked grant is released only once its actuators are at
+        rest, so the next owner never receives an actuator that is still stopping."""
+        if grant.revoked and not self.at_rest(grant.resources):
+            if grant not in self._settling:
+                self._settling[grant] = asyncio.ensure_future(self._release_at_rest(grant))
+            return
+        self._settling.pop(grant, None)
+        stopped = self._stopped.get(grant.owner)
+        if stopped is not None:
+            stopped -= grant.resources
+            if not stopped:
+                del self._stopped[grant.owner]
         for r in grant.resources:
             if self._owner.get(r) is grant:
                 del self._owner[r]
@@ -298,14 +383,42 @@ class LocalGate:
                 del self._watch[r]
         self._dispatch()
 
+    async def _release_at_rest(self, grant: Grant) -> None:
+        while not self.at_rest(grant.resources):
+            await self._clock.sleep(REST_POLL)
+        self.release(grant)
+
     def release_all(self, task: Task) -> None:
+        self._stopped.pop(task, None)
         for g in {g for g in self._owner.values() if g.owner is task}:
             self.release(g)
 
     def revoke(self, task: Task) -> None:
-        for g in self._owner.values():
-            if g.owner is task:
-                g.revoked = True
+        """``task`` is cancelled: revoke its tokens. A task that used an ancestor's token
+        has none to revoke; the Gate stops the motion it commanded, and ``send`` refuses
+        what it sends from now on."""
+        for g in {g for g in self._owner.values() if g.owner is task}:
+            self.revoke_grant(g)
+        for a in [a for a, t in self._last.items() if t is task]:
+            del self._last[a]
+            g = self._owner.get(a)
+            if g is not None and g.owner is not task:
+                self._stopped.setdefault(task, set()).add(a)
+                self._unwatch(a)
+                with contextlib.suppress(Exception):
+                    self._execute(Command("stop", a, {}))
+
+    def revoke_grant(self, grant: Grant) -> None:
+        """Revoke a token and stop its actuators. The owner can no longer command them, so
+        the Gate stops them itself instead of relying on the owner's cleanup (SPEC §1.1)."""
+        if grant.revoked:
+            return
+        grant.revoked = True
+        self._stopped.setdefault(grant.owner, set()).update(grant.resources)
+        for a in sorted(grant.resources):
+            self._unwatch(a)
+            with contextlib.suppress(Exception):
+                self._execute(Command("stop", a, {}))
 
     def _cancel_owner(self, owner: Any, reason: str, detail: dict | None = None) -> None:
         """A cancellation that starts in the Gate: revoke first, then cancel (SPEC §3.1)."""
@@ -326,10 +439,15 @@ class LocalGate:
         grant = None
         if cmd.kind != "stop":
             g = self._owner.get(cmd.actuator)
-            if g is not None and task is not None and _is_self_or_ancestor(g.owner, task):
+            if (g is not None and task is not None and _is_self_or_ancestor(g.owner, task)
+                    and not cancelled_below(task, g.owner)):
                 grant = g
         rejection = await self.admit(grant, cmd, verdicts)
         if rejection is None:
+            if cmd.kind == "stop":
+                self._last.pop(cmd.actuator, None)
+            else:
+                self._last[cmd.actuator] = task
             return True
         if task is not None:
             task.detail = {"code": rejection.code, "message": rejection.message}

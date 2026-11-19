@@ -13,7 +13,7 @@ import importlib
 import sys
 
 SUITES = ("safety", "crash", "stopping", "concurrency", "stale", "trace", "ablation",
-          "model-safety", "disturbances")
+          "model-safety", "disturbances", "faults")
 MODULES = {"trace": "diagnosis", "model-safety": "model_safety"}
 
 

@@ -25,6 +25,7 @@ from roborun.errors import (
     TaskCancelled,
     TaskFailed,
 )
+from roborun.expect import ExpectationFailed, at_end, at_start, during
 from roborun.runtime import Runtime, run_sim, runtime
 from roborun.stamped import Stamped, derive
 from roborun.task import Task, TaskState, can_transition
@@ -34,6 +35,7 @@ __all__ = [
     "QUEUE",
     "STATE",
     "BackendError",
+    "ExpectationFailed",
     "InvalidState",
     "Overflow",
     "Replaced",
@@ -48,10 +50,13 @@ __all__ = [
     "TaskState",
     "WallClock",
     "action",
+    "at_end",
+    "at_start",
     "can_transition",
     "changes",
     "current",
     "derive",
+    "during",
     "hold",
     "now",
     "on_change",

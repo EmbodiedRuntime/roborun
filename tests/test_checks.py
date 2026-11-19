@@ -72,8 +72,9 @@ def test_stop_is_never_checked():
     task, backend = run(lambda: try_move((0.3, 0.0)), reject_all)
     m, _ = task.result
     assert m.detail["code"] == "check:reject_all"
-    # The Gate's fallback stops the arm, and the skill's own cleanup stop still gets through.
-    assert [c.kind for _, c in backend.log] == ["stop", "stop"]
+    # The Gate's fallback stops the arm, revoking the task's token stops it again, and the
+    # skill's own cleanup stop still gets through. No goal reaches the backend.
+    assert [c.kind for _, c in backend.log] == ["stop", "stop", "stop"]
 
 
 def test_a_missing_or_old_input_rejects_without_calling_the_check():

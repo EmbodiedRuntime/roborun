@@ -20,6 +20,11 @@ def test_a_slip_while_carrying_is_noticed_and_the_cup_is_picked_up_again():
     assert not blind.success and blind.outcome == "false success"  # it said done; it was not
 
 
+def test_an_expectation_turns_the_false_success_into_a_failure_with_evidence():
+    r = d.run_one("slip", 1, "blocking_expect")
+    assert not r.success and r.outcome == "ExpectationFailed"
+
+
 def test_the_grasp_holds_still_while_the_cup_is_occluded():
     backend = mj.MujocoBackend(objects=SCENE)
     backend.removed_at = None
@@ -73,3 +78,14 @@ def test_the_summary_table():
                for s in d.SCENARIOS for p in d.PROGRAMS]
     table = d.summarize(results)
     assert "| slip | 0/1, — [1 false] |" in table and "1/1, 10.0 s |" in table
+
+
+def test_a_stuck_contact_sensor_is_caught_by_a_relation_between_sources():
+    from benchmarks import faults as f
+
+    blind = d.run_one("slip_stuck_sensor", 1, "task_based",
+                      programs=f.PROGRAMS, scenarios=f.SCENARIOS)
+    checked = d.run_one("slip_stuck_sensor", 1, "task_based_consistent",
+                        programs=f.PROGRAMS, scenarios=f.SCENARIOS)
+    assert not blind.success and blind.outcome == "false success"
+    assert checked.success and checked.outcome == "placed"

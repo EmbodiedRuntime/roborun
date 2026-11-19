@@ -33,6 +33,7 @@ import numpy as np
 
 from roborun.api import action, current, now, provider, send, sleep, world
 from roborun.errors import BackendError, StaleData
+from roborun.expect import not_stalled
 from roborun.gate import Command
 from roborun.tools import tool
 
@@ -291,6 +292,10 @@ class MujocoBackend:
     def moving(self) -> bool:
         return float(np.linalg.norm(self.v_ref)) > 1e-6 or self._ee_speed > 0.005
 
+    def at_rest(self, actuator: str) -> bool:
+        """Whether ``actuator`` has stopped; the Gate asks before it confirms a cancel."""
+        return actuator != "arm" or not self.moving
+
     # -- test controls -------------------------------------------------------------
 
     def at(self, t: float, fn: Callable[[], None]) -> None:
@@ -411,7 +416,8 @@ class MujocoBackend:
             self._check_reachable(target)
             self.goal, self.stopping = target, False
         elif cmd.kind == "stop":
-            self.goal, self.stopping = None, True
+            if cmd.actuator == "arm":  # the fingers hold their command; stopping them is a no-op
+                self.goal, self.stopping = None, True
         elif cmd.kind == "effector":
             self.grip = 0.0 if cmd.payload.get("close") else 255.0
 
@@ -571,6 +577,11 @@ EMPTY_WIDTH = 0.01  # fingers closer than this have nothing between them
 
 Target = Point | str  # a position, or the name of a tracked object
 
+# Every skill that sends goals expects the arm to work on them: a goal that the arm neither
+# reaches nor moves toward for a second (blocked, or a controller that gave up) fails the
+# skill, which would otherwise wait for an arrival that never comes.
+STALL = not_stalled(tol=REACH_TOL, within=1.0)
+
 
 async def position(target: Target, on_stale: Any = None) -> Point:
     """A position, or the latest *fresh* tracked position of the object named ``target``.
@@ -674,7 +685,7 @@ async def track(name: str, rate: float = 20.0) -> None:
 
 
 @tool
-@action(resources={"arm"})
+@action(resources={"arm"}, expect=[STALL])
 async def move_to(target: Point) -> Point:
     """Move the gripper (the point between the fingertips) to ``target`` (x, y, z) in metres,
     pointing down, and end at rest. The robot base is at the origin; the table top is z = 0."""
@@ -699,7 +710,7 @@ async def gripper(close: bool) -> str | None:
 
 
 @tool
-@action(resources={"arm", "gripper"})
+@action(resources={"arm", "gripper"}, expect=[STALL])
 async def grasp(target: Target) -> Point:
     """Pick up an object from above and lift it.
 
@@ -737,7 +748,7 @@ async def grasp(target: Target) -> Point:
 
 
 @tool
-@action(resources={"arm", "gripper"})
+@action(resources={"arm", "gripper"}, expect=[STALL])
 async def grasp_blocking(target: Target) -> Point:
     """The same grasp as one blocking call: the target is fixed when it starts, so it does
     not follow an object that moves."""
@@ -771,7 +782,7 @@ async def _place_point(target: Target) -> Point:
 
 
 @tool
-@action(resources={"arm", "gripper"})
+@action(resources={"arm", "gripper"}, expect=[STALL])
 async def place(target: Target) -> Point:
     """Put down what the gripper holds, release it, and lift.
 
@@ -797,7 +808,7 @@ async def place(target: Target) -> Point:
 
 
 @tool
-@action(resources={"arm", "gripper"})
+@action(resources={"arm", "gripper"}, expect=[STALL])
 async def place_blocking(target: Target) -> Point:
     """The same place as one blocking call: the target is fixed when it starts, and it does
     not check what the gripper holds on the way."""

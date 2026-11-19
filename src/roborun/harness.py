@@ -52,6 +52,8 @@ def status(task: Task) -> dict:
         out["detail"] = task.detail
     if task.state.value == "succeeded":
         out["result"] = plain(task.result)
+        if task.verified is not None:  # False: it finished, but its outcome was not confirmed
+            out["verified"] = task.verified
     if task.state.value == "failed":
         out["error"] = describe_error(task.error)
     return out

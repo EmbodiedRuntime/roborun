@@ -12,6 +12,8 @@ Task: put the red cup on the tray. Five kinds of disturbance, eight variants eac
 Four programs, built from the same skills:
 
 - ``blocking``: perceive once, ``grasp_blocking``, ``place_blocking``;
+- ``blocking_expect``: ``blocking``, where the place states what it expects (the cup in the
+  tray afterwards) and the runtime checks it (``roborun.expect``);
 - ``blocking_retry``: retry the grasp after a miss, perceiving again (up to three tries);
 - ``verify_retry``: the strongest usual fix: after each pick-and-place, check that the cup is in
   the tray, and redo everything if not (up to three rounds);
@@ -32,7 +34,7 @@ from concurrent.futures import ProcessPoolExecutor
 from dataclasses import asdict, dataclass
 from typing import Any
 
-from roborun import TaskFailed, run_sim, world
+from roborun import TaskFailed, at_end, run_sim, start, world
 from roborun.backends import mujoco as mj
 from roborun.demos.cup_nudge import SCENE, _perceive, in_tray
 
@@ -47,6 +49,22 @@ async def blocking() -> None:
     cup = world.get("cup_red").value
     await mj.grasp_blocking(cup)
     await mj.place_blocking("tray")
+
+
+# What the program expects of the world once the place is done; the runtime checks it.
+cup_in_tray = at_end(lambda v: in_tray(v.value("cup_red")), inputs={"cup_red": mj.MAX_AGE},
+                     name="cup in tray", stable=0.3)
+
+
+async def blocking_expect() -> bool | None:
+    """``blocking``, with one line more: the place states its expectation. Nothing else
+    changes: no retry, no reaction while it acts."""
+    await _perceive()
+    cup = world.get("cup_red").value
+    await mj.grasp_blocking(cup)
+    place = start(mj.place_blocking("tray").expect(cup_in_tray))
+    await place
+    return place.verified
 
 
 async def blocking_retry() -> None:
@@ -92,7 +110,7 @@ async def task_based() -> None:
 
 
 PROGRAMS: dict[str, Callable] = {
-    "blocking": blocking, "blocking_retry": blocking_retry,
+    "blocking": blocking, "blocking_expect": blocking_expect, "blocking_retry": blocking_retry,
     "verify_retry": verify_retry, "task_based": task_based,
 }
 
@@ -185,12 +203,15 @@ class Result:
     outcome: str
     closes_on_nothing: int  # gripper closings that caught nothing
     params: dict
+    verified: bool | None = None  # whether an expectation confirmed the reported success
 
 
-def run_one(scenario: str, variant: int, program: str, *, view: bool = False) -> Result:
+def run_one(scenario: str, variant: int, program: str, *, view: bool = False,
+            programs: dict | None = None, scenarios: dict | None = None) -> Result:
+    programs, scenarios = programs or PROGRAMS, scenarios or SCENARIOS
     backend = mj.MujocoBackend(objects=SCENE, view=view)
     backend.removed_at = None
-    params = SCENARIOS[scenario](backend, variant)
+    params = scenarios[scenario](backend, variant)
     holding: list[tuple[float, str | None]] = []
     step = backend.step
 
@@ -200,7 +221,7 @@ def run_one(scenario: str, variant: int, program: str, *, view: bool = False) ->
 
     backend.step = stepped
     try:
-        task = asyncio.run(run_sim(PROGRAMS[program], backend=backend, until=UNTIL))
+        task = asyncio.run(run_sim(programs[program], backend=backend, until=UNTIL))
     finally:
         backend.close()
     placed = task.state.value == "succeeded" and in_tray(backend.truth("cup_red"))
@@ -221,7 +242,8 @@ def run_one(scenario: str, variant: int, program: str, *, view: bool = False) ->
                    else f"not in tray ({task.state.value})")
     return Result(scenario, variant, program, placed,
                   round(task.ended_at, 2) if task.ended_at is not None else None,
-                  outcome, on_nothing, params)
+                  outcome, on_nothing, params,
+                  task.result if isinstance(task.result, bool) else None)
 
 
 def _job(args: tuple) -> dict:

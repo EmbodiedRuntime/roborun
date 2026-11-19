@@ -77,11 +77,10 @@ class _Config:
 class _Owner:
     """A remote task, as the ownership table sees it."""
 
-    parent = None
-
     def __init__(self, conn: _Conn, task_id: str, name: str, session: str, cfg: _Config):
         self.conn, self.task_id, self.name, self.session, self.rt = conn, task_id, name, session, cfg
         self.detail: dict | None = None
+        self.parent: _Owner | None = None
 
     def cancel(self, reason: str) -> None:
         self.conn.order_cancel(self, reason)
@@ -101,6 +100,13 @@ class _Conn:
             o = _Owner(self, msg["task"], msg.get("name", msg["task"]), msg["session"],
                        self.server.cfg)
             self.owners[msg["task"]] = o
+        # The task's ancestors, nearest first: a take never cancels a take they wait on.
+        node = o
+        for tid in msg.get("ancestors", ()):
+            parent = self.owners.get(tid)
+            if parent is None:
+                parent = self.owners[tid] = _Owner(self, tid, tid, msg["session"], self.server.cfg)
+            node.parent, node = parent, parent
         return o
 
     def order_cancel(self, owner: _Owner, reason: str) -> None:
@@ -232,8 +238,10 @@ class GateServer:
         if op == "revoke":
             grant = self.tokens.get(msg["token"])
             if grant is not None:
-                grant.revoked = True
+                self.gate.revoke_grant(grant)  # also stops its actuators (SPEC §1.1)
             return {}
+        if op == "rest":
+            return {"rest": self.gate.at_rest(msg["actuators"])}
         if op == "send":
             return await self._send(msg)
         if op == "operator_stop":

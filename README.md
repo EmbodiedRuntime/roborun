@@ -4,7 +4,7 @@
 
 ![Policies (programs, from a tool call to full code, written or generated; end-to-end models such as VLAs and world action models) sit above roborun; robots, in simulation or the real world, sit below. roborun's four parts: Task, owned, stoppable activity; World, shared time-stamped state; Gate, checks every command; Trace, what ran, on which data](docs/media/stack.svg)
 
-- **Task**: everything that runs (a motion, a tracker, a model call) is a task, owned by whoever started it and stoppable. Cancelling ends when the arm is at rest, not when it is asked; a task whose owner goes away (a closed connection, missed heartbeats, a parent that ends) is cancelled. A task keeps running after the call that started it returns, so a policy need not wait for the robot.
+- **Task**: everything that runs (a motion, a tracker, a model call) is a task, owned by whoever started it and stoppable. Cancelling ends when the arm is at rest, not when it is asked, and the Gate stops the arm itself, whatever the cancelled code does; a task whose owner goes away (a closed connection, missed heartbeats, a parent that ends) is cancelled. A task keeps running after the call that started it returns, so a policy need not wait for the robot.
 - **World**: shared state that sensors, perception, models, and people write to; every value carries the time it was observed and its source, so reading stale data is an error, not a silent bug, and a task can wake when a value changes.
 - **Gate**: drivers are reachable only from the Gate process, so every command is checked, arbitrated, and attributable to a task, whatever the model or the generated code does. A cancelled task cannot move the robot.
 - **Trace**: every task, command, and verdict is recorded with the data it read, so a person or a coding agent can see what happened and why.
@@ -85,6 +85,21 @@ everything if not. It nearly matches on success, but is slower and grasps empty 
 holds still on stale data, and notices a slip mid-motion. When the cup is taken away it stops
 and reports `StaleData` after 3.3 s without closing the gripper. Results:
 [`disturbances.json`](examples/results/disturbances.json).
+
+A false success can also be removed without changing how the program acts. `blocking_expect`
+is `blocking` with one line more: the place states what it expects,
+`place_blocking("tray").expect(cup_in_tray)`, and the runtime checks it against fresh
+measurements. Under a slip its 8 runs end `failed` with `ExpectationFailed` and the cup's
+measured position, where `blocking` reports success 8 times. It still places nothing: an
+expectation tells a program that it failed, and reacting while acting is what makes it succeed.
+
+A wrong sensor is harder than a late one: its values are fresh. `python -m benchmarks faults`
+lets the cup slip while the gripper's contact sensor stays stuck at "held". `task_based` notices
+a slip by that sensor, so it reports success 8 of 8 times with the cup on the table. With a
+relation between sources (what the gripper holds must be at the gripper) and the expectation
+that it stays consistent while the cup is carried, the place fails as `inconsistent`, the
+program picks the cup up again where the tracker sees it, and all 8 runs place it
+([`faults.json`](examples/results/faults.json)).
 
 ## Benchmarks
 
@@ -241,6 +256,13 @@ roborun owns only what neither layer can do alone: the task tree from a program 
 ```sh
 uv venv && uv pip install -e ".[dev]"
 uv run pytest
+```
+
+The task state machine and the ownership rules of the Gate also have TLA+ models, checked
+with TLC ([`spec/`](spec/README.md); needs Java 11+, about three minutes):
+
+```sh
+spec/check.sh
 ```
 
 On MuJoCo (a Franka Panda from MuJoCo Menagerie, fetched into `~/.cache/roborun` on first use):

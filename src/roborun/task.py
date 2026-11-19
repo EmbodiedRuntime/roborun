@@ -13,7 +13,8 @@ from contextvars import ContextVar
 from enum import Enum
 from typing import TYPE_CHECKING, Any
 
-from roborun.errors import InvalidState, Replaced, TaskCancelled, TaskFailed
+from roborun import expect
+from roborun.errors import BackendError, InvalidState, Replaced, TaskCancelled, TaskFailed
 
 if TYPE_CHECKING:
     from roborun.runtime import Runtime
@@ -55,6 +56,9 @@ def can_transition(src: TaskState, dst: TaskState) -> bool:
     return dst in _TRANSITIONS[src]
 
 
+# How long a cancelled task waits for its actuators to come to rest before it ends `failed`.
+REST_TIMEOUT = 5.0
+
 # The task whose body is running in the current asyncio context.
 _current: ContextVar[Task | None] = ContextVar("roborun_current_task", default=None)
 
@@ -74,12 +78,20 @@ class Body:
         *,
         role: str = "task",
         resources: frozenset[str] = frozenset(),
+        expectations: tuple = (),
     ) -> None:
         self.fn = fn
         self.args = args
         self.kwargs = kwargs or {}
         self.role = role
         self.resources = frozenset(resources)
+        self.expectations = tuple(expectations)
+
+    def expect(self, *expectations: Any) -> Body:
+        """This body with more expectations (``roborun.expect``): the caller's own, on top
+        of the skill's. They can only be added, never removed."""
+        return Body(self.fn, self.args, self.kwargs, role=self.role, resources=self.resources,
+                    expectations=self.expectations + tuple(expectations))
 
     @property
     def name(self) -> str:
@@ -133,6 +145,7 @@ class Task:
             self.name = name or body.name
             self.role = body.role
             self.params: dict[str, Any] = body.params()
+            self.expectations: tuple = body.expectations
             code = f"{body.fn.__module__}.{body.fn.__qualname__}"
         else:
             self._coro = body
@@ -140,6 +153,7 @@ class Task:
             self.name = name or getattr(body, "__qualname__", "task")
             self.role = "task"
             self.params = {}
+            self.expectations = ()
             code = getattr(body, "__qualname__", "task")
         self.rt = rt
         self.parent = parent
@@ -154,6 +168,12 @@ class Task:
         self.id = ""  # assigned by the runtime
         self.result: Any = None
         self.error: BaseException | None = None
+        # Monitoring (roborun.expect): every verdict, and whether success was confirmed.
+        self.checks: list[dict] = []
+        self.verified: bool | None = None  # None: no expectation during or at the end
+        self.unwatched = False  # a `during` expectation was unknown at some point
+        self.commands: dict[str, dict] = {}  # actuator -> the last command accepted for it
+        self._violation: BaseException | None = None
         self.created_at: float = rt.clock.now()
         self.started_at: float | None = None
         self.trace_parent: str | None = None  # e.g. the harness turn that started it (SPEC §4)
@@ -226,6 +246,13 @@ class Task:
         if interrupt and self._atask is not None:
             self._atask.cancel()
 
+    def _fail_expectation(self, error: BaseException) -> None:
+        """Monitoring found a `during` expectation failed: stop the task as a cancellation
+        does (the Gate stops its actuators), and let it end `failed` with ``error``."""
+        if self.state is TaskState.RUNNING:
+            self._violation = error
+            self._request_cancel("expectation", interrupt=True)
+
     async def stopped(self) -> TaskState:
         """Wait for a terminal state. Never raises."""
         return await asyncio.shield(self._done)
@@ -267,6 +294,8 @@ class Task:
                 return
             except Exception as e:  # noqa: BLE001 - ResourceBusy, or a bug: never stay pending
                 self.error = e
+                if self._coro is not None:
+                    self._coro.close()  # the body never ran
                 self._finish(TaskState.FAILED)  # could not start (SPEC §1.2)
                 return
             if self.state.terminal:
@@ -274,10 +303,18 @@ class Task:
         self._set_state(TaskState.RUNNING)
         self.started_at = self.rt.clock.now()
         outcome = "error"
+        watcher = None
         try:
+            if self.expectations:
+                await expect.check(self, "start")  # before the body: nothing has been sent
+                watcher = expect.watch(self)
             if self._coro is None:
                 self._coro = self._body.coroutine()
             self.result = await self._coro
+            if self.expectations:
+                if watcher is not None:
+                    watcher.cancel()
+                await expect.check(self, "end")
             outcome = "ok"
         except asyncio.CancelledError:
             outcome = "cancelled"
@@ -290,12 +327,24 @@ class Task:
         except BaseException as e:  # noqa: BLE001 - the task records any failure
             self.error = e
         finally:
+            if watcher is not None:
+                watcher.cancel()
             if (
                 self._coro is not None
                 and inspect.getcoroutinestate(self._coro) == inspect.CORO_CREATED
             ):
                 self._coro.close()
         await self._reap_children()
+        if self.state is TaskState.CANCELLING and not await self._settled():
+            # Cleanup failed (SPEC §1.2): the actuators did not come to rest.
+            outcome = "error"
+            self.error = BackendError(
+                "fault", f"actuators still moving {REST_TIMEOUT}s after the cancellation",
+                source="gate", stamp=self.rt.clock.now())
+        if self._violation is not None:
+            # An expectation failed while it ran: it was stopped like a cancelled task, but
+            # it ends `failed`, with the expectation as the cause (SPEC §1.8).
+            outcome, self.error, self.reason = "error", self._violation, None
         if outcome == "ok":
             self._finish(TaskState.SUCCEEDED)
         elif outcome == "cancelled":
@@ -304,6 +353,14 @@ class Task:
             self._finish(TaskState.CANCELLED)
         else:
             self._finish(TaskState.FAILED)
+
+    async def _settled(self) -> bool:
+        """A cancelling task ends only once the actuators it held are at rest (SPEC §1.1)."""
+        while True:
+            try:
+                return await self.rt.gate.settled(self, REST_TIMEOUT)
+            except asyncio.CancelledError:
+                continue  # a late interrupt must not let the task end while the arm moves
 
     async def _reap_children(self) -> None:
         """No orphans: cancel children still running and wait for them (SPEC §1.5)."""

@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any
 
 from roborun.errors import BackendError, TaskCancelled, TaskFailed
+from roborun.expect import ExpectationFailed
 
 VERSION = 1
 
@@ -63,6 +64,9 @@ def describe_error(e: BaseException | None) -> dict | None:
         out.update(code=e.code, source=e.source, raw=plain(e.raw), stamp=e.stamp)
     if isinstance(e, TaskCancelled):
         out["reason"] = e.reason
+    if isinstance(e, ExpectationFailed):
+        out.update(expectation=e.name, when=e.when, verdict=e.verdict, reason=e.reason,
+                   evidence=plain(e.evidence))
     return out
 
 
@@ -108,6 +112,7 @@ class Trace:
             "error": describe_error(task.error) if state == "failed" else None,
             "resources": sorted(task.resources), "session": task.session,
             "provenance": task.provenance, "repeats": task._repeats or None,
+            "expectations": task.checks or None, "verified": task.verified,
             "refs": [],
         }
         if task.trace_parent:

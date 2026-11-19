@@ -20,6 +20,7 @@ from collections.abc import Callable
 from typing import Any
 
 from roborun.api import action, provider, send, sleep, world
+from roborun.expect import not_stalled
 from roborun.gate import Command
 from roborun.tools import tool
 
@@ -51,6 +52,7 @@ class FakeBackend:
         self.stop_time = stop_time
         self.grip_tol = grip_tol
         self.holding: str | None = None
+        self.jammed = False  # test control: the arm sits still whatever it is told
         self.log: list[tuple[float, Command]] = []
         self._target: Point | None = None
         self._stopping_until: float | None = None
@@ -70,7 +72,12 @@ class FakeBackend:
 
     @property
     def moving(self) -> bool:
-        return self._target is not None and dist(self.ee, self._target) > 1e-9
+        return (not self.jammed and self._target is not None
+                and dist(self.ee, self._target) > 1e-9)
+
+    def at_rest(self, actuator: str) -> bool:
+        """Whether ``actuator`` has stopped; the Gate asks before it confirms a cancel."""
+        return actuator != "arm" or not self.moving
 
     # -- test controls ---------------------------------------------------------
 
@@ -104,7 +111,7 @@ class FakeBackend:
             self._target = tuple(cmd.payload["target"])
             self._stopping_until = None
         elif cmd.kind == "stop":
-            if self._target is not None and self._stopping_until is None:
+            if cmd.actuator == "arm" and self._target is not None and self._stopping_until is None:
                 self._stopping_until = self.now() + self.stop_time
         elif cmd.kind == "effector":
             if cmd.payload.get("close"):
@@ -128,7 +135,7 @@ class FakeBackend:
                 self._stopping_until = None
             else:
                 speed *= 0.5  # decelerating: still moving
-        if self._target is not None:
+        if self._target is not None and not self.jammed:
             d = dist(self.ee, self._target)
             stride = speed * dt
             if d <= stride:
@@ -181,7 +188,7 @@ async def track(name: str, rate: float = 20.0) -> None:
 
 
 @tool
-@action(resources={"arm"})
+@action(resources={"arm"}, expect=[not_stalled(tol=REACH_TOL)])
 async def move_to(target: Point) -> Point:
     try:
         await send("goal", "arm", target=target)

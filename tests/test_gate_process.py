@@ -165,21 +165,30 @@ def test_a_disconnected_client_loses_its_tokens_and_the_arm_stops():
             client = await RemoteGate.connect(path)
             await client.hello(session="agent", mode="client")
             me = types.SimpleNamespace(id="t1", name="agent-task", session="agent", parent=None)
-            grant = await client.acquire(me, {"arm"})
+            await client.acquire(me, {"arm"})
             assert await client.send(me, Command("goal", "arm", {"target": (1.0, 0.0)}))
             assert server.gate.owner("arm") is not None
             client._writer.transport.abort()  # the runtime process dies
             for _ in range(50):
                 await asyncio.sleep(0.01)
+                if not server.tokens:
+                    break
+            held_while_stopping = server.gate.owner("arm") is not None
+            for _ in range(50):  # the simulation runs on, and the arm comes to rest
+                backend.step(0.01)
+                server.clock.advance(0.01)
+                await asyncio.sleep(0.001)
                 if server.gate.owner("arm") is None:
                     break
-            return backend, server, grant
+            return backend, server, held_while_stopping
         finally:
             await server.close()
 
-    backend, server, _grant = asyncio.run(go())
-    assert server.gate.owner("arm") is None and not server.tokens
-    assert backend.log[-1][1].kind == "stop"
+    backend, server, held_while_stopping = asyncio.run(go())
+    assert not server.tokens and backend.log[-1][1].kind == "stop"
+    # The arm is handed on only once it is at rest, never while it is still stopping.
+    assert held_while_stopping
+    assert server.gate.owner("arm") is None and not backend.moving
 
 
 # -- a real Gate process with the MuJoCo backend ---------------------------------------

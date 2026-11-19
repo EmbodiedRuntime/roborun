@@ -20,7 +20,7 @@ from typing import Any
 from roborun import wire
 from roborun.clock import SteppedClock
 from roborun.errors import BackendError, ResourceBusy
-from roborun.gate import Command
+from roborun.gate import REST_POLL, Command, ending
 
 
 @dataclass(eq=False)
@@ -50,6 +50,8 @@ class RemoteGate:
         self._quiet.set()
         self._ticks: asyncio.Queue = asyncio.Queue()
         self.grants: dict[str, RemoteGrant] = {}
+        self._stopped: dict[Any, set[str]] = {}  # task -> actuators stopped when revoked
+        self._last: dict[str, Any] = {}  # actuator -> the task whose command it carries out
         self.activity = 0  # requests sent so far; the lockstep settle loop watches it
         self.rt: Any = None
         self._reader_task = asyncio.ensure_future(self._read_loop())
@@ -99,7 +101,7 @@ class RemoteGate:
             if kind == "cancel":
                 for token in ev.get("revoked", ()):
                     if token in self.grants:
-                        self.grants[token].revoked = True
+                        self._mark_revoked(self.grants[token])
                 task = self.rt.task_by_id(ev["task"]) if self.rt is not None else None
                 if task is not None:
                     if ev.get("detail"):
@@ -155,9 +157,14 @@ class RemoteGate:
         wait_timeout: float | None = None,
     ) -> RemoteGrant:
         resources = frozenset(resources)
+        ancestors, node = [], getattr(task, "parent", None)
+        while getattr(node, "id", None):
+            ancestors.append(node.id)
+            node = getattr(node, "parent", None)
         rid, fut = self._request_with_id({
             "op": "acquire", "task": task.id, "name": task.name, "session": task.session,
             "resources": sorted(resources), "on_busy": on_busy, "wait_timeout": wait_timeout,
+            "ancestors": ancestors,
         })
         waiter = asyncio.get_running_loop().create_future()
         self._waiters[rid] = waiter  # registered before any grant event can arrive
@@ -186,14 +193,42 @@ class RemoteGate:
             self._request({"op": "release", "token": grant.token})
 
     def release_all(self, task: Any) -> None:
+        self._stopped.pop(task, None)
         for g in [g for g in self.grants.values() if g.owner is task]:
             self.release(g)
+
+    def _mark_revoked(self, grant: RemoteGrant) -> None:
+        grant.revoked = True
+        self._stopped.setdefault(grant.owner, set()).update(grant.resources)
 
     def revoke(self, task: Any) -> None:
         for g in self.grants.values():
             if g.owner is task and not g.revoked:
-                g.revoked = True
-                self._request({"op": "revoke", "token": g.token})
+                self._mark_revoked(g)
+                self._request({"op": "revoke", "token": g.token})  # the Gate stops them
+        # A task that used an ancestor's token has none to revoke: stop what it commanded.
+        for a in [a for a, t in self._last.items() if t is task]:
+            del self._last[a]
+            if not any(g.owner is task and a in g.resources for g in self.grants.values()):
+                self._stopped.setdefault(task, set()).add(a)
+                self._request({"op": "send", "token": None, "kind": "stop", "actuator": a,
+                               "payload": {}})
+
+    async def settled(self, task: Any, timeout: float) -> bool:
+        """Wait until the Gate reports the actuators stopped for ``task`` at rest
+        (SPEC §1.1). False after ``timeout``."""
+        actuators = sorted(self._stopped.get(task, ()))
+        clock = task.rt.clock
+        deadline = clock.now() + timeout
+        while actuators:
+            reply = await self._request({"op": "rest", "actuators": actuators})
+            if reply.get("rest", True):
+                break
+            if clock.now() >= deadline:
+                return False
+            await clock.sleep(REST_POLL)
+        self._stopped.pop(task, None)
+        return True
 
     async def operator_stop(self, actuators: Iterable[str] | None = None) -> None:
         """An operator stop: locks the actuators until ``reset`` (SPEC §3.5)."""
@@ -223,6 +258,8 @@ class RemoteGate:
             for g in self.grants.values():
                 if g.owner is node and not g.revoked and actuator in g.resources:
                     return g.token
+            if ending(node):
+                return None  # a cancelled task does not use its ancestor's token
             node = node.parent
         return None
 
@@ -242,6 +279,10 @@ class RemoteGate:
             if task is not None:
                 task.detail = {"code": reply["rejected"], "message": reply.get("message", "")}
             return False
+        if cmd.kind == "stop":
+            self._last.pop(cmd.actuator, None)
+        else:
+            self._last[cmd.actuator] = task
         return True
 
 

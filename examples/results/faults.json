@@ -1,0 +1,226 @@
+[
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 0,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.3,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 0,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 12.04,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.3,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 1,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 1,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 12.04,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 2,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 2,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 12.45,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 3,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 3,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 12.44,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 4,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.3,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 4,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 12.64,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.3,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 5,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 5,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 12.64,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 0.6,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 6,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 6,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 13.48,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.0,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 7,
+  "program": "task_based",
+  "success": false,
+  "completion": 8.86,
+  "outcome": "false success",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ },
+ {
+  "scenario": "slip_stuck_sensor",
+  "variant": 7,
+  "program": "task_based_consistent",
+  "success": true,
+  "completion": 13.51,
+  "outcome": "placed",
+  "closes_on_nothing": 0,
+  "params": {
+   "slips_after": 1.5,
+   "fault": "gripper.holding stuck at cup_red after the slip"
+  },
+  "verified": null
+ }
+]

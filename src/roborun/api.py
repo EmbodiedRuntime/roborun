@@ -69,13 +69,15 @@ async def sleep(seconds: float) -> None:
 # -- library roles (SPEC Appendix A) -----------------------------------------
 
 
-def action(*, resources: Any) -> Callable:
-    """Mark an async function as an Action: a task that holds actuators."""
+def action(*, resources: Any, expect: Any = ()) -> Callable:
+    """Mark an async function as an Action: a task that holds actuators. ``expect`` lists
+    what every run of it must find true (``roborun.expect``)."""
 
     def deco(fn: Callable[..., Coroutine]) -> Callable[..., Body]:
         @functools.wraps(fn)
         def make(*args: Any, **kwargs: Any) -> Body:
-            return Body(fn, args, kwargs, role="action", resources=frozenset(resources))
+            return Body(fn, args, kwargs, role="action", resources=frozenset(resources),
+                        expectations=tuple(expect))
 
         make.__wrapped_body__ = fn
         return make
@@ -144,6 +146,10 @@ async def send(kind: str, actuator: str, **payload: Any) -> None:
         raise
     if ok:
         rt.trace.command(me, cmd, t, status="accepted", verdicts=verdicts)
+        node = me  # expectations of this task and of those that started it can refer to it
+        while getattr(node, "commands", None) is not None:
+            node.commands[actuator] = {"kind": kind, "payload": payload, "t": t}
+            node = node.parent
         return
     rt.trace.command(me, cmd, t, status="rejected", verdicts=verdicts,
                      detail=me.detail if me is not None else None)
