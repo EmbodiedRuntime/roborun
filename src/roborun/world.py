@@ -29,6 +29,7 @@ class _Entry:
     maxlen: int | None
     latest: Stamped | None = None
     version: int = 0
+    period: float | None = None  # the time between the last two stamps written
     backlog: deque | None = None  # (seq, Stamped) for queue keys
     waiters: list = field(default_factory=list)
 
@@ -70,6 +71,8 @@ class World:
             sv = Stamped(value, self._clock.now() if stamp is None else stamp, source)
         e = self._entry(key)
         e.version += 1
+        if e.latest is not None and sv.stamp > e.latest.stamp:
+            e.period = sv.stamp - e.latest.stamp
         e.latest = sv
         if self.on_write is not None:
             self.on_write(key, sv)
@@ -99,6 +102,11 @@ class World:
         """The latest value without any freshness check, or None."""
         e = self._entries.get(key)
         return None if e is None else e.latest
+
+    def period(self, key: str) -> float | None:
+        """The time between the last two stamps written to ``key``, or None."""
+        e = self._entries.get(key)
+        return None if e is None else e.period
 
     def snapshot(self) -> dict[str, Stamped]:
         return {k: e.latest for k, e in self._entries.items() if e.latest is not None}

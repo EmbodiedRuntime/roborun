@@ -39,6 +39,23 @@ MCOwnership  ownership_mut_takefront      TakeDirect
 MCOwnership  ownership_mut_childcommands  NoCommandWhenCancelled
 MCOwnership  ownership_mut_childmoving    CancelledAtRest
 MCOwnership  ownership_limit_take_starves_wait  NoStarvation
+MCGate       gate                         pass
+MCGate       gate_allow                   pass
+MCGate       gate_live                    pass
+MCGate       gate_mut_norecheck           ExecutedForTheOwner
+MCGate       gate_mut_norecheckrelease    ExecutedForTheOwner
+MCGate       gate_mut_faultkeepswaiters   NoWaiterUntilReset
+MCGate       gate_mut_unauthfallback      UnauthorizedChangesNothing
+MCGate       gate_mut_nofair              CancelTerminates
+MCGate       gate_mut_nostoponrelease     MotionHasOwner
+MCProtocol   protocol                     pass
+MCProtocol   protocol_mut_sequential      NextRequestNeverWaits
+MCProtocol   protocol_mut_withdraw        NoOrphanGrant
+MCProtocol   protocol_mut_silent          MirrorIsSound
+MCLockstep   lockstep                     pass
+MCLockstep   lockstep_live                pass
+MCLockstep   lockstep_mut_earlyack        SimulatorWaits
+MCLockstep   lockstep_mut_earlytick       TickIsComplete
 '
 
 filter="${1:-}"

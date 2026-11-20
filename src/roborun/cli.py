@@ -77,6 +77,8 @@ def main(argv: list[str] | None = None) -> int:
     show.add_argument("path")
     show.add_argument("--failed", action="store_true", help="only the causal chain of each failure")
     show.add_argument("--json", action="store_true", help="print failure chains as JSON")
+    chk = trs.add_parser("check", help="check a trace against the runtime's invariants")
+    chk.add_argument("path")
     args = ap.parse_args(argv)
 
     if args.cmd == "serve":
@@ -103,6 +105,15 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(trace.show_tree(args.path))
         return 0
+    if args.cmd == "trace" and args.trace_cmd == "check":
+        _, spans = trace.load(args.path)
+        violations = trace.check(spans)
+        for line in violations:
+            print(line)
+        if not violations:
+            print(f"ok: {sum(1 for s in spans if s.get('kind') == 'task')} tasks, "
+                  f"{sum(1 for s in spans if s.get('kind') == 'gate')} Gate events, no violation")
+        return 1 if violations else 0
     return 2
 
 

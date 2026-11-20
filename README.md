@@ -101,6 +101,14 @@ that it stays consistent while the cup is carried, the place fails as `inconsist
 program picks the cup up again where the tracker sees it, and all 8 runs place it
 ([`faults.json`](examples/results/faults.json)).
 
+The skills themselves are written this way. `roborun.skills` has `grasp`, `place` and
+`pick_and_place` for any backend that describes itself with a `Robot`; each is a sequence of
+named phases (`grasp`: open, approach, descend, close, lift), and what must be true in a phase
+is an expectation: `GraspMissed` is "closed on something" at the end of `close`, `Dropped` is
+"still holding" during `lift`. A failure names its phase and shows the measurements, and a
+caller adds to a phase by name, as the consistency expectation above does for the carry:
+`place("tray").expect(consistent("held", phase=("approach", "lower")))`.
+
 ## Benchmarks
 
 Each part of roborun prevents its own class of failures. The suites live in [`benchmarks/`](benchmarks)
@@ -258,11 +266,14 @@ uv venv && uv pip install -e ".[dev]"
 uv run pytest
 ```
 
-The task state machine and the ownership rules of the Gate also have TLA+ models, checked
-with TLC ([`spec/`](spec/README.md); needs Java 11+, about three minutes):
+The task state machine, the ownership rules, the Gate's checks and locks, its process
+protocol and the lockstep handshake also have TLA+ models, checked with TLC
+([`spec/`](spec/README.md); needs Java 11+, about five minutes). The same invariants are
+evaluated on the real Gate by randomized tests, and over a recorded run by `roborun trace check`:
 
 ```sh
 spec/check.sh
+roborun trace check run.jsonl
 ```
 
 On MuJoCo (a Franka Panda from MuJoCo Menagerie, fetched into `~/.cache/roborun` on first use):

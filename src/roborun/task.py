@@ -170,9 +170,14 @@ class Task:
         self.error: BaseException | None = None
         # Monitoring (roborun.expect): every verdict, and whether success was confirmed.
         self.checks: list[dict] = []
+        self.warnings: list[dict] = []  # what expect.lint found when it started
         self.verified: bool | None = None  # None: no expectation during or at the end
         self.unwatched = False  # a `during` expectation was unknown at some point
         self.commands: dict[str, dict] = {}  # actuator -> the last command accepted for it
+        self.phase: str | None = None  # the phase its body says it is in (expect.phase)
+        self.phases: list[dict] = []  # every phase it went through: name, start, end
+        self.deadline: float | None = None  # when the timeout scope it started in expires
+        self.owned: frozenset[str] = frozenset()  # the actuators it was granted itself
         self._violation: BaseException | None = None
         self.created_at: float = rt.clock.now()
         self.started_at: float | None = None
@@ -252,6 +257,12 @@ class Task:
         if self.state is TaskState.RUNNING:
             self._violation = error
             self._request_cancel("expectation", interrupt=True)
+        elif self.state is TaskState.CANCELLING and self._violation is None:
+            # Its cleanup is what fails, e.g. a stop that does not end: interrupt the cleanup,
+            # which would wait for ever. The task still ends only at rest, or as a fault.
+            self._violation = error
+            if self._atask is not None:
+                self._atask.cancel()
 
     async def stopped(self) -> TaskState:
         """Wait for a terminal state. Never raises."""
@@ -300,18 +311,21 @@ class Task:
                 return
             if self.state.terminal:
                 return
+            self.owned = frozenset(needed)
         self._set_state(TaskState.RUNNING)
         self.started_at = self.rt.clock.now()
         outcome = "error"
         watcher = None
         try:
             if self.expectations:
+                self.warnings = expect.lint(self)
                 await expect.check(self, "start")  # before the body: nothing has been sent
                 watcher = expect.watch(self)
             if self._coro is None:
                 self._coro = self._body.coroutine()
             self.result = await self._coro
             if self.expectations:
+                await expect.leave(self)  # the last phase ends with the body
                 if watcher is not None:
                     watcher.cancel()
                 await expect.check(self, "end")

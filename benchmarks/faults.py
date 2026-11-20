@@ -56,23 +56,16 @@ HELD = relation("held", held_is_in_the_gripper, inputs={
     "gripper.holding": 0.1, "gripper.width": 0.1, "arm.ee": 0.1, "cup_red": mj.MAX_AGE})
 
 
-def carrying(v: Any) -> bool:
-    """Until the place tells the gripper to open: after that, nothing is claimed to be held."""
-    last = v.command("gripper")
-    return last is None or bool(last["payload"].get("close"))
-
-
 async def task_based_consistent() -> None:
     await d._perceive()
     start(HELD, detached=True)
     for attempt in range(3):
         try:
             await mj.grasp("cup_red")
-            await mj.place("tray").expect(consistent("held", grace=0.1, when=carrying))
+            await mj.place("tray").expect(consistent("held", grace=0.1, phase=("approach", "lower")))
             return
         except TaskFailed as e:
-            known = (mj.GraspMissed, mj.Dropped, mj.NothingHeld, ExpectationFailed)
-            if attempt == 2 or not isinstance(e.root, known):
+            if attempt == 2 or not isinstance(e.root, ExpectationFailed):
                 raise
 
 

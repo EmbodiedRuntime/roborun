@@ -1,4 +1,4 @@
-# roborun semantics — draft v0.13
+# roborun semantics — draft v0.15
 
 This document specifies *what* the runtime guarantees, independently of the Python implementation.
 Another implementation (C++, Rust, on top of ROS 2) that follows it should be interchangeable.
@@ -70,14 +70,16 @@ The spec is the four concepts, the structural rule, and the boundary rules (§5)
 
 ### Invariants (derived)
 
-| Invariant | Follows from |
-|---|---|
-| Only tasks that hold actuators can move the robot, and only through the Gate | §1.6, §3.1, structural rule |
-| Models never touch actuators | A model call holds no resources (§1.6) + structural rule |
-| A cancel request is not a stop | §1.2 |
-| No task outlives its parent unless detached | §1.5 |
-| A cancelled task cannot move the robot, even if its code keeps running | Token revocation (§3.3) |
-| Every datum carries its age on one time base | §2.1 |
+| Invariant | Follows from | Checked as ([`spec/`](spec/README.md)) |
+|---|---|---|
+| Only tasks that hold actuators can move the robot, and only through the Gate | §1.6, §3.1, structural rule | `ExecutedForTheOwner`, `OwnershipConsistent`, `MotionHasOwner` |
+| Models never touch actuators | A model call holds no resources (§1.6) + structural rule | |
+| A cancel request is not a stop | §1.2 | `CancelledAtRest`, `LegalTransitions` |
+| No task outlives its parent unless detached | §1.5 | `ParentOutlivesChildren` |
+| A cancelled task cannot move the robot, even if its code keeps running | Token revocation (§3.3) | `NoCommandWhenCancelled`, `MirrorIsSound` |
+| Every datum carries its age on one time base | §2.1 | `OneTimeBase` |
+
+The names in the last column are properties of the TLA+ models in `spec/`, checked by TLC on small models, evaluated on the real Gate by randomized tests, and, where a trace shows them, replayed over a run by `roborun trace check`.
 
 ### Mechanism, not policy
 
@@ -357,6 +359,7 @@ Every command carries the capability token of the task that issued it (§3.3).
 - When a task is cancelled, preempted, or rejected, the Gate **revokes** its token. Commands with a revoked token are rejected, so a cancelled task cannot move the robot even if its code keeps running.
 - **A cancelled child has no authority.** A child that uses its ancestor's token (§1.6) has none of its own to revoke. Once it is cancelled, the Gate rejects its commands although that token is still valid, stops the motion it commanded, and lets it become terminal only when that motion is at rest. Its parent keeps the actuators and may go on using them. (With the Gate in another process, the runtime enforces this for its own tasks; it holds against bugs, not against adversarial code in the same process, §3.6.)
 - **Revoking stops.** The Gate sends `stop` to the actuators of a revoked token itself, since their owner can no longer command them and its cleanup cannot be relied on. The task becomes terminal, and its actuators pass to the next owner, only once the backend reports them at rest (§1.1). If they do not come to rest within a bound, the task ends `failed` (§1.2).
+- **Giving up a moving actuator stops it.** A task that ends, or leaves a `hold`, while an actuator it owned is still moving (a goal it did not wait for, a setpoint stream it stopped feeding) has not finished that motion and no longer answers for it. The Gate sends `stop` and keeps the actuator, owned by no task, until the backend reports it at rest; requests for it wait, `on_busy="fail"` fails, and a `take` cancels nobody. The task's own state is not changed: it ends as its body ended. The Gate records the stop as a fallback with cause `released`. So whatever moves has an owner, and every owner receives its actuators at rest. A motion that should outlast a step belongs to a task that lasts as long as the motion.
 - **Arbitration** has no priority values. When a task requests actuators that are not free, it does what it chose at `start` (`on_busy`):
   - `wait`: requests are served **first come, first served**. A later `wait` request never overtakes an earlier request that overlaps it, so among `wait` requests none starves. With `wait_timeout`, the requester fails with `ResourceBusy` when it expires.
   - `fail`: fail at once with `ResourceBusy`, when an actuator is owned and also when it is free but an earlier request waits for it. A `fail` request never waits.
@@ -399,11 +402,11 @@ gate.add_monitor(human_distance, inputs={"scene.humans": 0.2}, rate=100, budget=
 
 **What the Gate guarantees** (independent of what checks do):
 
-1. **Every applicable check runs before a command reaches the backend.** A command is forwarded only if every applicable check accepts it.
+1. **Every applicable check runs before a command reaches the backend.** A command is forwarded only if every applicable check accepts it. Checks take time, so the Gate looks again when they have answered: the command is forwarded only if its token is still valid, the grant has not been released meanwhile (its task ended, or left a `hold`, with the command in flight), and no new lock applies. Otherwise it is rejected as `unauthorized`.
 2. **Fail closed.** A check that exceeds its budget, raises, or cannot run counts as `Reject`. There is no "ignore on failure" setting.
 3. **Freshness first.** If any declared input is older than its `max_age`, the check is not called and the result is `Reject` (naming the stale key, as `StaleData` does).
 4. **Budgets fit the command.** For `setpoint` streams, the total budget of applicable checks must be less than the stream period; the Gate verifies this at startup. `goal` checks may take longer (e.g. checking a whole plan).
-5. **Checks cannot stall the Gate.** Checks run outside the Gate's main loop. `stop`, the watchdog, and the fallback never wait for a check.
+5. **Checks cannot stall the Gate.** Checks run outside the Gate's main loop. `stop`, the watchdog, and the fallback never wait for a check. With the Gate in its own process (§3.8) the same holds for requests: the Gate takes the next request while the checks of a command run; commands for one actuator keep their order.
 6. **Checks only judge.** A check returns a verdict; it cannot issue commands or grant authority.
 7. **Every verdict is traced**: check name, inputs with stamps, verdict, and time taken.
 
@@ -433,7 +436,7 @@ The fallback runs only for commands from the actuator's owner. A command rejecte
 | A watchdog expired | No lock is needed: the silent owner's token is revoked and it is cancelled with reason `watchdog`; the actuators are free once it is terminal |
 | An operator stop, or a lower-layer `fault` | Only by an explicit `reset`, from the operator or the harness. A `fault` also requires the lower layer's own recovery (e.g. Franka's error recovery), which `reset` triggers |
 
-While actuators are locked, commands for them are rejected with `locked`. A task may wait to acquire actuators locked by a monitor, as it waits for owned ones; acquiring actuators locked until `reset` fails at once with `ResourceBusy`.
+While actuators are locked, commands for them are rejected with `locked`. A task may wait to acquire actuators locked by a monitor, as it waits for owned ones; acquiring actuators locked until `reset` fails at once with `ResourceBusy`, and requests that were already waiting for them when the lock was set (by an operator stop or a `fault`) end the same way.
 
 Both lock and unlock are recorded in the trace.
 
@@ -491,6 +494,8 @@ Either way the program sees the same outcome: the task is cancelled with reason 
 **Every request gets a reply, and replies carry events.** Ownership requests, releases, and revocations are requests too. The Gate's events for a connection travel with its next reply or tick:
 - cancellation orders, with the tokens already revoked;
 - grants to requests that were waiting.
+
+A request that is withdrawn (its task was cancelled while waiting) may have been granted while the withdrawal was on its way. The Gate then releases that grant: the runtime has dropped the answer, and nobody else would.
 
 The runtime therefore knows when it has heard everything the Gate will say about a step, which keeps lockstep runs deterministic (§2.1).
 
@@ -586,8 +591,8 @@ The library gives names and helpers to common patterns. None of them adds semant
 | `@on_change(key)` | Sugar for a child task that loops over `changes(key)` and runs the function for each value |
 | `cancel_and_wait()` | `cancel()` followed by `await stopped()`, named after Kotlin's `cancelAndJoin` |
 | Key-following skills | A skill may accept a World key instead of a value (`grasp(target="cup")`) and re-read it with `max_age` on every control cycle. This is a convention for writing skills, not a runtime feature: it needs a producer for that key. When the value is stale (occluded, producer gone), the skill does not act on it: it stops the arm and waits for fresh data, and fails with `StaleData` after a bounded wait |
-| Supervised skills | A skill that holds an object checks every cycle that it still holds it, and fails at once with a specific error (`Dropped`) instead of finishing a motion that no longer achieves anything. Contact flickers when the object touches a surface, so loss of contact alone is not a slip: the fingers must also have closed on nothing |
-| Expectations and monitoring | An expectation is a condition over stamped World values that one task must find true: `at_start(...)` before its body runs, `during(..., grace=s)` while it runs, `at_end(..., stable=s)` after it returned. A skill declares its own (`@action(expect=[...])`), and a caller adds more (`place("tray").expect(...)`); they can only be added. Each names its inputs with a `max_age`, as a check does (§3.4). A verdict is `holds`, `violated`, `inconsistent` (two sources contradict each other), or `unknown` (an input is missing or too old, or the condition raised): old data never counts as true. Violated or inconsistent, or unknown at the start: the task ends `failed` with `ExpectationFailed`, which carries the stamped values it rests on; at the start, before any command is sent; during the task, after `grace` seconds, by cancelling it, so the Gate stops its actuators (§3.3). Unknown during the task or at the end: the task succeeds with `verified: false`. All hold throughout: `verified: true`. A condition can also read the last command the task or its children had accepted for an actuator, to tell whether a command took effect (`not_stalled()`, which library skills that send goals carry by default; `after(actuator, kind, ...)`). Checking them is *monitoring*, not verification: it judges one run, afterwards, against measurements. It is also not the Gate: it runs in the runtime's process and says whether a task achieved what it claims, not whether a command is safe (§3.6) |
+| Skills with named phases | `roborun.skills` holds skills that do not depend on a backend: a backend describes itself with a `Robot` (actuators, World keys, sizes) and gets `move_to`, `gripper`, `grasp`, `place` and `pick_and_place` from `library(robot)`. A skill is a fixed sequence of named phases (`grasp`: open, approach, descend, close, lift; `place`: approach, lower, release, retreat), entered with `await phase(name)`; phases follow one another and are recorded on the task and in its trace span. What must be true in each phase is an expectation, not a check inside the motion code: the gripper holds something when a place starts (`NothingHeld`), it has closed on something when `close` ends (`GraspMissed`), and it still holds it while lifting and carrying (`Dropped`; contact flickers when the object touches a surface, so the fingers must also have closed on nothing). These errors are `ExpectationFailed` under their own names |
+| Expectations and monitoring | An expectation is a condition over stamped World values that one task must find true: `at_start(...)` before its body runs, `during(..., grace=s)` while it runs, `at_end(..., stable=s)` after it returned. A skill declares its own (`@action(expect=[...])`), and a caller adds more (`place("tray").expect(...)`); they can only be added. Each names its inputs with a `max_age`, as a check does (§3.4). A verdict is `holds`, `violated`, `inconsistent` (two sources contradict each other), or `unknown` (an input is missing or too old, or the condition raised): old data never counts as true. Violated or inconsistent, or unknown at the start: the task ends `failed` with `ExpectationFailed`, which carries the stamped values it rests on; at the start, before any command is sent; during the task, after `grace` seconds, by cancelling it, so the Gate stops its actuators (§3.3). Unknown during the task or at the end: the task succeeds with `verified: false`. All hold throughout: `verified: true`. A condition can also read the last command the task or its children had accepted for an actuator, to tell whether a command took effect: `not_stalled()` (a goal is reached or being worked on), `stops()` (a stop ends) and `gripper_responds()`, which library skills carry by default, and `after(actuator, kind, ...)`. An expectation can be limited to phases of the task (`phase=...`): `during` is then watched only there, `at_start` and `at_end` are checked when the phase is entered and left, and a failure names the phase. When a task starts, its expectations are also checked without running it, and what cannot work is recorded as a warning: an input nothing has written, a `max_age` shorter than the period its producer writes at, a `grace` that does not fit in the task's timeout. Checking them is *monitoring*, not verification: it judges one run, afterwards, against measurements. It is also not the Gate: it runs in the runtime's process and says whether a task achieved what it claims, not whether a command is safe (§3.6) |
 | Relations between sources | `relation(name, fn, inputs=...)` is a provider that keeps comparing several sources and writes `{status: consistent / inconsistent / unknown, reason, sources}` to the World key `relation.<name>`, stamped with its oldest input (§2.2). A stale value is caught by its age; a sensor that keeps reporting wrongly is caught only by another source. A task that depends on those sources expects `consistent(name)`, and fails as `inconsistent` with both sides as evidence when they disagree |
 | `@tool` | Marks a function, usually a skill, as a tool. A host exports the tools of the modules it is given: to MCP with a JSON schema from the signature, and by name to generated code |
 | Program replacement | `replace(task, code)` on the harness interface and `replace_program` over MCP: a new version of a running program takes effect at its next step (§6) |
@@ -595,7 +600,7 @@ The library gives names and helpers to common patterns. None of them adds semant
 | Simulation controls | `sim("push", object=..., to=...)` changes the simulated world, through the runtime to the Gate process that owns the simulator. It is not a robot command: it carries no token and passes no check, and it exists only for simulator backends. Harnesses (`sim_push` over MCP) and operators (`roborun sim push`) use it to test how running tasks react; it is traced as a `world` span |
 | Host and `roborun mcp` | The robot's one runtime process (§3.1) serves harness sessions over a Unix socket; `roborun mcp` translates MCP for harnesses such as Claude Code |
 | Backends | MuJoCo, LeRobot, ROS 2, each implementing §5.2 |
-| Skill convention | An Action succeeds only when its effect is complete *and the robot is at rest*, so the next sequential step never starts while the previous motion is still settling |
+| Skill convention | An Action succeeds only when its effect is complete *and the robot is at rest*, so the next sequential step never starts while the previous motion is still settling. The Gate enforces the second half: an actuator still moving when its owner gives it up is stopped, and passed on at rest (§3.3) |
 | `FakeBackend` | A kinematic stand-in for tests: stopping takes time, objects can be nudged, runs on the stepped clock |
 | Common checks | Ready-made check functions for §3.4: workspace box, keep-out zones (with a robot model), speed caps, distance to people. They are examples of policy, not part of the Gate |
 

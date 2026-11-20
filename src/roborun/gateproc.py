@@ -93,6 +93,9 @@ class _Conn:
         self.events: list[dict] = []
         self.owners: dict[str, _Owner] = {}
         self.waiters: dict[int, asyncio.Future] = {}
+        self.granted: dict[int, str] = {}  # acquire request -> the token it was answered with
+        self.sending: dict[str, asyncio.Future] = {}  # actuator -> its last command in progress
+        self.jobs: set[asyncio.Future] = set()
 
     def owner(self, msg: dict) -> _Owner:
         o = self.owners.get(msg["task"])
@@ -141,6 +144,7 @@ class GateServer:
         self.checks = self.gate.checks
         self.tokens: dict[str, Grant] = {}
         self._token_of: dict[Grant, str] = {}
+        self._request_of: dict[str, tuple[_Conn, int]] = {}  # token -> the request it answered
         self.conns: set[_Conn] = set()
         self._stepper: _Conn | None = None
         self._stepper_ready: asyncio.Event | None = None
@@ -198,14 +202,31 @@ class GateServer:
                     if self._ack is not None and not self._ack.done():
                         self._ack.set_result(msg)
                     continue
-                reply = await self._dispatch(conn, msg)
-                await self._quiesce()
-                reply["id"] = msg["id"]
-                reply["events"] = conn.drain()
-                wire.write(writer, reply)
+                if msg["op"] == "send" and msg.get("kind") != "stop":
+                    # Its checks take time (SPEC §3.4): the next request, a stop for one,
+                    # does not wait for them. Commands for one actuator keep their order.
+                    actuator = msg.get("actuator")
+                    job = asyncio.ensure_future(
+                        self._serve(conn, msg, after=conn.sending.get(actuator)))
+                    conn.sending[actuator] = job
+                    conn.jobs.add(job)
+                    job.add_done_callback(conn.jobs.discard)
+                else:
+                    await self._serve(conn, msg)
         finally:
+            for job in list(conn.jobs):
+                job.cancel()
             self._disconnect(conn)
             writer.close()
+
+    async def _serve(self, conn: _Conn, msg: dict, after: asyncio.Future | None = None) -> None:
+        if after is not None and not after.done():
+            await asyncio.wait([after])
+        reply = await self._dispatch(conn, msg)
+        await self._quiesce()
+        reply["id"] = msg["id"]
+        reply["events"] = conn.drain()
+        wire.write(conn.writer, reply)
 
     async def _quiesce(self) -> None:
         # Let grants and cancellations raised inside this process settle before replying.
@@ -228,12 +249,12 @@ class GateServer:
             fut = conn.waiters.pop(msg["waiter"], None)
             if fut is not None:
                 fut.cancel()
+            # The request may have been granted while the withdrawal was on its way; the
+            # runtime has dropped that answer, so nobody else would release the grant.
+            self._release(conn.granted.pop(msg["waiter"], None))
             return {}
         if op == "release":
-            grant = self.tokens.pop(msg["token"], None)
-            if grant is not None:
-                self._token_of.pop(grant, None)
-                self.gate.release(grant)
+            self._release(msg["token"])
             return {}
         if op == "revoke":
             grant = self.tokens.get(msg["token"])
@@ -257,6 +278,15 @@ class GateServer:
                 return {"rejected": "invalid", "message": str(e)}
         return {"rejected": "invalid", "message": f"unknown op {op!r}"}
 
+    def _release(self, token: str | None) -> None:
+        grant = self.tokens.pop(token, None)
+        conn, wid = self._request_of.pop(token, (None, None))
+        if conn is not None:
+            conn.granted.pop(wid, None)
+        if grant is not None:
+            self._token_of.pop(grant, None)
+            self.gate.release(grant)
+
     async def _acquire(self, conn: _Conn, msg: dict) -> dict:
         owner = conn.owner(msg)
         fut = asyncio.ensure_future(
@@ -265,23 +295,23 @@ class GateServer:
             )
         )
         await self._quiesce()
-        if fut.done():
-            return self._grant_reply(fut)
         wid = msg["id"]
+        if fut.done():
+            return self._grant_reply(fut, conn, wid)
         conn.waiters[wid] = fut
 
         def granted(f: asyncio.Future) -> None:
             conn.waiters.pop(wid, None)
             if f.cancelled():
                 return
-            reply = self._grant_reply(f)
+            reply = self._grant_reply(f, conn, wid)
             reply.update(ev="grant", waiter=wid)
             conn.events.append(reply)
 
         fut.add_done_callback(granted)
         return {"queued": True}
 
-    def _grant_reply(self, fut: asyncio.Future) -> dict:
+    def _grant_reply(self, fut: asyncio.Future, conn: _Conn, wid: int) -> dict:
         err = fut.exception()
         if isinstance(err, ResourceBusy):
             return {"busy": str(err)}
@@ -291,6 +321,8 @@ class GateServer:
         token = secrets.token_hex(16)  # unforgeable (SPEC §3.1)
         self.tokens[token] = grant
         self._token_of[grant] = token
+        conn.granted[wid] = token
+        self._request_of[token] = (conn, wid)
         return {"granted": token, "resources": sorted(grant.resources)}
 
     async def _send(self, msg: dict) -> dict:
@@ -329,6 +361,7 @@ class GateServer:
                         self.backend.execute(Command("stop", actuator, {}))
                 del self.tokens[token]
                 self._token_of.pop(grant, None)
+                self._request_of.pop(token, None)
                 self.gate.release(grant)
         if conn is self._stepper:
             self._stepper = None

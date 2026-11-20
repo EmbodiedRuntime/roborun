@@ -32,7 +32,7 @@
   "variant": 0,
   "program": "blocking_retry",
   "success": true,
-  "completion": 17.04,
+  "completion": 17.1,
   "outcome": "placed",
   "closes_on_nothing": 2,
   "params": {
@@ -46,7 +46,7 @@
   "variant": 0,
   "program": "verify_retry",
   "success": true,
-  "completion": 17.04,
+  "completion": 17.1,
   "outcome": "placed",
   "closes_on_nothing": 2,
   "params": {
@@ -312,7 +312,7 @@
   "variant": 4,
   "program": "blocking_retry",
   "success": true,
-  "completion": 16.32,
+  "completion": 16.42,
   "outcome": "placed",
   "closes_on_nothing": 2,
   "params": {
@@ -326,7 +326,7 @@
   "variant": 4,
   "program": "verify_retry",
   "success": true,
-  "completion": 16.32,
+  "completion": 16.42,
   "outcome": "placed",
   "closes_on_nothing": 2,
   "params": {

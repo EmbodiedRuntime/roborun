@@ -37,6 +37,7 @@ class Grant:
     owner: Any  # Task
     resources: frozenset[str]
     revoked: bool = False
+    released: bool = False  # given up while moving: kept, with nobody behind it, until at rest
 
 
 @dataclass(eq=False)
@@ -215,12 +216,17 @@ class LocalGate:
         if manual:
             raise ResourceBusy(f"locked until reset: {self._lock_message(manual)}")
         owners = self._owners_of(resources)
+        stopping = sorted(r for r in resources if getattr(self._owner.get(r), "released", False))
         locked = [r for r in resources if self._hard_locks(r)]
         # A request still in the queue reserves its actuators, so a free actuator that an
         # earlier request waits for is busy too: `fail` never waits (SPEC §3.3).
         ahead = [e.task for e in self._queue if not e.fut.done() and e.resources & resources]
-        if (owners or locked or ahead) and on_busy == "fail":
+        if (owners or stopping or locked or ahead) and on_busy == "fail":
             msg = self._busy_message(resources, owners) if owners else ""
+            if stopping:
+                msg += ("; " if msg else "") + (
+                    f"{stopping} still stopping after "
+                    + ", ".join(sorted({self._owner[r].owner.name for r in stopping})))
             if locked:
                 msg += ("; " if msg else "") + f"locked: {self._lock_message(self._locks_of(locked))}"
             if ahead:
@@ -275,10 +281,12 @@ class LocalGate:
                 timer.cancel()
 
     def _owners_of(self, resources: frozenset[str]) -> list[Any]:
+        """The tasks that own ``resources``. A grant given up while moving has none: the
+        task behind it is done with the actuator, and a take must not cancel it."""
         seen: list[Any] = []
         for r in sorted(resources):
             g = self._owner.get(r)
-            if g is not None and g.owner not in seen:
+            if g is not None and not g.released and g.owner not in seen:
                 seen.append(g.owner)
         return seen
 
@@ -363,9 +371,20 @@ class LocalGate:
         return True
 
     def release(self, grant: Grant) -> None:
-        """Give up ``grant``. A revoked grant is released only once its actuators are at
-        rest, so the next owner never receives an actuator that is still stopping."""
-        if grant.revoked and not self.at_rest(grant.resources):
+        """Give up ``grant``. Its actuators pass on only at rest, so whatever moves has an
+        owner and the next owner never receives a moving actuator: a revoked grant waits
+        for them to stop, and one given up while they move (a task that ended, or left its
+        `hold`, without waiting for a goal) has them stopped by the Gate first (SPEC §3.3)."""
+        if self._owner_of_any(grant) and not self.at_rest(grant.resources):
+            if not grant.revoked:
+                grant.revoked = grant.released = True
+                moving = tuple(sorted(a for a in grant.resources if not self.at_rest([a])))
+                for a in moving:
+                    self._unwatch(a)
+                    self._last.pop(a, None)
+                    with contextlib.suppress(Exception):
+                        self._execute(Command("stop", a, {}))
+                self._event("fallback", moving, "released", f"left moving by {grant.owner.name}")
             if grant not in self._settling:
                 self._settling[grant] = asyncio.ensure_future(self._release_at_rest(grant))
             return
@@ -382,6 +401,9 @@ class LocalGate:
             if w is not None and w.grant is grant:
                 del self._watch[r]
         self._dispatch()
+
+    def _owner_of_any(self, grant: Grant) -> bool:
+        return any(self._owner.get(r) is grant for r in grant.resources)
 
     async def _release_at_rest(self, grant: Grant) -> None:
         while not self.at_rest(grant.resources):
@@ -486,14 +508,20 @@ class LocalGate:
         if rejection is not None:
             self._fallback([a], rejection.code)
             return rejection
-        if grant.revoked or set(self.locks.get(a, ())) - passed:  # changed while checks ran
+        # Checks take time. Meanwhile the token may have been revoked, the actuator locked,
+        # or the grant released (its task left a `hold` with this command still in flight)
+        # and the actuator given to someone else.
+        if grant.revoked or set(self.locks.get(a, ())) - passed:
             return Rejection("unauthorized", f"token for {a!r} was revoked")
+        if self._owner.get(a) is not grant:
+            return Rejection("unauthorized", f"token for {a!r} was released")
         try:
             self._execute(cmd)
         except BackendError as e:
             if e.code == "fault":
                 self.lock([a], "fault", e.message)
                 self._cancel_owner(grant.owner, "rejected", {"code": "fault", "message": e.message})
+                self._reject_waiters({a}, "fault")
             raise
         if cmd.kind == "setpoint":
             self._arm_watchdog(a, grant)
@@ -546,10 +574,15 @@ class LocalGate:
         for owner in self._owners_of(actuators):
             self._cancel_owner(owner, reason, dict(detail))
         if cause in MANUAL:
-            for entry in [e for e in self._queue if e.resources & actuators]:
-                if not entry.fut.done():
-                    entry.fut.set_exception(ResourceBusy(f"locked until reset: {cause}"))
+            self._reject_waiters(actuators, cause)
         self._fallback(actuators, cause)
+
+    def _reject_waiters(self, actuators: Iterable[str], cause: str) -> None:
+        """Nothing waits for actuators that are locked until ``reset`` (SPEC §3.5)."""
+        actuators = frozenset(actuators)
+        for entry in [e for e in self._queue if e.resources & actuators]:
+            if not entry.fut.done():
+                entry.fut.set_exception(ResourceBusy(f"locked until reset: {cause}"))
 
     def operator_stop(self, actuators: Iterable[str] | None = None) -> None:
         """An operator stop (SPEC §3.5): only the named actuators; unlocks only on ``reset``.

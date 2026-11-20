@@ -25,7 +25,7 @@ from roborun.errors import (
     TaskCancelled,
     TaskFailed,
 )
-from roborun.expect import ExpectationFailed, at_end, at_start, during
+from roborun.expect import ExpectationFailed, at_end, at_start, during, phase
 from roborun.runtime import Runtime, run_sim, runtime
 from roborun.stamped import Stamped, derive
 from roborun.task import Task, TaskState, can_transition
@@ -60,6 +60,7 @@ __all__ = [
     "hold",
     "now",
     "on_change",
+    "phase",
     "provider",
     "run_sim",
     "runtime",

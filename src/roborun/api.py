@@ -180,6 +180,8 @@ class timeout:
 
     def add(self, task: Task) -> None:
         self._tasks.append(task)
+        if task.deadline is None or self.deadline < task.deadline:
+            task.deadline = self.deadline
         if self.expired:
             task.cancel("timeout")
 
@@ -192,6 +194,7 @@ class timeout:
 
     async def __aenter__(self) -> timeout:
         clock = runtime().clock
+        self.deadline = clock.now() + self.seconds
         self._token = _scopes.set(_scopes.get() + (self,))
         self._timer = clock.timer(clock.now() + self.seconds)
         self._timer.add_done_callback(self._expire)

@@ -65,7 +65,7 @@ def describe_error(e: BaseException | None) -> dict | None:
     if isinstance(e, TaskCancelled):
         out["reason"] = e.reason
     if isinstance(e, ExpectationFailed):
-        out.update(expectation=e.name, when=e.when, verdict=e.verdict, reason=e.reason,
+        out.update(expectation=e.name, when=e.when, phase=e.phase, verdict=e.verdict, reason=e.reason,
                    evidence=plain(e.evidence))
     return out
 
@@ -110,9 +110,11 @@ class Trace:
             "reason": task.reason, "detail": task.detail,
             "inputs": task.params, "outputs": task.result if state == "succeeded" else None,
             "error": describe_error(task.error) if state == "failed" else None,
-            "resources": sorted(task.resources), "session": task.session,
+            "resources": sorted(task.resources), "owned": sorted(task.owned) or None,
+            "session": task.session,
             "provenance": task.provenance, "repeats": task._repeats or None,
             "expectations": task.checks or None, "verified": task.verified,
+            "phases": task.phases or None, "warnings": task.warnings or None,
             "refs": [],
         }
         if task.trace_parent:
@@ -216,6 +218,66 @@ def failures(spans: list[dict]) -> list[list[dict]]:
             node = by_id.get(node.get("parent"))
         chains.append(list(reversed(chain)))
     return chains
+
+
+def check(spans: list[dict]) -> list[str]:
+    """Replay over a trace the invariants that can be read from one (spec/README.md), and
+    return what is violated, each line starting with the invariant's name:
+
+    - ParentOutlivesChildren: no task ends after its parent (SPEC §1.5);
+    - OwnershipConsistent: two tasks never own the same actuator at the same time (§3.3);
+    - NoCommandWhenCancelled: every accepted command lies within the life of the task that
+      sent it (§3.3);
+    - LockedBlocks: no command is accepted for an actuator locked until reset (§3.5).
+
+    A trace shows one run: this finds violations in it, and cannot show there are none in
+    others. Grants taken with ``hold`` are not in the trace, so ownership through them is
+    not checked.
+    """
+    eps = 1e-9
+    tasks = {s["id"]: s for s in spans if s.get("kind") == "task"}
+    out: list[str] = []
+
+    def label(s: dict) -> str:
+        return f"{s['name']} ({s['id']})"
+
+    for s in tasks.values():
+        p = tasks.get(s.get("parent"))
+        if p is not None and None not in (s.get("end"), p.get("end")) and s["end"] > p["end"] + eps:
+            out.append(f"ParentOutlivesChildren: {label(s)} ended at {s['end']:.3f}, after its "
+                       f"parent {label(p)} at {p['end']:.3f}")
+
+    owners = sorted((s for s in tasks.values() if s.get("owned") and s.get("end") is not None),
+                    key=lambda s: s["start"])
+    for i, a in enumerate(owners):
+        for b in owners[i + 1:]:
+            both = set(a["owned"]) & set(b["owned"])
+            if both and b["start"] < a["end"] - eps:
+                out.append(f"OwnershipConsistent: {label(a)} and {label(b)} both owned "
+                           f"{sorted(both)} at {b['start']:.3f}")
+
+    locked: dict[str, set[str]] = {}
+    for s in spans:
+        if s.get("kind") != "gate":
+            continue
+        kind, _, rest = s["name"].partition(" ")
+        if s["status"] == "lock":
+            for a in rest.split(","):
+                locked.setdefault(a, set()).add(s["outputs"]["cause"])
+        elif s["status"] == "unlock":
+            for a in rest.split(","):
+                locked.get(a, set()).difference_update(s["outputs"]["cause"].split(","))
+        elif s["status"] == "accepted" and kind != "stop":
+            task = tasks.get(s.get("parent"))
+            if task is not None and task.get("end") is not None and not (
+                    task["start"] - eps <= s["start"] <= task["end"] + eps):
+                out.append(f"NoCommandWhenCancelled: {s['name']} accepted at {s['start']:.3f} for "
+                           f"{label(task)}, which ran from {task['start']:.3f} to {task['end']:.3f}")
+            held = locked.get(rest, set()) & {"operator", "fault"}
+            if held:
+                out.append(f"LockedBlocks: {s['name']} accepted at {s['start']:.3f} while locked "
+                           f"({', '.join(sorted(held))})")
+    return out
 
 
 def _fmt_t(t: Any) -> str:

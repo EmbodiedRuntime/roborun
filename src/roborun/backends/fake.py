@@ -8,8 +8,10 @@ It has just enough physics to make the runtime's semantics observable:
 - objects can be nudged at a given time;
 - a closed gripper holds the object under it, and the object moves with the arm.
 
-World keys written every step: ``arm.ee``, ``arm.moving``, ``gripper.holding``, and
-``sim.<object>`` (ground truth, read by the ``track`` provider).
+World keys written every step: ``arm.ee``, ``arm.moving``, ``gripper.holding``,
+``gripper.width``, and ``sim.<object>`` (ground truth, read by the ``track`` provider).
+
+``ROBOT`` describes it to the backend-independent skills: ``library(ROBOT)``.
 """
 
 from __future__ import annotations
@@ -22,12 +24,17 @@ from typing import Any
 from roborun.api import action, provider, send, sleep, world
 from roborun.expect import not_stalled
 from roborun.gate import Command
+from roborun.skills import Robot
 from roborun.tools import tool
 
 Point = tuple[float, float]
 
 CYCLE = 0.01  # control period of the skills below
 REACH_TOL = 0.005
+OPEN, OBJECT = 0.08, 0.04  # finger opening: open, and closed on an object
+
+
+ROBOT = Robot(reach_tol=REACH_TOL, align_tol=REACH_TOL)  # planar: no approach from above
 
 
 def dist(a: Point, b: Point) -> float:
@@ -52,7 +59,10 @@ class FakeBackend:
         self.stop_time = stop_time
         self.grip_tol = grip_tol
         self.holding: str | None = None
+        self.width = OPEN  # between the fingers
         self.jammed = False  # test control: the arm sits still whatever it is told
+        self.gripper_jammed = False  # test control: the fingers ignore what they are told
+        self.brakes = True  # test control: without them the arm ignores a stop
         self.log: list[tuple[float, Command]] = []
         self._target: Point | None = None
         self._stopping_until: float | None = None
@@ -100,6 +110,10 @@ class FakeBackend:
         self.objects[name] = to
         return {"object": name, "from": list(before), "to": list(to)}
 
+    def drop(self) -> None:
+        """What is held slips out, and the fingers close on nothing."""
+        self.holding, self.width = None, 0.0
+
     def truth(self, name: str) -> Point:
         return self.objects[name]
 
@@ -111,14 +125,16 @@ class FakeBackend:
             self._target = tuple(cmd.payload["target"])
             self._stopping_until = None
         elif cmd.kind == "stop":
-            if cmd.actuator == "arm" and self._target is not None and self._stopping_until is None:
+            if (cmd.actuator == "arm" and self.brakes and self._target is not None
+                    and self._stopping_until is None):
                 self._stopping_until = self.now() + self.stop_time
-        elif cmd.kind == "effector":
+        elif cmd.kind == "effector" and not self.gripper_jammed:
             if cmd.payload.get("close"):
                 near = [n for n, p in self.objects.items() if dist(p, self.ee) <= self.grip_tol]
                 self.holding = near[0] if near else None
+                self.width = 0.0 if self.holding is None else OBJECT
             else:
-                self.holding = None
+                self.holding, self.width = None, OPEN
 
     # -- physics ---------------------------------------------------------------
 
@@ -155,6 +171,7 @@ class FakeBackend:
         w.write("arm.ee", self.ee, source="fake.arm")
         w.write("arm.moving", self.moving, source="fake.arm")
         w.write("gripper.holding", self.holding, source="fake.gripper")
+        w.write("gripper.width", self.width, source="fake.gripper")
         for name, pos in self.objects.items():
             w.write(f"sim.{name}", pos, source="fake.sim")  # ground truth, like a mocap system
 

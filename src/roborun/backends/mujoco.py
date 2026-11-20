@@ -20,7 +20,7 @@ or None), and ``sim.<object>`` (ground truth, read by the ``track`` provider).
 
 from __future__ import annotations
 
-import asyncio
+import inspect
 import math
 import os
 import subprocess
@@ -31,10 +31,11 @@ from typing import Any
 import mujoco
 import numpy as np
 
-from roborun.api import action, current, now, provider, send, sleep, world
-from roborun.errors import BackendError, StaleData
-from roborun.expect import not_stalled
+from roborun.api import action, provider, sleep, world
+from roborun.errors import BackendError
+from roborun.expect import phase
 from roborun.gate import Command
+from roborun.skills import Dropped, GraspMissed, NothingHeld, Robot, library  # noqa: F401
 from roborun.tools import tool
 
 Point = tuple[float, float, float]
@@ -557,116 +558,38 @@ ALIGN_TOL = 0.01
 APPROACH = 0.12  # approach and lift height above a grasp or place point
 
 
-class GraspMissed(Exception):
-    pass
-
-
-class Dropped(Exception):
-    """The object slipped out of the gripper before it was put down."""
-
-
-class NothingHeld(Exception):
-    """``place`` was asked to put something down, but the gripper holds nothing."""
-
-
 MAX_AGE = 0.3  # a tracked position older than this is not acted on
 STALE_WAIT = 3.0  # how long a skill holds still waiting for fresh data before failing
 SLIP_TIME = 0.05  # how long the gripper must be empty before it counts as a slip
 EMPTY_WIDTH = 0.01  # fingers closer than this have nothing between them
 
-
 Target = Point | str  # a position, or the name of a tracked object
 
-# Every skill that sends goals expects the arm to work on them: a goal that the arm neither
-# reaches nor moves toward for a second (blocked, or a controller that gave up) fails the
-# skill, which would otherwise wait for an arrival that never comes.
-STALL = not_stalled(tol=REACH_TOL, within=1.0)
+# The skills are the backend-independent ones (roborun.skills), for this arm: they approach
+# from APPROACH above, and place an object by its height in the scene.
+PANDA = Robot(scene="scene.objects", cycle=CYCLE, reach_tol=REACH_TOL, align_tol=ALIGN_TOL,
+              approach=APPROACH, empty_width=EMPTY_WIDTH, object_height=2 * CUP_HALF_HEIGHT,
+              max_age=MAX_AGE, stale_wait=STALE_WAIT, slip_time=SLIP_TIME)
+_lib = library(PANDA, point=Point, target=Target)
 
+move_to, gripper, grasp, place = _lib.move_to, _lib.gripper, _lib.grasp, _lib.place
+pick_and_place = _lib.pick_and_place
+position, wait_stopped, _stop = _lib.position, _lib.wait_stopped, _lib.stop
+_above, _arrive, _gripper, _place_point = _lib.above, _lib.arrive, _lib.set_gripper, _lib.place_point
 
-async def position(target: Target, on_stale: Any = None) -> Point:
-    """A position, or the latest *fresh* tracked position of the object named ``target``.
+inspect.unwrap(move_to).__doc__ = """Move the gripper (the point between the fingertips) to ``target`` (x, y, z) in metres,
+pointing down, and end at rest. The robot base is at the origin; the table top is z = 0."""
+inspect.unwrap(grasp).__doc__ = """Pick up an object from above and lift it.
 
-    A name follows the object (SPEC Appendix A, key-following skills). If its value is older
-    than ``MAX_AGE`` (the object is occluded, or its tracker stopped), the skill does not act
-    on it: ``on_stale()`` is awaited once (e.g. to stop the arm) and it waits for fresh data,
-    failing with ``StaleData`` after ``STALE_WAIT`` seconds.
-    """
-    if not isinstance(target, str):
-        return tuple(float(v) for v in target)
-    deadline, warned = now() + STALE_WAIT, False
-    while True:
-        sv = world.latest(target)
-        if sv is not None and sv.age(now()) <= MAX_AGE:
-            return tuple(sv.value)
-        if now() >= deadline:
-            raise StaleData(target, None if sv is None else sv.age(now()), MAX_AGE,
-                            None if sv is None else sv.source)
-        if not warned and on_stale is not None:
-            warned = True
-            await on_stale()
-        await sleep(CYCLE)
+``target`` is an object name (e.g. "cup_red", which must be tracked) or a position. With
+a name the grasp follows the object if it moves; ``update(target=...)`` redirects it.
+Fails with GraspMissed if the gripper closes on nothing. While the gripper is not over the
+object, the arm goes to the approach height first, so it never sweeps through it."""
+inspect.unwrap(place).__doc__ = """Put down what the gripper holds, release it, and lift.
 
-
-def _above(p: Any, h: float = APPROACH) -> Point:
-    return (p[0], p[1], p[2] + h)
-
-
-def _horizontal(a: Any, b: Any) -> float:
-    return math.hypot(a[0] - b[0], a[1] - b[1])
-
-
-async def _arrive(target: Point, holding: str | None = None) -> None:
-    """Wait until the TCP is at ``target`` and the arm is at rest. With ``holding``,
-    raise ``Dropped`` as soon as the gripper no longer holds that object."""
-    missing = 0.0
-    while world.get("arm.moving").value or dist(world.get("arm.ee").value, target) > REACH_TOL:
-        if (holding is not None and world.get("gripper.holding").value != holding
-                and world.get("gripper.width").value < EMPTY_WIDTH):
-            # Contact flickers when the object touches a surface, but the fingers stay apart
-            # around it. After a slip they close on nothing.
-            missing += CYCLE
-            if missing >= SLIP_TIME:
-                await _stop()
-                raise Dropped(f"{holding} slipped out of the gripper at "
-                              f"{tuple(round(v, 3) for v in world.get('arm.ee').value)}")
-        else:
-            missing = 0.0
-        await sleep(CYCLE)
-
-
-async def wait_stopped() -> None:
-    while world.get("arm.moving").value:
-        await sleep(CYCLE)
-
-
-async def _gripper(close: bool) -> None:
-    """Open or close, and return once the fingers have settled. When the object is off
-    center, one finger touches it first and stops for a moment while the other is still
-    closing, so a single still sample is not the end of the motion."""
-    await send("effector", "gripper", close=close)
-    await sleep(5 * CYCLE)  # let the fingers start moving
-    # Closing ends when the fingers hold something and the opening is steady (finger speed
-    # jitters while squeezing), or when they have closed all the way on nothing. In between
-    # a finger may be slowly pushing an off-center object toward the middle, pausing on
-    # static friction, so a steady opening alone does not mean done.
-    widths: list[float] = []
-    for _ in range(250):  # at most 2.5 s
-        width = world.get("gripper.width").value
-        widths.append(width)
-        steady = len(widths) > 10 and abs(widths[-1] - widths[-11]) < 0.0005
-        if close:
-            if world.get("gripper.holding").value is not None and steady:
-                return
-            if width < EMPTY_WIDTH:
-                return
-        elif width > 0.075 or steady:
-            return
-        await sleep(CYCLE)
-
-
-async def _stop() -> None:
-    await send("stop", "arm")
-    await wait_stopped()
+``target`` is a surface name (e.g. "tray", which must be tracked) or the position where
+the held object's center should end up. Fails at once with NothingHeld if the gripper is
+empty, and with Dropped, stopping the arm, if the object slips out on the way."""
 
 
 @tool
@@ -685,138 +608,32 @@ async def track(name: str, rate: float = 20.0) -> None:
 
 
 @tool
-@action(resources={"arm"}, expect=[STALL])
-async def move_to(target: Point) -> Point:
-    """Move the gripper (the point between the fingertips) to ``target`` (x, y, z) in metres,
-    pointing down, and end at rest. The robot base is at the origin; the table top is z = 0."""
-    try:
-        await send("goal", "arm", target=target)
-        await _arrive(target)
-        return target
-    except asyncio.CancelledError:
-        await _stop()
-        if dist(world.get("arm.ee").value, target) <= REACH_TOL:
-            return target  # the motion finished before it could be stopped
-        raise
-
-
-@tool
-@action(resources={"gripper"})
-async def gripper(close: bool) -> str | None:
-    """Close (true) or open (false) the gripper and wait until the fingers settle; returns
-    the name of the object it holds afterwards, or null."""
-    await _gripper(close=close)
-    return world.get("gripper.holding").value
-
-
-@tool
-@action(resources={"arm", "gripper"}, expect=[STALL])
-async def grasp(target: Target) -> Point:
-    """Pick up an object from above and lift it.
-
-    ``target`` is an object name (e.g. "cup_red", which must be tracked) or a position. With
-    a name the grasp follows the object if it moves; ``update(target=...)`` redirects it.
-    Fails with GraspMissed if the gripper closes on nothing. While the gripper is not over the
-    object, the arm goes to the approach height first, so it never sweeps through it.
-    """
-    me = current()
-    try:
-        await _gripper(close=False)
-        while True:
-            tgt = await position(me.params["target"], on_stale=_stop)
-            ee = world.get("arm.ee").value
-            if _horizontal(ee, tgt) <= ALIGN_TOL:
-                goal = tgt
-                if dist(ee, tgt) <= REACH_TOL and not world.get("arm.moving").value:
-                    break
-            elif ee[2] < tgt[2] + APPROACH - 0.03:
-                goal = (ee[0], ee[1], tgt[2] + APPROACH)  # rise before moving sideways
-            else:
-                goal = _above(tgt)
-            await send("goal", "arm", target=goal)
-            await sleep(CYCLE)
-        await _gripper(close=True)
-        held = world.get("gripper.holding").value
-        if held is None:
-            raise GraspMissed(f"closed on nothing at {tuple(round(v, 3) for v in tgt)}")
-        await send("goal", "arm", target=_above(tgt))
-        await _arrive(_above(tgt), holding=held)  # a slip while lifting is a failure too
-        return tgt
-    except asyncio.CancelledError:
-        await _stop()
-        raise
-
-
-@tool
-@action(resources={"arm", "gripper"}, expect=[STALL])
+@action(resources={"arm", "gripper"}, expect=[*_lib.moves, _lib.grasped])
 async def grasp_blocking(target: Target) -> Point:
     """The same grasp as one blocking call: the target is fixed when it starts, so it does
     not follow an object that moves."""
     target = await position(target)
-    await _gripper(close=False)
+    await _gripper(False)
     ee = world.get("arm.ee").value
     if ee[2] < target[2] + APPROACH - 0.03:  # rise first, as grasp does: never sweep sideways
-        await send("goal", "arm", target=(ee[0], ee[1], target[2] + APPROACH))
-        await _arrive((ee[0], ee[1], target[2] + APPROACH))
+        await _lib.go((ee[0], ee[1], target[2] + APPROACH))
     for goal in (_above(target), target):
-        await send("goal", "arm", target=goal)
-        await _arrive(goal)
-    await _gripper(close=True)
-    if world.get("gripper.holding").value is None:
-        raise GraspMissed(f"closed on nothing at {tuple(round(v, 3) for v in target)}")
-    await send("goal", "arm", target=_above(target))
-    await _arrive(_above(target))
+        await _lib.go(goal)
+    await phase("close")
+    await _gripper(True)
+    await phase("lift")  # GraspMissed here if it closed on nothing
+    await _lib.go(_above(target))
     return target
 
 
-async def _place_point(target: Target) -> Point:
-    """Where the held object's center goes. On a named surface (e.g. "tray"), that is the
-    surface height plus half the object's height."""
-    if not isinstance(target, str):
-        return tuple(float(v) for v in target)
-    surface = await position(target)
-    held = world.get("gripper.holding").value
-    scene = world.get("scene.objects").value
-    height = scene.get(held, {}).get("height", 2 * CUP_HALF_HEIGHT) if held else 0.0
-    return (surface[0], surface[1], surface[2] + height / 2 + 0.003)
-
-
 @tool
-@action(resources={"arm", "gripper"}, expect=[STALL])
-async def place(target: Target) -> Point:
-    """Put down what the gripper holds, release it, and lift.
-
-    ``target`` is a surface name (e.g. "tray", which must be tracked) or the position where
-    the held object's center should end up. Fails at once with NothingHeld if the gripper is
-    empty, and with Dropped, stopping the arm, if the object slips out on the way.
-    """
-    try:
-        held = world.get("gripper.holding").value
-        if held is None:
-            raise NothingHeld("the gripper holds nothing to place")
-        point = await _place_point(target)
-        for goal in (_above(point), point):
-            await send("goal", "arm", target=goal)
-            await _arrive(goal, holding=held)
-        await _gripper(close=False)
-        await send("goal", "arm", target=_above(point))
-        await _arrive(_above(point))
-        return point
-    except asyncio.CancelledError:
-        await _stop()
-        raise
-
-
-@tool
-@action(resources={"arm", "gripper"}, expect=[STALL])
+@action(resources={"arm", "gripper"}, expect=_lib.moves)
 async def place_blocking(target: Target) -> Point:
     """The same place as one blocking call: the target is fixed when it starts, and it does
     not check what the gripper holds on the way."""
     point = await _place_point(target)
     for goal in (_above(point), point):
-        await send("goal", "arm", target=goal)
-        await _arrive(goal)
-    await _gripper(close=False)
-    await send("goal", "arm", target=_above(point))
-    await _arrive(_above(point))
+        await _lib.go(goal)
+    await _gripper(False)
+    await _lib.go(_above(point))
     return point
