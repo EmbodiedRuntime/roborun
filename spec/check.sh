@@ -28,6 +28,10 @@ MCTasks      tasks_mut_nofair             CancelTerminates
 MCOwnership  ownership                    pass
 MCOwnership  ownership_takers             pass
 MCOwnership  ownership_child              pass
+MCOwnership  ownership_deep               pass
+MCOwnership  ownership_hold               pass
+MCOwnership  ownership_hold_take          pass
+MCOwnership  ownership_hold_live          pass
 MCOwnership  ownership_live               pass
 MCOwnership  ownership_child_live         pass
 MCOwnership  ownership_takers_live        pass
@@ -38,7 +42,10 @@ MCOwnership  ownership_mut_failowned      FailNeverWaits
 MCOwnership  ownership_mut_takefront      TakeDirect
 MCOwnership  ownership_mut_childcommands  NoCommandWhenCancelled
 MCOwnership  ownership_mut_childmoving    CancelledAtRest
+MCOwnership  ownership_mut_holdkept       NoCommandWhenCancelled
+MCOwnership  ownership_mut_ownline        CancelReachesSubtree
 MCOwnership  ownership_limit_take_starves_wait  NoStarvation
+MCOwnership  ownership_limit_hold_deadlock      NoStarvation
 MCGate       gate                         pass
 MCGate       gate_allow                   pass
 MCGate       gate_live                    pass

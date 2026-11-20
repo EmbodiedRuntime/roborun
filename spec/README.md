@@ -16,7 +16,7 @@ half an hour in CI, where it runs only when `spec/` or `SPEC.md` change.
 | Module | Covers | Left out |
 |---|---|---|
 | [`Tasks.tla`](Tasks.tla) | States and transitions (§1.1, §1.2), the task tree (§1.5) | Resources, timeouts, replacement (§6) |
-| [`Ownership.tla`](Ownership.tla) | Ownership, arbitration, `take`, revocation, a child using its parent's token (§3.3, §1.6), with the Gate in-process | Deeper trees, `hold` as a request of a running task |
+| [`Ownership.tla`](Ownership.tla) | Ownership, arbitration, `take`, revocation (§3.3, §1.6) over a task tree of any depth: tasks that use a token held above them or ask for actuators themselves, and `hold` as a request of a running task; with the Gate in-process | The stop of an actuator given up while it moves (in `Gate.tla`) |
 | [`Gate.tla`](Gate.tla) | Checks that take time, locks (monitor, operator stop, fault), `allow`, fallback, reset, the setpoint watchdog (§3.4, §3.5), for one actuator | Arbitration (in `Ownership.tla`), what a check decides, budgets as times |
 | [`Protocol.tla`](Protocol.tla) | The Gate in its own process: requests, replies and events in flight, the runtime's mirror of its grants, disconnect (§3.1, §3.8) | Several runtimes, message loss (the transport is reliable and ordered) |
 | [`Lockstep.tla`](Lockstep.tla) | The tick/ack handshake (§2.1) | What a step computes |
@@ -32,11 +32,12 @@ half an hour in CI, where it runs only when `spec/` or `SPEC.md` change.
 | `OwnershipConsistent`, `QueueConsistent`, `RevokedIsCancelling` | §3.3: one owner; nothing leaked; a cancelled task has no valid token | yes |
 | `NoOvertake` | §3.3 `wait`: a later request never overtakes an earlier one it overlaps | yes |
 | `CancelledAtRest` | §1.1: `cancelled` means the robot is stopped | yes |
-| `NoCommandWhenCancelled` | a cancelled task cannot move the robot, even through its parent's token | yes |
+| `NoCommandWhenCancelled` | a cancelled task cannot move the robot, even through an ancestor's token or its own `hold` | yes |
+| `CancelReachesSubtree` (`Ownership`) | §1.5 rule 1 with ownership: below a cancelled task nothing runs, waits or holds | yes |
 | `FailNeverWaits` | §3.3 `fail`: fail at once | yes |
 | `TakeDirect`, `OneTaker` | §3.3 `take`: ownership goes directly to the taker; at most one take waits for an actuator | yes |
 | `TakeResolves` | a waiting take gets its actuators, or is cancelled or refused | yes |
-| `NoStarvation` | §3.3 `wait`: no request starves | among `wait` requests; tasks that keep taking starve them, as §3.3 says |
+| `NoStarvation` | §3.3 `wait`: no request starves | among `wait` requests made at start; tasks that keep taking starve them, as §3.3 says, and two tasks that each `hold` what the other owns wait for ever (§1.6) |
 | `ExecutedForTheOwner` (`Gate`, `Protocol`) | §3.4 rule 1, §3.3: a command reaches the backend only for the task that holds the actuator when the checks have answered, and never while it is locked | yes |
 | `LockedHasNoOwner`, `NoWaiterUntilReset`, `OnlyResetUnlocks`, `MonitorLockFollowsMonitor` | §3.5: locks | yes |
 | `FallbackRan`, `UnauthorizedChangesNothing` | §3.5: the fallback runs after a rejection or a safety event, and not for a command without a token | yes |
@@ -109,16 +110,25 @@ The random tests then showed something the models had stated only as a limit (v0
     rest; `MotionHasOwner` and `GrantedAtRest` hold, and `gate_mut_nostoponrelease` is the
     Gate before the change.
 
+`Ownership.tla` was then widened to trees of any depth and to `hold` (seven more configs).
+The fourteen earlier configs reach exactly the same states as before, and the new ones found
+no difference between the model and the Gate; they state one limit of `hold` (below).
+
 ## Known limits
 
 - Tasks that keep taking starve a `wait` request (4 above; `ownership_limit_take_starves_wait`).
+- `hold` asks while its task owns, so two tasks that each `hold` what the other owns wait
+  for each other for ever (`ownership_limit_hold_deadlock`). A `wait_timeout` on the `hold`,
+  a cancellation, or asking for everything at `start` ends or avoids it (§1.6).
 
-Not modelled: trees deeper than one level together with ownership, and `hold` as a request
-made by a running task. The random tests cover both on the code.
+Not modelled: a `take` or `fail` request that meets an actuator still stopping after it was
+given up (`Gate.tla` has the stop, `Ownership.tla` the arbitration, neither both). Tests and
+the random tests cover it on the code.
 
 ## Mutations
 
 A property that cannot fail proves nothing. Each `*_mut_*` config switches one mechanism off
 (reaping, propagation, reservations, the stop on revocation, cancelling waiting takes, the
-two rules for a cancelled child, the look at the grant after the checks, telling the
+two rules for a cancelled child, revoking the tokens of a cancelled task's `hold`s, refusing
+a take that would cancel its own ancestor, the look at the grant after the checks, telling the
 runtime of a revocation, acknowledging only when settled, the fairness assumptions) and must make TLC report the property that depends on it.

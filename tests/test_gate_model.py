@@ -145,3 +145,102 @@ def test_leaving_a_hold_with_the_arm_moving_stops_it_and_a_take_does_not_cancel_
     assert taker is TaskState.SUCCEEDED and moving is False
     assert started >= 0.0 + backend.stop_time - 1e-9
     assert (state, result) == (TaskState.SUCCEEDED, "went on")  # the take cancelled nobody
+
+
+# -- Ownership.tla with deeper trees and `hold` ---------------------------------------------------
+
+
+def test_two_tasks_that_each_hold_what_the_other_owns_wait_until_a_wait_timeout(sim):
+    """ownership_limit_hold_deadlock: a limit of `hold`, which asks while owning."""
+    async def one(mine, other, **kwargs):
+        await sleep(0.1)
+        async with hold(other, **kwargs):
+            pass
+        return mine
+
+    async def main():
+        a = start(one("arm", "gripper"), resources={"arm"})
+        b = start(one("gripper", "arm"), resources={"gripper"})
+        await sleep(5.0)
+        stuck = (a.state, b.state)
+        a.cancel()
+        states = (await a.stopped(), await b.stopped())
+        # With a wait_timeout the one that gives up fails, and the other goes on.
+        a = start(one("arm", "gripper", wait_timeout=0.5), resources={"arm"})
+        b = start(one("gripper", "arm"), resources={"gripper"})
+        return stuck, states, await a.stopped(), type(a.error).__name__, await b.stopped()
+
+    stuck, states, a, error, b = sim(main)[0].result
+    assert stuck == (TaskState.RUNNING, TaskState.RUNNING)
+    assert states == (TaskState.CANCELLED, TaskState.SUCCEEDED)  # cancelling one frees the other
+    assert (a, error, b) == (TaskState.FAILED, "ResourceBusy", TaskState.SUCCEEDED)
+
+
+def test_a_task_cannot_take_what_the_hold_of_its_grandparent_is_taking(sim):
+    """OwnLine: it would cancel the grandparent, and so itself."""
+    async def grandchild():
+        await sleep(0.0)
+
+    async def child():
+        await sleep(0.1)  # by now the grandparent waits in its hold
+        t = start(grandchild(), resources={"gripper"}, on_busy="take")
+        await t.stopped()
+        return t.state, str(t.error)
+
+    async def top():
+        c = start(child())
+        await sleep(0.05)
+        async with hold("gripper", on_busy="take"):
+            pass
+        return await c
+
+    async def slow_to_stop():
+        try:
+            await sleep(10.0)
+        except asyncio.CancelledError:
+            await sleep(0.5)  # the hold above waits meanwhile
+            raise
+
+    async def main():
+        other = start(slow_to_stop(), resources={"gripper"})
+        await sleep(0.01)
+        t = start(top(), resources={"arm"})
+        return await t.stopped(), t.result, await other.stopped()
+
+    state, (taken, error), other = sim(main)[0].result
+    assert state is TaskState.SUCCEEDED and other is TaskState.CANCELLED
+    assert taken is TaskState.FAILED and "wait for it instead of taking" in error
+
+
+def test_a_cancellation_reaches_three_levels_and_their_holds(sim):
+    """CancelReachesSubtree: every token below is revoked, every request withdrawn."""
+    async def leaf():
+        async with hold("gripper"):  # waits: the gripper is owned elsewhere
+            pass
+
+    async def middle():
+        start(leaf())
+        await send("goal", "arm", target=(3.0, 0.0))  # with the token two levels up
+        await sleep(10.0)
+
+    async def top():
+        async with hold("arm"):
+            await start(middle())
+
+    async def main():
+        rt = runtime()
+        owner = start(sleep(10.0), resources={"gripper"})
+        t = start(top())
+        await sleep(0.2)
+        waiting = len(rt.gate._queue)
+        t.cancel()
+        state = await t.stopped()
+        tree = [x.state for x in rt.all_tasks() if x.name.endswith(("middle", "leaf"))]
+        nxt = start(sleep(0.0), resources={"arm"}, on_busy="fail")
+        owner.cancel()
+        return waiting, state, tree, rt.backend.moving, len(rt.gate._queue), await nxt.stopped()
+
+    waiting, state, tree, moving, left, nxt = sim(main)[0].result
+    assert waiting == 1 and left == 0
+    assert state is TaskState.CANCELLED and tree == [TaskState.CANCELLED] * 2
+    assert moving is False and nxt is TaskState.SUCCEEDED  # the arm is free, and at rest

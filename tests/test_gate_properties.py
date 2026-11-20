@@ -125,6 +125,25 @@ def tree_invariants(rt, found, at):
             found.append((at, "FailNeverWaits", t.name))  # still pending a step later
 
 
+def gate_invariants(gate, backend, found, at):
+    """What the Gate's own state shows, wherever the Gate runs."""
+    waiting = [e for e in gate._queue if not e.fut.done()]
+    for a in ACTUATORS:
+        g = gate._owner.get(a)
+        if g is None:
+            if a == "arm" and backend.moving:
+                found.append((at, "MotionHasOwner", a))
+        else:
+            if a not in g.resources:
+                found.append((at, "OwnershipConsistent", a))
+            if gate.locks.get(a) and not g.revoked:
+                found.append((at, "LockedHasNoOwner", a, g.owner.name))
+        if gate.locks.get(a, set()) & MANUAL and any(a in e.resources for e in waiting):
+            found.append((at, "NoWaiterUntilReset", a))
+        if sum(1 for e in waiting if e.take and a in e.resources) > 1:
+            found.append((at, "OneTaker", a))
+
+
 def watch_cancellations(rt, backend, found):
     """CancelledAtRest: when a task ends cancelled, the arm it owned is at rest. Looked at
     as the task gives up its grants, which is the moment it becomes cancelled."""
@@ -180,24 +199,14 @@ def test_the_models_invariants_hold_on_the_gate_in_process(seed):
 
         def check(at):
             tree_invariants(rt, found, at)
-            waiting = [e for e in gate._queue if not e.fut.done()]
-            for a in ACTUATORS:
-                g = gate._owner.get(a)
-                if g is not None:
-                    # A grant given up while the arm moved is kept, with no task behind
-                    # it, until the arm is at rest.
-                    if g.owner.state not in (S.RUNNING, S.CANCELLING) and g not in gate._settling:
-                        found.append((at, "OwnershipConsistent", g.owner.name, g.owner.state))
-                    if g.revoked and not g.released and g.owner.state is S.RUNNING:
-                        found.append((at, "RevokedIsCancelling", g.owner.name))
-                    if gate.locks.get(a) and not g.revoked:
-                        found.append((at, "LockedHasNoOwner", a, g.owner.name))
-                elif a == "arm" and backend.moving:
-                    found.append((at, "MotionHasOwner", a))
-                if gate.locks.get(a, set()) & MANUAL and any(a in e.resources for e in waiting):
-                    found.append((at, "NoWaiterUntilReset", a))
-                if sum(1 for e in waiting if e.take and a in e.resources) > 1:
-                    found.append((at, "OneTaker", a))
+            gate_invariants(gate, backend, found, at)
+            for g in set(gate._owner.values()):
+                # A grant given up while the arm moved is kept, with no task behind it,
+                # until the arm is at rest.
+                if g.owner.state not in (S.RUNNING, S.CANCELLING) and g not in gate._settling:
+                    found.append((at, "OwnershipConsistent", g.owner.name, g.owner.state))
+                if g.revoked and not g.released and g.owner.state is S.RUNNING:
+                    found.append((at, "RevokedIsCancelling", g.owner.name))
 
         tasks = await drive(seed, check)
         return [t for t in tasks if not t.state.terminal], dict(gate._owner)
@@ -219,13 +228,29 @@ def test_the_models_invariants_hold_with_the_gate_in_its_own_process(seed):
 
         def check(at):
             tree_invariants(rt, found, at)
+            gate_invariants(server.gate, backend, found, at)
+            # MirrorIsSound: the runtime believes in no token the Gate has not granted,
+            # and one it still takes for valid is valid at the Gate, or the revocation
+            # is on its way (it arrives with the next reply).
+            for token, g in rt.gate.grants.items():
+                if token not in server.tokens:
+                    found.append((at, "MirrorIsSound", g.owner.name))
+            # OwnershipConsistent across the boundary: a token the Gate takes for valid
+            # belongs to a task that has not ended, or its release is on its way.
+            tasks = {t.id: t for t in rt.all_tasks()}
+            for token, g in server.tokens.items():
+                t = tasks.get(g.owner.task_id)
+                if (not g.revoked and t is not None and t.state.terminal
+                        and not rt.gate.outstanding):
+                    found.append((at, "OwnershipConsistent", t.name, t.state))
 
         tasks = await drive(seed, check)
         return [t for t in tasks if not t.state.terminal]
 
+    server = GateServer(backend, dt=0.01, supervises=SUPERVISES)
+
     async def go():
         path = str(Path(tempfile.mkdtemp(prefix="roborun-test-")) / "gate.sock")
-        server = GateServer(backend, dt=0.01, supervises=SUPERVISES)
         log = []
         execute_ = backend.execute
 
