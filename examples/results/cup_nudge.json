@@ -427,8 +427,8 @@
   "push_time": 2.4,
   "direction": "+x",
   "success": true,
-  "completion": 12.77,
-  "latency": 2.18,
+  "completion": 12.8,
+  "latency": 2.24,
   "outcome": "placed"
  },
  {
@@ -436,8 +436,8 @@
   "push_time": 2.4,
   "direction": "-x",
   "success": true,
-  "completion": 12.42,
-  "latency": 2.16,
+  "completion": 12.43,
+  "latency": 2.17,
   "outcome": "placed"
  },
  {
