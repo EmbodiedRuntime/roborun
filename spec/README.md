@@ -68,6 +68,64 @@ A model is not the code. Three things tie them:
   read from a trace: `ParentOutlivesChildren`, `OwnershipConsistent`,
   `NoCommandWhenCancelled`, and no command accepted while locked until reset.
 
+## The core against the models
+
+The three ties above sample the code. A fourth is exhaustive, for the Gate's rules. They are
+in [`roborun/core.py`](../src/roborun/core.py), a state machine with no clock, no backend and
+no `await`; `LocalGate` is a shell around it. So the rules can be run through every order of
+events, and [`spec/compare`](compare/) does that and compares the result with the state graph
+TLC dumps for the same instance:
+
+```sh
+python spec/compare            # the quick set, about two minutes
+python spec/compare --all      # with the full-size instances: over an hour, 10 GB
+python spec/compare -v gate2   # one comparison, with the differences it finds
+```
+
+An environment stands for what the model describes besides the Gate: where each task is,
+and whether the actuators move. It does to the core what the runtime does (a cancelled task
+is revoked, a task that ends gives up what it owns, a cancelled task ends once the Gate says
+its actuators are at rest), and maps the result to a state of the model. Two things are
+checked:
+
+- **the core does nothing the model forbids**: every step of the core, seen as model
+  states, is the model action of the same name, possibly followed by the model serving a
+  waiting request (`Gate.tla` does that in a step of its own, the core at once). So every
+  invariant TLC proved holds for the core in this instance;
+- **the model allows nothing the core cannot do**: every state of the core can take every
+  step the model has from the state it is seen as, and every state of the model is met.
+  This is asked of each state of the core, so two histories the model cannot tell apart
+  must both be able to do what the model allows.
+
+| Comparison | Core: states, steps | Model: states | Time |
+|---|---|---|---|
+| `gate` (3 tasks) | 213,992, 2.8 million | 53,143 | 98 s |
+| `gate_allow` (3 tasks) | 940,217, 13.4 million | 161,759 | 8 min |
+| `gate2`, `gate2_allow` (2 tasks) | 12,253 and 33,163 | 5,461 and 12,079 | 5 s, 13 s |
+| `ownership` | 372,882, 2.3 million | 117,064 | 3 min |
+| `ownership_takers` | 2,618,416, 16.3 million | 660,928 | 54 min |
+| `ownership_child`, `ownership_deep` | 49,178 and 199,040 | 16,993 and 69,974 | 19 s, 94 s |
+| `ownership_hold`, `ownership_hold_take` | 47,870 and 204,608 | 17,111 and 62,973 | 21 s, 97 s |
+
+All agree. As a control, each of five mechanisms of `Gate.tla` is switched off in the model
+only (its `gate_mut_*` config), and in the core only
+([`mutations.py`](compare/mutations.py)): all ten show as differences. CI runs the quick
+set: the two-task Gate instances, the controls, `ownership_child` and `ownership_hold`.
+
+What this does not cover:
+
+- `Ownership.tla` releases an actuator at once, moving or not, and the stop of an actuator
+  given up while it moves is `Gate.tla`'s. So in the Ownership comparisons both sides give
+  actuators up only at rest. The two mechanisms are compared separately, and their
+  combination is in no model.
+- The environments are a restatement of the runtime's side in Python, not the runtime:
+  `task.py` is tied to `Tasks.tla` by the tests only.
+- `Protocol.tla` and `Lockstep.tla` are about two processes, which the core is not.
+  `RemoteGate`, the runtime's side of the Gate process, keeps a copy of two of the core's
+  rules (what a cancelled child commanded is stopped, and it ends at rest); the tests cover
+  it in both layouts.
+- The shell (`LocalGate`), the checks, and the backends.
+
 ## What the models found
 
 The models showed five differences between SPEC.md and the implementation; each was reproduced
@@ -109,6 +167,22 @@ The random tests then showed something the models had stated only as a limit (v0
     seeds). The Gate now stops an actuator given up while it moves and passes it on at
     rest; `MotionHasOwner` and `GrantedAtRest` hold, and `gate_mut_nostoponrelease` is the
     Gate before the change.
+
+Comparing the core with `Ownership.tla` (above) found two more, both about a child that
+commands an actuator with its parent's token:
+
+11. **A cancelled child could end while the arm it commanded was still braking.** A `stop`
+    made the Gate forget whose command the arm was carrying out. A child cancelled a moment
+    later had nothing to wait for and was `cancelled` with the arm moving, against
+    `CancelledAtRest`. A `stop` no longer clears that record.
+12. **A cancelled child waited for a motion its parent started later.** The Gate stops what
+    a cancelled child commanded and lets it end at rest. If the parent sent a new goal while
+    the child was still in its cleanup, the child waited for that motion too, and ended
+    `failed` ("still moving") when it lasted more than 5 s. The model lets the child end as
+    soon as the arm carries out someone else's command; so does the Gate now. The first
+    form of the comparison missed this: it asked that each step of the model be taken from
+    some state of the core, and this state was reachable by another history. It now asks it
+    of every state.
 
 `Ownership.tla` was then widened to trees of any depth and to `hold` (seven more configs).
 The fourteen earlier configs reach exactly the same states as before, and the new ones found

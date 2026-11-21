@@ -217,10 +217,9 @@ class RemoteGate:
     async def settled(self, task: Any, timeout: float) -> bool:
         """Wait until the Gate reports the actuators stopped for ``task`` at rest
         (SPEC §1.1). False after ``timeout``."""
-        actuators = sorted(self._stopped.get(task, ()))
         clock = task.rt.clock
         deadline = clock.now() + timeout
-        while actuators:
+        while actuators := sorted(self._stopped.get(task, ())):
             reply = await self._request({"op": "rest", "actuators": actuators})
             if reply.get("rest", True):
                 break
@@ -279,10 +278,13 @@ class RemoteGate:
             if task is not None:
                 task.detail = {"code": reply["rejected"], "message": reply.get("message", "")}
             return False
-        if cmd.kind == "stop":
-            self._last.pop(cmd.actuator, None)
-        else:
+        if cmd.kind != "stop":  # a stop leaves the actuator coming to rest from that command
             self._last[cmd.actuator] = task
+            # A cancelled task that waits for what it commanded here waits no longer.
+            for t in [t for t, acts in self._stopped.items() if cmd.actuator in acts]:
+                self._stopped[t].discard(cmd.actuator)
+                if not self._stopped[t]:
+                    del self._stopped[t]
         return True
 
 

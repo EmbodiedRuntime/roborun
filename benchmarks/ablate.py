@@ -72,7 +72,7 @@ def without(part: str | None) -> Iterator[None]:
 def _gate() -> list[tuple[Any, str, Any]]:
     from roborun.gate import Grant, LocalGate
 
-    async def admit(self: LocalGate, grant: Any, cmd: Any, verdicts: Any = None) -> None:
+    async def admit(self: LocalGate, grant: Any, cmd: Any, verdicts: Any = None, **_: Any) -> None:
         self._execute(cmd)  # whoever sends it, whatever it is
 
     async def acquire(self: LocalGate, task: Any, resources: Any, **_: Any) -> Grant:

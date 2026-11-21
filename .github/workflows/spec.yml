@@ -1,13 +1,13 @@
 name: Spec
 
 # The TLA+ models (spec/README.md). TLC takes about half an hour on a hosted runner, so
-# this runs only when the models or the specification change.
+# this runs only when the models, the specification or the Gate's core change.
 on:
   push:
     branches: [main]
-    paths: ["spec/**", "SPEC.md", ".github/workflows/spec.yml"]
+    paths: ["spec/**", "SPEC.md", "src/roborun/core.py", ".github/workflows/spec.yml"]
   pull_request:
-    paths: ["spec/**", "SPEC.md", ".github/workflows/spec.yml"]
+    paths: ["spec/**", "SPEC.md", "src/roborun/core.py", ".github/workflows/spec.yml"]
 
 jobs:
   tlc:
@@ -23,3 +23,23 @@ jobs:
           path: spec/.tools
           key: tlc-${{ hashFiles('spec/check.sh') }}
       - run: spec/check.sh
+
+  # The Gate's core, run through every order of events and compared with the models'
+  # state graphs (spec/README.md, "The core against the models").
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: actions/cache@v4
+        with:
+          path: spec/.tools
+          key: tlc-${{ hashFiles('spec/check.sh') }}
+      - uses: astral-sh/setup-uv@v3
+      - run: uv venv --python 3.12
+      - run: uv pip install -e ".[dev]"
+      - run: spec/check.sh none  # fetches the pinned TLC, runs no config
+      - run: uv run python spec/compare

@@ -303,6 +303,36 @@ Every run can write a trace (`run_sim(..., trace="run.jsonl")`). To see why it f
 uv run roborun trace show --failed run.jsonl
 ```
 
+### Code Layout
+
+Everything is in `src/roborun`. The Gate is split in two: its rules are a state machine
+without a clock or I/O, and a shell around it does the waiting and the talking.
+
+| Part | Module | What it holds |
+|---|---|---|
+| Tasks | `task.py` | task states, the task tree, cancellation, when a task may end |
+| | `api.py` | what programs call: `start`, `send`, `hold`, `sleep`, `world` |
+| | `runtime.py` | the runtime object and the simulation driver |
+| World | `world.py`, `stamped.py`, `clock.py` | stamped values, staleness, the time base |
+| Gate | `core.py` | **the rules**: who owns an actuator, which request is served next, which command may reach the backend, what a safety event does. One method per event; what must happen outside is returned as a list of effects |
+| | `gate.py` | the shell: turns calls, timers and check results into the core's events, and carries out its effects on the backend and the tasks |
+| | `checks.py` | command checks and monitors, written by the integrator |
+| | `gateproc.py`, `remote.py`, `wire.py` | the Gate in its own process: tokens, the socket, the runtime's side, lockstep time |
+| Trace | `trace.py` | spans for tasks, commands and safety events; `roborun trace show` / `check` |
+| Monitoring | `expect.py`, `skills.py` | expectations, and skills with named phases |
+| Harness | `harness.py`, `mcp.py`, `tools.py`, `cli.py` | the long-running host, the MCP server, tools, the command line |
+| Backends | `backends/fake.py`, `backends/mujoco.py` | a point-mass arm for tests, and MuJoCo |
+
+Because `core.py` has no clock and no I/O, it can be run through every order of events.
+[`spec/compare`](spec/README.md#the-core-against-the-models) does that and compares the
+result with the state graphs of the TLA+ models:
+
+```sh
+python spec/compare            # the quick set, about two minutes; needs Java 11+
+python spec/compare gate2      # one comparison, a few seconds
+python spec/compare --all      # with the full-size instances: over an hour, 10 GB
+```
+
 ## License
 
 Apache-2.0

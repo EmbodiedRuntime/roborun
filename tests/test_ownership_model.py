@@ -315,3 +315,59 @@ def test_a_cancelled_child_cannot_move_the_arm_through_its_parents_token(run):
     assert seen["after_cancel"] == "rejected"
     assert moving is False and ee[0] < 0.2 and tuple(seen["later"]) == tuple(ee)
     assert seen["parent_moves"] is True
+
+
+def test_a_cancelled_child_ends_at_rest_also_when_the_arm_was_being_stopped(run):
+    # CancelledAtRest, found by comparing the Gate's core with Ownership.tla (spec/compare).
+    # A `stop` made the Gate forget whose command the arm was carrying out, so a child
+    # cancelled while the arm was braking ended `cancelled` with the arm still moving.
+    async def main():
+        async def child():
+            await send("goal", "arm", target=(1.0, 0.0))
+            await sleep(100)
+
+        async with hold("arm"):
+            c = start(child(), resources={"arm"})
+            await sleep(0.2)
+            await send("stop", "arm")  # the parent stops the arm, which takes 0.1 s
+            c.cancel()
+            state = await c.stopped()
+            moving = world.get("arm.moving").value
+        return state, moving
+
+    state, moving = run(main).result
+    assert state is S.CANCELLED
+    assert moving is False
+
+
+def test_a_cancelled_child_does_not_wait_for_a_motion_its_parent_started_later(run):
+    # Found by comparing the Gate's core with Ownership.tla (spec/compare). The Gate stops
+    # what a cancelled child commanded and lets it end at rest. If its parent then sent a
+    # new goal while the child was still in its cleanup, the child waited for that motion
+    # too, and ended `failed` ("still moving") when it lasted long.
+    async def main():
+        async def child():
+            try:
+                await send("goal", "arm", target=(1.0, 0.0))
+                await sleep(100)
+            except asyncio.CancelledError:
+                await sleep(0.3)  # a slow cleanup; the arm is at rest after 0.1 s
+                raise
+
+        async with hold("arm"):
+            c = start(child(), resources={"arm"})
+            await sleep(0.2)
+            c.cancel()
+            await sleep(0.2)
+            await send("goal", "arm", target=(50.0, 0.0))  # the parent's own, long motion
+            t0 = runtime().clock.now()
+            state = await c.stopped()
+            waited = runtime().clock.now() - t0
+            moving = world.get("arm.moving").value
+            await send("stop", "arm")
+        return state, waited, moving
+
+    state, waited, moving = run(main).result
+    assert state is S.CANCELLED
+    assert waited < 0.5 and moving is True  # it ended while its parent's motion went on
+

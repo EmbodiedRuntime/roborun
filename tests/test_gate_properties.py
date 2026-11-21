@@ -127,7 +127,7 @@ def tree_invariants(rt, found, at):
 
 def gate_invariants(gate, backend, found, at):
     """What the Gate's own state shows, wherever the Gate runs."""
-    waiting = [e for e in gate._queue if not e.fut.done()]
+    waiting = list(gate._queue)
     for a in ACTUATORS:
         g = gate._owner.get(a)
         if g is None:
