@@ -168,7 +168,7 @@ The random tests then showed something the models had stated only as a limit (v0
     rest; `MotionHasOwner` and `GrantedAtRest` hold, and `gate_mut_nostoponrelease` is the
     Gate before the change.
 
-Comparing the core with `Ownership.tla` (above) found two more, both about a child that
+Comparing the core with `Ownership.tla` (above) found two more (v0.16), both about a child that
 commands an actuator with its parent's token:
 
 11. **A cancelled child could end while the arm it commanded was still braking.** A `stop`
