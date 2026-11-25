@@ -17,6 +17,7 @@ names the model action it corresponds to.
 
 from __future__ import annotations
 
+import functools
 from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Any
@@ -28,6 +29,37 @@ KINDS = frozenset({"goal", "setpoint", "effector", "stop"})
 ON_BUSY = frozenset({"wait", "fail", "take"})
 # Lock causes that only an explicit reset clears (SPEC §3.5).
 MANUAL = frozenset({"operator", "fault"})
+
+
+# -- the journal ---------------------------------------------------------------
+
+
+def event(method):
+    """An event of the core. With a journal attached, the event, what it returned and the
+    effects it added are recorded in order (``roborun.journal``). An event called from
+    inside another is part of that one."""
+
+    @functools.wraps(method)
+    def recorded(self, *args, **kwargs):
+        journal = self.journal
+        if journal is None or self._depth:
+            return method(self, *args, **kwargs)
+        before = journal.before(self)
+        n = len(self.effects)
+        self._depth += 1
+        result = error = None
+        try:
+            result = method(self, *args, **kwargs)
+            return result
+        except Exception as e:
+            error = e
+            raise
+        finally:
+            self._depth -= 1
+            journal.record(self, method.__name__, args, kwargs, result, error,
+                           self.effects[n:], before)
+
+    return recorded
 
 
 # -- state ---------------------------------------------------------------------
@@ -201,6 +233,8 @@ class GateCore:
         self.last: dict[str, Any] = {}
         self.settling: list[Grant] = []  # grants given up while moving, kept until rest
         self.effects: list[Any] = []
+        self.journal: Any = None  # records every event and its effects, when set
+        self._depth = 0
 
     # -- queries ---------------------------------------------------------------
 
@@ -246,6 +280,7 @@ class GateCore:
 
     # -- requests (SPEC §3.3; Ownership.tla Request, Gate.tla Acquire) -----------
 
+    @event
     def request(self, task: Any, resources: Iterable[str], on_busy: str = "wait") -> Waiter:
         """A request for ``resources``. Raises ``ResourceBusy`` if it fails at once;
         otherwise it is queued, and a ``Granted`` effect answers it now or later.
@@ -334,6 +369,7 @@ class GateCore:
             else:
                 reserved |= entry.resources
 
+    @event
     def expire(self, waiter: Waiter) -> None:
         """The request waited as long as it was willing to (Ownership.tla Timeout)."""
         if waiter not in self.queue:
@@ -346,6 +382,7 @@ class GateCore:
             + (f"; owned by {', '.join(o.name for o in owners)}" if owners else "")))
         self._dispatch()
 
+    @event
     def withdraw(self, waiter: Waiter) -> None:
         """The task behind a waiting request was cancelled."""
         if waiter in self.queue:
@@ -354,6 +391,7 @@ class GateCore:
 
     # -- giving up and losing a grant ----------------------------------------------
 
+    @event
     def release(self, grant: Grant, moving: Iterable[str] = ()) -> None:
         """Give up ``grant``; ``moving`` are the actuators that are not at rest now.
 
@@ -366,9 +404,10 @@ class GateCore:
         if self._owns(grant) and moving:
             if not grant.revoked:
                 grant.revoked = grant.released = True
+                # `last` is left as it is: a child that commanded this motion with the
+                # token still waits for it to come to rest when it is cancelled.
                 for a in moving:
                     self.watch.pop(a, None)
-                    self.last.pop(a, None)
                     self.effects.append(Stop(a))
                 self.effects.append(
                     Safety("fallback", moving, "released", f"left moving by {grant.owner.name}"))
@@ -391,6 +430,7 @@ class GateCore:
                 del self.watch[r]
         self._dispatch()
 
+    @event
     def release_all(self, task: Any, moving: Iterable[str] = ()) -> None:
         """``task`` has ended: everything it owns is given up."""
         moving = frozenset(moving)
@@ -405,10 +445,12 @@ class GateCore:
         must not be granted in the moment before it is withdrawn."""
         self.queue[:] = [w for w in self.queue if w.task is not task]
 
+    @event
     def rested(self, task: Any) -> None:
         """The actuators stopped when ``task`` was cancelled are at rest."""
         self.stopped.pop(task, None)
 
+    @event
     def revoke(self, task: Any) -> None:
         """``task`` is cancelled: revoke its tokens. A task that used an ancestor's token
         has none to revoke; the Gate stops the motion it commanded, and ``authority``
@@ -426,6 +468,7 @@ class GateCore:
             self._forget_requests(task)
             self._dispatch()
 
+    @event
     def revoke_grant(self, grant: Grant) -> None:
         """Revoke a token and stop its actuators. The owner can no longer command them, so
         the Gate stops them itself instead of relying on the owner's cleanup (SPEC §1.1)."""
@@ -444,6 +487,7 @@ class GateCore:
 
     # -- commands (SPEC §3.4; Gate.tla Send, Unauthorized, Accepted, Rejected, Stop) -----
 
+    @event
     def command(self, grant: Grant | None, cmd: Command, task: Any = None) -> Pending | Rejection | None:
         """A command arrives with ``grant`` (see ``authority``).
 
@@ -466,12 +510,14 @@ class GateCore:
         self.pending.append(p)
         return p
 
+    @event
     def dropped(self, p: Pending) -> None:
         """The command is over without reaching the backend: a monitor's ``allow`` check
         refused it, or its sender went away."""
         if p in self.pending:
             self.pending.remove(p)
 
+    @event
     def checked(self, p: Pending, rejection: Rejection | None) -> Rejection | None:
         """The checks have answered. A rejection runs the fallback for the actuator
         (SPEC §3.5). None means: execute the command now, then call ``executed`` or
@@ -492,6 +538,7 @@ class GateCore:
             return Rejection("unauthorized", f"token for {a!r} was released")
         return None
 
+    @event
     def executed(self, p: Pending) -> None:
         """The backend took the command."""
         self.dropped(p)
@@ -510,6 +557,7 @@ class GateCore:
             if not self.stopped[t]:
                 del self.stopped[t]
 
+    @event
     def fault(self, p: Pending, message: str) -> None:
         """The backend reported a fault for the command (SPEC §3.5)."""
         self.dropped(p)
@@ -520,6 +568,7 @@ class GateCore:
 
     # -- fallback, locks, reset (SPEC §3.5) -------------------------------------------
 
+    @event
     def fallback(self, actuators: Iterable[str], cause: str) -> None:
         """The pre-verified behavior: stop. ``stop`` is never checked, so this cannot fail
         because of a check."""
@@ -529,6 +578,7 @@ class GateCore:
             self.effects.append(Stop(a))
         self.effects.append(Safety("fallback", actuators, cause))
 
+    @event
     def lock(self, actuators: Iterable[str], cause: str, detail: str = "") -> None:
         actuators = tuple(sorted(actuators))
         for a in actuators:
@@ -550,6 +600,7 @@ class GateCore:
             self.effects.append(Safety(kind, tuple(freed), ",".join(sorted(causes))))
             self._dispatch()
 
+    @event
     def safety_stop(
         self, actuators: Iterable[str], cause: str, reason: str, detail: dict[str, str]
     ) -> None:
@@ -569,6 +620,7 @@ class GateCore:
             self.queue.remove(entry)
             self.effects.append(Refused(entry, f"locked until reset: {cause}"))
 
+    @event
     def operator_stop(self, actuators: Iterable[str] | None = None) -> None:
         """An operator stop (SPEC §3.5; Gate.tla OperatorStop): only the named actuators;
         unlocks only on ``reset``. Tasks that hold no actuators keep running."""
@@ -576,12 +628,14 @@ class GateCore:
         self.safety_stop(actuators, "operator", "operator",
                          {"code": "operator", "message": "operator stop"})
 
+    @event
     def reset(self, actuators: Iterable[str] | None = None) -> None:
         """Clear operator and fault locks (Gate.tla Reset)."""
         actuators = frozenset(actuators) if actuators is not None else frozenset(self.locks)
         self.effects.append(Safety("reset", tuple(sorted(actuators)), "reset"))
         self._unlock(actuators, MANUAL, "unlock")
 
+    @event
     def monitor(self, name: str, actuators: Iterable[str] | None, rejection: Rejection | None) -> None:
         """A monitor has answered (Gate.tla MonitorFires, MonitorAccepts). Its lock is
         there exactly while it rejects, and goes away by itself (SPEC §3.5)."""
@@ -597,6 +651,7 @@ class GateCore:
             self.failing.discard(name)
             self._unlock(actuators, {cause}, "unlock")
 
+    @event
     def watch_expired(self, actuator: str, w: Watch) -> None:
         """No setpoint came within the timeout (Gate.tla Watchdog)."""
         if self.watch.get(actuator) is not w:

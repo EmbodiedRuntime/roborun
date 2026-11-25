@@ -16,7 +16,7 @@ half an hour in CI, where it runs only when `spec/` or `SPEC.md` change.
 | Module | Covers | Left out |
 |---|---|---|
 | [`Tasks.tla`](Tasks.tla) | States and transitions (§1.1, §1.2), the task tree (§1.5) | Resources, timeouts, replacement (§6) |
-| [`Ownership.tla`](Ownership.tla) | Ownership, arbitration, `take`, revocation (§3.3, §1.6) over a task tree of any depth: tasks that use a token held above them or ask for actuators themselves, and `hold` as a request of a running task; with the Gate in-process | The stop of an actuator given up while it moves (in `Gate.tla`) |
+| [`Ownership.tla`](Ownership.tla) | Ownership, arbitration, `take`, revocation (§3.3, §1.6) over a task tree of any depth: tasks that use a token held above them or ask for actuators themselves, and `hold` as a request of a running task; an actuator given up while it moves is stopped and kept until rest; with the Gate in-process | Checks, locks, monitors (in `Gate.tla`) |
 | [`Gate.tla`](Gate.tla) | Checks that take time, locks (monitor, operator stop, fault), `allow`, fallback, reset, the setpoint watchdog (§3.4, §3.5), for one actuator | Arbitration (in `Ownership.tla`), what a check decides, budgets as times |
 | [`Protocol.tla`](Protocol.tla) | The Gate in its own process: requests, replies and events in flight, the runtime's mirror of its grants, disconnect (§3.1, §3.8) | Several runtimes, message loss (the transport is reliable and ordered) |
 | [`Lockstep.tla`](Lockstep.tla) | The tick/ack handshake (§2.1) | What a step computes |
@@ -46,7 +46,7 @@ half an hour in CI, where it runs only when `spec/` or `SPEC.md` change.
 | `NoOrphanGrant` | no grant stays with a task that gave up its request | yes |
 | `DisconnectStops`, `ReleasedAtRest` | §3.1: a closed connection loses its tokens; a revoked grant is released at rest | yes |
 | `SimulatorWaits`, `OneTimeBase`, `RepliesInStep`, `TickIsComplete`, no deadlock | §2.1: lockstep | yes |
-| `MotionHasOwner`, `GrantedAtRest`, `ReleaseSettles` | §3.3: whatever moves has an owner; an actuator is granted only at rest; one given up while moving is stopped, and passed on | yes |
+| `MotionHasOwner`, `GrantedAtRest`, `ReleaseSettles`, `KeptIsStopping` (`Gate`, `Ownership`) | §3.3: whatever moves has an owner; an actuator is granted only at rest; one given up while moving is stopped, and passed on | yes |
 
 "Yes" means TLC found no violation in every reachable state of small models (up to seven
 tasks, two actuators, two sessions; three messages in flight each way), not a proof for
@@ -99,32 +99,82 @@ checked:
 
 | Comparison | Core: states, steps | Model: states | Time |
 |---|---|---|---|
-| `gate` (3 tasks) | 213,992, 2.8 million | 53,143 | 98 s |
-| `gate_allow` (3 tasks) | 940,217, 13.4 million | 161,759 | 8 min |
-| `gate2`, `gate2_allow` (2 tasks) | 12,253 and 33,163 | 5,461 and 12,079 | 5 s, 13 s |
-| `ownership` | 372,882, 2.3 million | 117,064 | 3 min |
-| `ownership_takers` | 2,618,416, 16.3 million | 660,928 | 54 min |
-| `ownership_child`, `ownership_deep` | 49,178 and 199,040 | 16,993 and 69,974 | 19 s, 94 s |
-| `ownership_hold`, `ownership_hold_take` | 47,870 and 204,608 | 17,111 and 62,973 | 21 s, 97 s |
+| `gate` (3 tasks) | 235,433, 3.5 million | 60,004 | 129 s |
+| `gate_allow` (3 tasks) | 1,027,133, 16.9 million | 182,975 | 11 min |
+| `gate2`, `gate2_allow` (2 tasks) | 13,373 and 36,047 | 6,069 and 13,471 | 6 s, 17 s |
+| `ownership` | 916,934, 5.1 million | 291,208 | 6 min |
+| `ownership_child`, `ownership_deep` | 82,806 and 381,104 | 35,965 and 167,758 | 77 s, 170 s |
+| `ownership_hold`, `ownership_hold_take` | 83,154 and 562,644 | 39,671 and 167,437 | 85 s, 228 s |
+| `ownership_hold_child` | 13,812, 72,463 | 4,816 | 16 s |
 
-All agree. As a control, each of five mechanisms of `Gate.tla` is switched off in the model
+All agree. `ownership_takers` (seven tasks, four of them taking) agreed with the model as
+it was before it had the stop of an actuator given up while it moves, with both sides
+giving actuators up only at rest (2.6 million states of the core, 54 minutes, 10 GB). It
+has not been compared with the model as it is now, which is 2.5 times larger. As a control, each of five mechanisms of `Gate.tla` is switched off in the model
 only (its `gate_mut_*` config), and in the core only
 ([`mutations.py`](compare/mutations.py)): all ten show as differences. CI runs the quick
-set: the two-task Gate instances, the controls, `ownership_child` and `ownership_hold`.
+set: the two-task Gate instances, the controls, `ownership_child`, `ownership_hold` and
+`ownership_hold_child`.
 
 What this does not cover:
 
-- `Ownership.tla` releases an actuator at once, moving or not, and the stop of an actuator
-  given up while it moves is `Gate.tla`'s. So in the Ownership comparisons both sides give
-  actuators up only at rest. The two mechanisms are compared separately, and their
-  combination is in no model.
 - The environments are a restatement of the runtime's side in Python, not the runtime:
   `task.py` is tied to `Tasks.tla` by the tests only.
 - `Protocol.tla` and `Lockstep.tla` are about two processes, which the core is not.
   `RemoteGate`, the runtime's side of the Gate process, keeps a copy of two of the core's
   rules (what a cancelled child commanded is stopped, and it ends at rest); the tests cover
   it in both layouts.
-- The shell (`LocalGate`), the checks, and the backends.
+- The shell (`LocalGate`), the checks, and the backends. The shell is sampled by the next
+  section.
+
+## Runs against the models
+
+The comparison above is about the core alone. What feeds it its events (the shell with its
+timers and waiting, the runtime that cancels and ends tasks, the Gate process and its
+messages) is checked on real runs: is the run a behaviour of the model?
+
+The core records every event, what it returned, its effects and its state afterwards
+([`roborun/journal.py`](../src/roborun/journal.py); `gate.record()` in either layout).
+[`spec/validate`](validate/) reads such a journal as steps of `Gate.tla` and writes a module
+that extends the model with a position in the log: its next-state relation is the model's
+`Next`, restricted at each position to the logged action and task, and to the logged state
+(who holds a valid or a revoked token, the locks, the monitor, the watchdog). TLC explores
+it, and the run is a behaviour of the model exactly if some path reaches the end of the log
+(Cirstea, Kuppe, Loillier and Merz, *Validating Traces of Distributed Programs Against
+TLA+ Specifications*, 2024).
+
+```sh
+python spec/validate run.journal.jsonl
+```
+
+[`test_trace_validation.py`](../tests/test_trace_validation.py) does this for random
+programs on the real Gate: 20 runs in-process and 10 with the Gate in its own process, about
+70 steps each, with requests that wait or take, commands that a check rejects, commands sent
+without waiting for the answer, a backend fault, setpoint streams that stop, a monitor with
+and without `allow`, cancellations, operator stops and resets. Every action of the model
+occurs. All runs are accepted. As a control the same programs run on the five cores of
+[`mutations.py`](compare/mutations.py), each the Gate before one of its fixes: in both
+layouts TLC refuses one of the first 16 runs of each.
+
+Reading real runs showed two things the model could not do, and it has them now: a motion
+ends by itself (`Arrive`; before, the arm came to rest only after a stop), and a command is
+over without an answer when its sender goes away during the checks (`Drop`). With `Arrive`,
+`WatchHasOwner` no longer says that a watched stream is moving: a stream can be fed at rest.
+
+What this does not cover:
+
+- Only `Gate.tla`, so only runs within its scope: one actuator, and every command sent with
+  the sender's own token. A run with a request for two actuators, or a child commanding with
+  its parent's token, is reported as outside the model. Those are `Ownership.tla`'s, which
+  needs the stop of an actuator given up while it moves before real runs can be put to it.
+- What a task is doing (`ts`) is not observed; TLC finds values for it. So the runtime's own
+  view of its tasks is not compared, only what it does to the Gate.
+- A rejected command cancels its sender in one step of the model and in two events of the
+  runtime; between them the token is not observed. A request that fails at once because
+  the actuator is owned is no step: `Gate.tla` has no such request.
+- `Protocol.tla` and `Lockstep.tla`: the messages between the two processes are not
+  recorded yet. With the Gate in its own process, the journal is the Gate's side.
+- These are samples. An order of events the 30 runs do not produce is not checked.
 
 ## What the models found
 
@@ -188,6 +238,17 @@ commands an actuator with its parent's token:
 The fourteen earlier configs reach exactly the same states as before, and the new ones found
 no difference between the model and the Gate; they state one limit of `hold` (below).
 
+The stop of an actuator given up while it moves (10) was at first only in `Gate.tla`, which
+has no arbitration and no children. Once `Ownership.tla` had it too, the comparison found
+one more:
+
+13. **A cancelled child could end while the actuator braked, when its parent had given it
+    up.** The child commanded with the token of its parent's `hold`; the parent left the
+    `hold` with that goal on its way. The Gate stopped the actuator and, as in 11, forgot
+    whose command it was carrying out, so the child, cancelled next, was `cancelled` with
+    it still moving. Only with the Gate in-process; the record is now kept. None of the
+    instances had a child on a `hold`'s token, so `ownership_hold_child` was added.
+
 ## Known limits
 
 - Tasks that keep taking starve a `wait` request (4 above; `ownership_limit_take_starves_wait`).
@@ -195,14 +256,10 @@ no difference between the model and the Gate; they state one limit of `hold` (be
   for each other for ever (`ownership_limit_hold_deadlock`). A `wait_timeout` on the `hold`,
   a cancellation, or asking for everything at `start` ends or avoids it (§1.6).
 
-Not modelled: a `take` or `fail` request that meets an actuator still stopping after it was
-given up (`Gate.tla` has the stop, `Ownership.tla` the arbitration, neither both). Tests and
-the random tests cover it on the code.
-
 ## Mutations
 
 A property that cannot fail proves nothing. Each `*_mut_*` config switches one mechanism off
-(reaping, propagation, reservations, the stop on revocation, cancelling waiting takes, the
+(reaping, propagation, reservations, the stop on revocation, the stop of an actuator given up while it moves, cancelling waiting takes, the
 two rules for a cancelled child, revoking the tokens of a cancelled task's `hold`s, refusing
 a take that would cancel its own ancestor, the look at the grant after the checks, telling the
 runtime of a revocation, acknowledging only when settled, the fairness assumptions) and must make TLC report the property that depends on it.

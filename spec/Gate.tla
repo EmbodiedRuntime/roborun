@@ -133,6 +133,13 @@ Accepted(t) == /\ pending[t] # None
                           /\ Did("fault", t)
                           /\ UNCHANGED failing
 
+(* The command is over without an answer from the checks: its sender went away while they
+   ran. Nothing reaches the backend and nobody is cancelled. *)
+Drop(t) == /\ pending[t] # None
+           /\ pending' = [pending EXCEPT ![t] = None]
+           /\ Did("drop", t)
+           /\ UNCHANGED <<ts, grant, locks, failing, motion, watch>>
+
 (* A check rejected, timed out, raised, or had a stale input: the same thing (fail closed).
    The fallback runs, and the task that sent the command is cancelled. *)
 Rejected(t) == /\ pending[t] # None
@@ -150,6 +157,11 @@ Stop == /\ motion' = Braked /\ watch' = FALSE
 Rest == /\ motion = "stopping" /\ motion' = "rest"
         /\ Did("rest", None)
         /\ UNCHANGED <<ts, grant, pending, locks, failing, watch>>
+
+(* The motion reaches its goal by itself. A stream may still be fed at rest. *)
+Arrive == /\ motion = "moving" /\ motion' = "rest"
+          /\ Did("arrive", None)
+          /\ UNCHANGED <<ts, grant, pending, locks, failing, watch>>
 
 (* A cancellation from the runtime. *)
 Cancel(t) == /\ ts[t] \in {"owning", "waiting"}
@@ -217,9 +229,9 @@ Watchdog == /\ watch /\ watch' = FALSE
             /\ UNCHANGED <<pending, locks, failing>>
 
 Next == \/ \E t \in Tasks : \/ Acquire(t) \/ Dispatch(t) \/ Unauthorized(t) \/ Accepted(t)
-                            \/ Rejected(t) \/ Cancel(t) \/ Release(t) \/ End(t) \/ Settle(t)
+                            \/ Rejected(t) \/ Drop(t) \/ Cancel(t) \/ Release(t) \/ End(t) \/ Settle(t)
                             \/ \E k \in Kinds : Send(t, k)
-        \/ Stop \/ Rest \/ MonitorFires \/ MonitorAccepts \/ OperatorStop \/ Reset \/ Watchdog
+        \/ Stop \/ Rest \/ Arrive \/ MonitorFires \/ MonitorAccepts \/ OperatorStop \/ Reset \/ Watchdog
 
 Spec == Init /\ [][Next]_vars
 
@@ -261,7 +273,7 @@ FallbackRan == step.a \in {"reject", "monitor", "operator", "watchdog", "fault"}
                  motion # "moving" /\ ~watch
 
 (* The watchdog watches a stream of the current owner. *)
-WatchHasOwner == watch => Owners # {} /\ motion = "moving"
+WatchHasOwner == watch => Owners # {}
 
 (* 3.5: a command without a valid token changes nothing. *)
 UnauthorizedChangesNothing ==

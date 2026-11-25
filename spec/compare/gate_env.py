@@ -117,7 +117,8 @@ class GateEnv:
                     if self.core.locks.get(ARM):
                         out.append(("Send", n, kind, False))  # the monitor's `allow` refuses
             if p is not None:
-                out += [("Accepted", n, "taken"), ("Accepted", n, "fault"), ("Rejected", n)]
+                out += [("Accepted", n, "taken"), ("Accepted", n, "fault"), ("Rejected", n),
+                        ("Drop", n)]
             if ts in ("owning", "waiting"):
                 out.append(("Cancel", n))
             if ts == "owning":
@@ -129,6 +130,8 @@ class GateEnv:
         out.append(("Stop",))
         if self.motion == "stopping":
             out.append(("Rest",))
+        if self.motion == "moving":
+            out.append(("Arrive",))
         out.append(("MonitorAccepts",) if self.core.failing else ("MonitorFires",))
         out.append(("OperatorStop",))
         if self.core.locks.get(ARM, set()) & C.MANUAL:
@@ -230,6 +233,15 @@ class GateEnv:
         self._react()
         self._cancelled(n)  # `send` cancels the task whose command was rejected
         self.step = ("reject", n)
+
+    def _Drop(self, n: str) -> None:
+        p, self.pend[n] = self.pend[n], None
+        self.core.dropped(p)
+        self.step = ("drop", n)
+
+    def _Arrive(self) -> None:
+        self.motion = "rest"
+        self.step = ("arrive", None)
 
     def _Stop(self) -> None:
         self.core.command(None, Command("stop", ARM, {}))

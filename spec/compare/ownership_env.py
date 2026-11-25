@@ -7,10 +7,9 @@ token in it; a cancelled task ends only when the actuators the Gate stopped for 
 rest; a task that ends gives up everything it owns. Commands pass no checks here (they
 are Gate.tla's), so one is executed or refused at once.
 
-Ownership.tla releases an actuator at once, moving or not; the Gate stops one given up
-while it moves and keeps it until rest, which is Gate.tla's StopOnRelease. So here a task
-ends, and leaves a `hold`, only with its actuators at rest, and ``at_rest_only`` removes
-the other endings from the model's graph.
+A task may end, or leave a `hold`, with an actuator still moving: the core then stops it
+and keeps the grant until rest (the model's ``Kept``), and ``Pass`` is the shell finding
+it at rest and giving it up.
 
 The instances are those of ``MCOwnership.tla``; a config picks the tasks and scopes.
 """
@@ -49,25 +48,6 @@ def instance(cfg: str) -> dict:
 
     return {"tasks": members("Tasks"), "scopes": members("Scopes"),
             "impatient": members("Impatient"), "repeating": members("Repeating")}
-
-
-def at_rest_only(graph) -> None:
-    """Remove from the model's graph the steps in which a running task ends, or leaves a
-    `hold`, while an actuator it gives up is not at rest."""
-    for i, out in enumerate(graph.edges):
-        s = dict(graph.state[i])
-        st, owner, motion = dict(s["st"]), dict(s["owner"]), dict(s["motion"])
-        for j, actions in list(out.items()):
-            if not actions & {"End", "Leave"} or i == j:
-                continue
-            st2 = dict(dict(graph.state[j])["st"])
-            gone = {x for x in st if st[x] == "running" and st2[x] == "terminal"}
-            if any(owner[a] in gone and motion[a] != "rest" for a in ACTUATORS):
-                kept = actions - {"End", "Leave"}
-                if kept:
-                    out[j] = kept
-                else:
-                    del out[j]
 
 
 class OwnershipEnv:
@@ -123,7 +103,8 @@ class OwnershipEnv:
         return fn({
             "st": fn(self.st),
             "out": fn(self.out),
-            "asks": fn(self.asks),
+            "asks": fn((x, a if self.st[x] not in ("idle", "terminal") or self._kept(x)
+                        else frozenset()) for x, a in self.asks.items()),
             "owner": fn(owner),
             "revoked": frozenset(x for x, g in self.grant.items()
                                  if g is not None and g.revoked and self.core._owns(g)),
@@ -161,15 +142,18 @@ class OwnershipEnv:
                 if (all(self.st[c] in ("idle", "terminal") for c in self.kids(t))
                         and all(self.st[h] in ("idle", "terminal", "cancelling")
                                 for h in self.scopes_of(t))
-                        and (self._settled(t) if st == "cancelling"
-                             else self._resting(t, *self.scopes_of(t)))):
+                        and (st == "running" or self._settled(t))):
                     for o in (("succeeded", "failed") if st == "running"
                               else ("cancelled", "succeeded", "failed")):
                         out.append(("End", t, o))
-            if t in self.repeating and st == "terminal":
+            if (t in self.repeating and st == "terminal"
+                    and not any(self._kept(x) for x in (t, *self.scopes_of(t)))):
                 out.append(("Again", t))
+        for x in self.reqs:
+            if self._kept(x) and self._resting(x):
+                out.append(("Pass", x))
         for h in self.scopes:
-            if self.st[h] == "running" and self.st[OF[h]] == "running" and self._resting(h):
+            if self.st[h] == "running" and self.st[OF[h]] == "running":
                 out.append(("Leave", h))
             if self.st[h] == "cancelling":
                 out.append(("Drop", h))
@@ -189,7 +173,7 @@ class OwnershipEnv:
 
     def _set(self, x: str, st: str) -> None:
         self.st[x] = st
-        if st in ("idle", "terminal"):
+        if st == "idle":
             self.asks[x] = frozenset()
         if x in self.tasks:
             self.tasks[x].state.value = STATE[st]
@@ -201,6 +185,11 @@ class OwnershipEnv:
         """Whether everything these requests own is at rest."""
         return all(self.motion[a] == "rest" for x in reqs if self.grant[x] is not None
                    for a in self.grant[x].resources if self.core.owner.get(a) is self.grant[x])
+
+    def _kept(self, x: str) -> bool:
+        """Whether the Gate keeps the grant of a request whose task has given it up."""
+        g = self.grant[x]
+        return self.st[x] == "terminal" and g is not None and self.core._owns(g)
 
     def _settled(self, t: str) -> bool:
         """`Task._settled`: the actuators the Gate stopped for the task are at rest."""
@@ -302,6 +291,10 @@ class OwnershipEnv:
     def _Leave(self, h: str) -> None:
         self._set(h, "terminal")
         self.core.release(self.grant[h], self._moving())
+
+    def _Pass(self, x: str) -> None:
+        """`LocalGate._release_at_rest`: what was kept is at rest."""
+        self.core.release(self.grant[x], self._moving())
 
     def _Drop(self, h: str) -> None:
         """The cancelled task unwinds out of its `hold`. The Gate keeps a revoked grant

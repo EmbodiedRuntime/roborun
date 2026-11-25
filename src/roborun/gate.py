@@ -33,6 +33,7 @@ from roborun.core import (  # noqa: F401 - part of this module's interface
     may_take,
 )
 from roborun.errors import BackendError, ResourceBusy
+from roborun.journal import Journal
 
 if TYPE_CHECKING:
     from roborun.task import Task
@@ -96,6 +97,12 @@ class LocalGate:
     @property
     def _watch(self) -> dict[str, _core.Watch]:
         return self.core.watch
+
+    def record(self) -> Journal:
+        """Record every event of the core from now on (``roborun.journal``)."""
+        self.core.journal = journal = Journal(
+            lambda: {a: self.at_rest([a]) for a in sorted(self.actuators)})
+        return journal
 
     # -- carrying out what the core decided ----------------------------------------
 

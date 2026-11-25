@@ -317,6 +317,7 @@ without a clock or I/O, and a shell around it does the waiting and the talking.
 | Gate | `core.py` | **the rules**: who owns an actuator, which request is served next, which command may reach the backend, what a safety event does. One method per event; what must happen outside is returned as a list of effects |
 | | `gate.py` | the shell: turns calls, timers and check results into the core's events, and carries out its effects on the backend and the tasks |
 | | `checks.py` | command checks and monitors, written by the integrator |
+| | `journal.py` | a record of every event of the core and its effects, for checking a run against the models |
 | | `gateproc.py`, `remote.py`, `wire.py` | the Gate in its own process: tokens, the socket, the runtime's side, lockstep time |
 | Trace | `trace.py` | spans for tasks, commands and safety events; `roborun trace show` / `check` |
 | Monitoring | `expect.py`, `skills.py` | expectations, and skills with named phases |
@@ -331,6 +332,14 @@ result with the state graphs of the TLA+ models:
 python spec/compare            # the quick set, about two minutes; needs Java 11+
 python spec/compare gate2      # one comparison, a few seconds
 python spec/compare --all      # with the full-size instances: over an hour, 10 GB
+```
+
+The code around the core is checked on real runs. `gate.record()` returns a journal of the
+core's events, and [`spec/validate`](spec/README.md#runs-against-the-models) asks TLC whether
+the run is a behaviour of the model:
+
+```sh
+python spec/validate run.journal.jsonl
 ```
 
 ## License

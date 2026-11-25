@@ -1,13 +1,13 @@
 name: Spec
 
 # The TLA+ models (spec/README.md). TLC takes about half an hour on a hosted runner, so
-# this runs only when the models, the specification or the Gate's core change.
+# this runs only when the models, the specification or the Gate change.
 on:
   push:
     branches: [main]
-    paths: ["spec/**", "SPEC.md", "src/roborun/core.py", ".github/workflows/spec.yml"]
+    paths: ["spec/**", "SPEC.md", "src/roborun/core.py", "src/roborun/gate.py", "src/roborun/gateproc.py", "src/roborun/remote.py", "src/roborun/journal.py", "tests/test_trace_validation.py", ".github/workflows/spec.yml"]
   pull_request:
-    paths: ["spec/**", "SPEC.md", "src/roborun/core.py", ".github/workflows/spec.yml"]
+    paths: ["spec/**", "SPEC.md", "src/roborun/core.py", "src/roborun/gate.py", "src/roborun/gateproc.py", "src/roborun/remote.py", "src/roborun/journal.py", "tests/test_trace_validation.py", ".github/workflows/spec.yml"]
 
 jobs:
   tlc:
@@ -43,3 +43,5 @@ jobs:
       - run: uv pip install -e ".[dev]"
       - run: spec/check.sh none  # fetches the pinned TLC, runs no config
       - run: uv run python spec/compare
+      # Runs of the real Gate, in both layouts, put to TLC ("Runs against the models").
+      - run: uv run pytest -q tests/test_trace_validation.py

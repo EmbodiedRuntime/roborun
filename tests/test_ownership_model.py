@@ -371,3 +371,25 @@ def test_a_cancelled_child_does_not_wait_for_a_motion_its_parent_started_later(r
     assert state is S.CANCELLED
     assert waited < 0.5 and moving is True  # it ended while its parent's motion went on
 
+
+
+def test_a_cancelled_child_ends_at_rest_also_when_its_parent_gave_the_arm_up(run):
+    # CancelledAtRest, found by comparing the Gate's core with Ownership.tla once the model
+    # had the stop of an actuator given up while it moves. The parent left its `hold` with
+    # the child's goal on its way; the Gate stopped the arm, and forgot whose command it
+    # was carrying out. The child, cancelled next, ended `cancelled` with the arm moving.
+    async def main():
+        async def child():
+            await send("goal", "arm", target=(1.0, 0.0))
+            await sleep(100)
+
+        async with hold("arm"):
+            c = start(child(), resources={"arm"})
+            await sleep(0.2)
+        c.cancel()  # the Gate is stopping the arm, which takes 0.1 s
+        state = await c.stopped()
+        return state, world.get("arm.moving").value
+
+    state, moving = run(main).result
+    assert state is S.CANCELLED
+    assert moving is False

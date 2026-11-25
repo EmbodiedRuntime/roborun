@@ -1,7 +1,13 @@
 ----------------------------- MODULE Ownership -----------------------------
 (* Control authority over actuators: SPEC.md 3.3 and 1.6, with the Gate in the same
-   process as the tasks (every step below is atomic). Checks, locks, monitors, and the
-   stop of an actuator given up while it moves come with Gate.tla.
+   process as the tasks (every step below is atomic). Checks, locks and monitors come
+   with Gate.tla.
+
+   Giving up. A task that ends, or leaves a `hold`, while an actuator of that token is
+   not at rest gives up nothing yet: the Gate stops the actuator and keeps the token, with
+   no task behind it, until everything the token covers is at rest (`Kept`, `Pass`). A
+   kept token is revoked, so nobody commands with it; requests wait for it, a `fail` fails,
+   and a `take` cancels nobody for it.
 
    Who asks. A task asks for its actuators when it starts; a running task asks for more
    with `hold`, here a scope: a request of its own that the task waits for, owns, and
@@ -30,7 +36,9 @@
                     token, and it ends only once that motion is at rest
      HoldRevoke     cancelling a task revokes the tokens of its `hold` scopes too
      OwnLine        a `take` is refused when a take of the same task or of an ancestor
-                    already waits for the actuator: it would cancel itself            *)
+                    already waits for the actuator: it would cancel itself
+     StopOnRelease  a token given up while one of its actuators moves is kept, and the
+                    actuator stopped, until rest                                       *)
 EXTENDS Naturals, Sequences, FiniteSets
 
 CONSTANTS Tasks, Scopes, Actuators, None,
@@ -43,7 +51,7 @@ CONSTANTS Tasks, Scopes, Actuators, None,
           Repeating,    \* tasks that are started again after they end
           Impatient,    \* requests made with a wait_timeout
           TakeFront, TakeCancels, ConfirmStop, FailOnReserved, Reserve, ChildReject, ChildStop,
-          HoldRevoke, OwnLine
+          HoldRevoke, OwnLine, StopOnRelease
 
 Reqs == Tasks \cup Scopes       \* whatever can ask for actuators, and so hold a token
 
@@ -55,16 +63,17 @@ ASSUME /\ Tasks \cap Scopes = {}
        /\ \A x \in Reqs : Mode[x] \in {"wait", "fail", "take"}
        /\ Repeating \subseteq Tasks /\ Impatient \subseteq Reqs
        /\ {TakeFront, TakeCancels, ConfirmStop, FailOnReserved, Reserve, ChildReject,
-           ChildStop, HoldRevoke, OwnLine} \subseteq BOOLEAN
+           ChildStop, HoldRevoke, OwnLine, StopOnRelease} \subseteq BOOLEAN
        /\ \A t \in Tasks : Parent[t] \in Tasks \cup {None} /\ t \notin Anc(t)
        /\ \A h \in Scopes : Of[h] \in Tasks
 
 VARIABLES st,       \* st[x]: "idle", "waiting" (in the queue), "running" (a scope: held),
                     \*        "cancelling", "terminal" (a scope: left)
           out,      \* out[t]: how task t ended: "none", "succeeded", "failed", "cancelled"
-          asks,     \* asks[x]: what x asked for itself; empty while idle or terminal
+          asks,     \* asks[x]: what x asked for itself; empty while idle, and once
+                    \*          terminal with nothing kept
           owner,    \* owner[a]: the task or scope whose token covers a, or None
-          revoked,  \* the tasks and scopes whose token is revoked
+          revoked,  \* the tasks and scopes whose token is revoked or kept
           queue,    \* the waiting requests, in order
           motion,   \* motion[a]: "rest", "moving", "braking"
           last      \* last[a]: the task whose command a is carrying out with an
@@ -83,6 +92,9 @@ Pos(x) == CHOOSE i \in 1..Len(queue) : queue[i] = x
 Without(q, S) == SelectSeq(q, LAMBDA x : x \notin S)
 Owned(x) == {a \in Actuators : owner[a] = x}
 Uses(t) == Needs[t] \cup UNION {Needs[h] : h \in ScopesOf({t})}
+
+(* The tokens the Gate keeps until rest: their task has ended, or has left the `hold`. *)
+Kept == {x \in Reqs : st[x] = "terminal" /\ Owned(x) # {}}
 
 (* A task that waits for its `hold` does nothing else. *)
 Blocked(t) == \E h \in ScopesOf({t}) : st[h] = "waiting"
@@ -110,7 +122,9 @@ Settle(q0, own0, st0, ak) ==
   IN /\ owner' = r[1]
      /\ queue' = Without(q0, r[2])
      /\ st' = [x \in Reqs |-> IF x \in r[2] THEN "running" ELSE st0[x]]
-     /\ asks' = [x \in Reqs |-> IF st'[x] \in {"idle", "terminal"} THEN {} ELSE ak[x]]
+     /\ asks' = [x \in Reqs |-> IF st'[x] \in {"idle", "terminal"}
+                                     /\ \A a \in Actuators : owner'[a] # x
+                                  THEN {} ELSE ak[x]]
 
 (* Cancelling the tasks in C, a set closed under Sub: with them their scopes. What runs
    starts cancelling and its token is revoked first (3.1); what waits has had no effect and
@@ -153,6 +167,7 @@ Request(x) ==
          ask == {a \in Needs[x] : ~(owner[a] # None /\ owner[a] \notin revoked
                                       /\ Tk(owner[a]) \in line)}
          owners == {owner[a] : a \in ask} \ {None}
+         live == owners \ Kept        \* behind a kept token there is nobody to cancel
          ahead == {y \in Reqs : InQueue(y) /\ asks[y] \cap ask # {}}
          takers == IF TakeCancels THEN {y \in ahead : Mode[y] = "take"} ELSE {}
      IN IF ask = {}
@@ -162,10 +177,10 @@ Request(x) ==
         THEN Refuse(x)                                  \* ResourceBusy
         ELSE IF Mode[x] = "take" /\ OwnLine /\ \E y \in takers : Tk(y) \in line
         THEN Refuse(x)                                  \* it would cancel itself
-        ELSE IF Mode[x] = "take" /\ \E o \in owners \cup takers : ~MayTake(x, o)
+        ELSE IF Mode[x] = "take" /\ \E o \in live \cup takers : ~MayTake(x, o)
         THEN Refuse(x)                                  \* no authority; nothing is cancelled
         ELSE LET H == IF Mode[x] = "take"
-                      THEN Hit(Sub({Tk(y) : y \in owners \cup takers})) ELSE {}
+                      THEN Hit(Sub({Tk(y) : y \in live \cup takers})) ELSE {}
                  st0 == [StAfter(H) EXCEPT ![x] = "waiting"]
                  rest == Without(queue, H)
                  q0 == IF Mode[x] = "take" /\ TakeFront
@@ -226,8 +241,15 @@ Brake(a) == /\ motion[a] = "braking"
 (* Give up what the tasks and scopes in S own. *)
 Released(S) == [a \in Actuators |-> IF owner[a] \in S THEN None ELSE owner[a]]
 
+(* Of the tokens in S, those the Gate keeps: one of their actuators is not at rest. *)
+Keep(S) == IF StopOnRelease
+           THEN {x \in S : \E a \in Owned(x) : motion[a] # "rest"} ELSE {}
+Stopped(K) == [a \in Actuators |->
+                 IF owner[a] \in K /\ motion[a] = "moving" THEN "braking" ELSE motion[a]]
+
 (* The task ends: it has left its scopes, or was cancelled in them, and what it and they
-   own is released. *)
+   own is released, or kept until rest. A cancelled task waits for what was revoked from
+   it, not for what it gave up before: that is the Gate's already. *)
 End(t, o) ==
   /\ st[t] \in {"running", "cancelling"} /\ ~Blocked(t)
   /\ o \in (IF st[t] = "running" THEN {"succeeded", "failed"}
@@ -235,21 +257,26 @@ End(t, o) ==
   /\ \A c \in Kids(t) : st[c] \in {"idle", "terminal"}   \* a parent outlives its children
   /\ \A h \in ScopesOf({t}) : st[h] \in {"idle", "terminal", "cancelling"}
   /\ LET mine == {t} \cup ScopesOf({t})
+         keep == Keep(mine)
      IN /\ (ConfirmStop /\ st[t] = "cancelling") =>
-             \A a \in Actuators : owner[a] \in mine => motion[a] = "rest"
+             \A a \in Actuators : owner[a] \in mine \ Kept => motion[a] = "rest"
         /\ (ChildStop /\ st[t] = "cancelling") => \A a \in Actuators : last[a] # t
-        /\ Settle(queue, Released(mine),
+        /\ Settle(queue, Released(mine \ keep),
                   [x \in Reqs |-> IF x \in mine /\ st[x] # "idle" THEN "terminal" ELSE st[x]],
                   asks)
-        /\ revoked' = revoked \ mine
+        /\ revoked' = (revoked \ mine) \cup keep
+        /\ motion' = Stopped(keep)
   /\ out' = [out EXCEPT ![t] = o]
-  /\ UNCHANGED <<motion, last>>
+  /\ UNCHANGED last
 
 (* The task leaves its `hold`. *)
 Leave(h) ==
   /\ st[h] = "running" /\ st[Of[h]] = "running"
-  /\ Settle(queue, Released({h}), [st EXCEPT ![h] = "terminal"], asks)
-  /\ UNCHANGED <<out, revoked, motion, last>>
+  /\ LET keep == Keep({h})
+     IN /\ Settle(queue, Released({h} \ keep), [st EXCEPT ![h] = "terminal"], asks)
+        /\ revoked' = revoked \cup keep
+        /\ motion' = Stopped(keep)
+  /\ UNCHANGED <<out, last>>
 
 (* A cancelled task unwinds out of its `hold`: the revoked token is given up at rest,
    possibly before the task itself has ended. *)
@@ -260,14 +287,25 @@ Drop(h) ==
   /\ revoked' = revoked \ {h}
   /\ UNCHANGED <<out, motion, last>>
 
+(* What the Gate kept is at rest: it is given up, and the next request is served. *)
+Pass(x) ==
+  /\ x \in Kept
+  /\ \A a \in Owned(x) : motion[a] = "rest"
+  /\ Settle(queue, Released({x}), st, asks)
+  /\ revoked' = revoked \ {x}
+  /\ UNCHANGED <<out, motion, last>>
+
+(* A task is started again. Its name stands for the token as well, so here it starts
+   again only once nothing is kept under it. *)
 Again(t) == /\ t \in Repeating /\ st[t] = "terminal"
+            /\ ({t} \cup ScopesOf({t})) \cap Kept = {}
             /\ st' = [x \in Reqs |-> IF x \in {t} \cup ScopesOf({t}) THEN "idle" ELSE st[x]]
             /\ out' = [out EXCEPT ![t] = "none"]
             /\ UNCHANGED <<asks, owner, revoked, queue, motion, last>>
 
 Ends(t) == \E o \in {"cancelled", "succeeded", "failed"} : End(t, o)
 
-Next == \/ \E x \in Reqs : Request(x) \/ Timeout(x)
+Next == \/ \E x \in Reqs : Request(x) \/ Timeout(x) \/ Pass(x)
         \/ \E t \in Tasks : Cancel(t) \/ Ends(t) \/ Again(t)
         \/ \E h \in Scopes : Leave(h) \/ Drop(h)
         \/ \E t \in Tasks, a \in Actuators : Command(t, a) \/ TaskStop(t, a)
@@ -279,6 +317,7 @@ Spec == Init /\ [][Next]_vars
    and a stop comes to rest. *)
 Fairness == /\ \A t \in Tasks : WF_vars(Ends(t))
             /\ \A h \in Scopes : WF_vars(Leave(h)) /\ WF_vars(Drop(h))
+            /\ \A x \in Reqs : WF_vars(Pass(x))
             /\ \A a \in Actuators : WF_vars(Brake(a))
 
 FairSpec == Spec /\ Fairness
@@ -295,14 +334,15 @@ TypeOK == /\ st \in [Reqs -> {"idle", "waiting", "running", "cancelling", "termi
           /\ motion \in [Actuators -> {"rest", "moving", "braking"}]
           /\ last \in [Actuators -> Tasks \cup {None}]
 
-(* 3.3: an owner is running or cancelling and asked for the actuator; whatever is running
-   or cancelling owns exactly what it asked for; nothing is leaked. A task runs only
-   under a parent that has not ended, and a scope is held only by such a task. *)
+(* 3.3: an owner is running or cancelling, or its token is kept, and it asked for the
+   actuator; whatever does not wait owns exactly what it asked for; nothing is leaked. A
+   task runs only under a parent that has not ended, and a scope is held only by such a
+   task. *)
 OwnershipConsistent ==
   /\ \A a \in Actuators : owner[a] # None =>
-       /\ st[owner[a]] \in {"running", "cancelling"}
+       /\ st[owner[a]] \in {"running", "cancelling"} \/ owner[a] \in Kept
        /\ a \in asks[owner[a]]
-  /\ \A x \in Reqs : st[x] \in {"running", "cancelling"} => Owned(x) = asks[x]
+  /\ \A x \in Reqs : st[x] # "waiting" => Owned(x) = asks[x]
   /\ \A x \in Reqs : asks[x] \subseteq Needs[x]
   /\ \A c \in Tasks : (Parent[c] # None /\ st[c] \in {"waiting", "running", "cancelling"})
                          => st[Parent[c]] \in {"running", "cancelling"}
@@ -315,7 +355,21 @@ QueueConsistent ==
 
 (* A cancelled, preempted or rejected task has no valid token, and no other task loses
    its token. *)
-RevokedIsCancelling == \A x \in Reqs : x \in revoked <=> (st[x] = "cancelling" /\ asks[x] # {})
+RevokedIsCancelling ==
+  \A x \in Reqs : x \in revoked <=> ((st[x] = "cancelling" /\ asks[x] # {}) \/ x \in Kept)
+
+(* 3.3: whatever is not at rest has an owner, and a request is granted only actuators at
+   rest. Without StopOnRelease a task that ends with a goal on its way leaves a motion
+   nobody owns, and the next owner starts with a moving actuator. *)
+MotionHasOwner == \A a \in Actuators : motion[a] # "rest" => owner[a] # None
+GrantedAtRest ==
+  [][\A a \in Actuators : (owner'[a] # owner[a] /\ owner'[a] # None) => motion[a] = "rest"]_vars
+
+(* Nothing new starts on a kept token: its actuators are at rest or coming to rest. *)
+KeptIsStopping == \A x \in Kept : \A a \in Owned(x) : motion[a] # "moving"
+
+(* Every kept token is given up. *)
+ReleaseSettles == \A x \in Reqs : (x \in Kept) ~> (x \notin Kept)
 
 (* 1.5: a cancellation reaches everything below the task: nothing there still runs, waits
    or holds. *)
@@ -355,7 +409,8 @@ TakeResolves == \A x \in Reqs : (Mode[x] = "take" /\ st[x] = "waiting") ~> (st[x
 CancelledAtRest ==
   [][\A t \in Tasks :
        (st[t] = "cancelling" /\ st'[t] = "terminal" /\ out'[t] = "cancelled")
-       => /\ \A a \in Actuators : owner[a] \in {t} \cup ScopesOf({t}) => motion[a] = "rest"
+       => /\ \A a \in Actuators : owner[a] \in ({t} \cup ScopesOf({t})) \ Kept
+                                      => motion[a] = "rest"
           /\ \A a \in Actuators : last[a] # t]_vars
 
 (* Derived invariant of SPEC: a cancelled task cannot move the robot, even if its code

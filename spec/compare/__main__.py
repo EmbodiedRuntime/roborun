@@ -1,8 +1,8 @@
 """Compare the Gate's core with the TLA+ models:  python spec/compare [-v] [--all | name | prefix* ...]
 
-Without a name it runs the quick set (two minutes): the two-task Gate instances, the
-controls, and two Ownership instances. ``--all`` adds the full-size instances, which take
-over an hour and 10 GB together (``ownership_takers`` alone 54 minutes).
+Without a name it runs the quick set (about four minutes): the two-task Gate instances, the
+controls, and three Ownership instances. ``--all`` adds the full-size instances, which take
+much longer (``ownership_takers`` alone took 54 minutes and 10 GB on a smaller model).
 
 For each comparison TLC dumps the model's state graph, the core is run through every order
 of events in the same instance, and the two are compared (see ``explore``).
@@ -22,7 +22,7 @@ import explore
 import tla
 from gate_env import GateEnv
 from mutations import MUTATIONS, mutated
-from ownership_env import OwnershipEnv, at_rest_only, instance
+from ownership_env import OwnershipEnv, instance
 
 TWO = {"Tasks = {a, b, c}": "Tasks = {a, b}"}
 
@@ -40,10 +40,8 @@ for _m in MUTATIONS:
     COMPARISONS[f"gate2_model_{_m}"] = ("MCGate", f"gate_mut_{_m}", {}, _two, None, "differs")
     COMPARISONS[f"gate2_core_{_m}"] = ("MCGate", "gate", TWO, _two, _m, "differs")
 
-# Ownership.tla has no stop of an actuator given up while it moves (that is Gate.tla's), so
-# both sides give up actuators only at rest (ownership_env.at_rest_only).
 for _cfg in ("ownership", "ownership_takers", "ownership_child", "ownership_deep",
-             "ownership_hold", "ownership_hold_take"):
+             "ownership_hold", "ownership_hold_take", "ownership_hold_child"):
     COMPARISONS[_cfg] = ("MCOwnership", _cfg, {},
                          lambda _cfg=_cfg: OwnershipEnv(**instance(_cfg)), None, "same")
 
@@ -52,8 +50,6 @@ def run(name: str, out: Path, verbose: bool) -> bool:
     module, cfg, replace, make, mutation, expected = COMPARISONS[name]
     t0 = time.time()
     graph = tla.dump(module, cfg, out, replace=replace)
-    if module == "MCOwnership":
-        at_rest_only(graph)
     with mutated(mutation):
         env = make()
         r = explore.compare(env, graph, inner=env.inner)
@@ -86,7 +82,7 @@ def run(name: str, out: Path, verbose: bool) -> bool:
     return ok
 
 
-QUICK = ("gate2", "gate2_allow", "ownership_child", "ownership_hold")
+QUICK = ("gate2", "gate2_allow", "ownership_child", "ownership_hold", "ownership_hold_child")
 
 
 def main(argv: list[str]) -> int:

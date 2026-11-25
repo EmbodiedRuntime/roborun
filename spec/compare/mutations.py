@@ -9,7 +9,7 @@ from __future__ import annotations
 import contextlib
 
 from roborun.checks import Rejection
-from roborun.core import GateCore
+from roborun.core import GateCore, event
 
 
 def _norecheck(core_cls):
@@ -92,7 +92,8 @@ def mutated(name: str | None):
     saved = {k: GateCore.__dict__[k] for k in patch}
     try:
         for k, v in patch.items():
-            setattr(GateCore, k, v)
+            v.__name__ = k
+            setattr(GateCore, k, event(v))  # an event like the one it replaces
         yield
     finally:
         for k, v in saved.items():

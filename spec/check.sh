@@ -31,6 +31,7 @@ MCOwnership  ownership_child              pass
 MCOwnership  ownership_deep               pass
 MCOwnership  ownership_hold               pass
 MCOwnership  ownership_hold_take          pass
+MCOwnership  ownership_hold_child         pass
 MCOwnership  ownership_hold_live          pass
 MCOwnership  ownership_live               pass
 MCOwnership  ownership_child_live         pass
@@ -44,6 +45,7 @@ MCOwnership  ownership_mut_childcommands  NoCommandWhenCancelled
 MCOwnership  ownership_mut_childmoving    CancelledAtRest
 MCOwnership  ownership_mut_holdkept       NoCommandWhenCancelled
 MCOwnership  ownership_mut_ownline        CancelReachesSubtree
+MCOwnership  ownership_mut_nostoponrelease  MotionHasOwner
 MCOwnership  ownership_limit_take_starves_wait  NoStarvation
 MCOwnership  ownership_limit_hold_deadlock      NoStarvation
 MCGate       gate                         pass
